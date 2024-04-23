@@ -7,19 +7,11 @@
 
 $props = $args['props'];
 $columns = $props['columns'];
-
-$section_name = $props['name'] ?? "";
-$section_name = strtolower($section_name);
-$section_name = str_replace(' ', '-', $section_name);
-
-
-//echo "<pre>";
-//print_r($props['columns']);
-//echo "</pre>";
+$number_of_columns = count($columns);
 
 ?>
 
-<div class="columns container <?php echo $section_name; ?>">
+<div class="columns container count<?php echo $number_of_columns; ?>">
   <?php foreach ($columns as $column) : ?>
     <div class="column">
       <?php 

@@ -9,22 +9,13 @@
             "aria-label": "",
             "type": "radio",
             "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_643b061984da3",
-                        "operator": "==",
-                        "value": "default"
-                    }
-                ]
-            ],
+            "required": 1,
+            "conditional_logic": 0,
             "wrapper": {
                 "width": "",
                 "class": "",
                 "id": ""
             },
-            "show_in_graphql": 1,
             "choices": {
                 "article": "Article",
                 "aside": "Aside",
@@ -32,7 +23,7 @@
                 "footer": "Footer",
                 "section": "Section"
             },
-            "default_value": "div",
+            "default_value": "section",
             "return_format": "value",
             "allow_null": 0,
             "other_choice": 0,
@@ -199,5 +190,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1713905201
+    "modified": 1713912205
 }

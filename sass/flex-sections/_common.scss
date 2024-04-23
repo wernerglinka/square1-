@@ -5,10 +5,29 @@
     gap: $gap-width;
 
     .column {
-      flex: 0 0 50%;
       display: flex;
       flex-direction: column;
       justify-content: center;
+    }
+    &.count1 {
+      .column {
+        flex: 0 0 100%;
+      }
+    }
+    &.count2 {
+      .column {
+        flex: 0 0 50%;
+      }
+    }
+    &.count3 {
+      .column {
+        flex: 0 0 33.3333%;
+      }
+    }
+    &.count4 {
+      .column {
+        flex: 0 0 25%;
+      }
     }
   }
 
