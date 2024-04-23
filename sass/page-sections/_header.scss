@@ -1,0 +1,61 @@
+#masthead {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: $header-height;
+  /* the background */
+  @include glass($color__glass);
+  
+  .container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 $default-padding;
+
+    @media (max-width: $hamburger-break) {
+      height: $header-height-small-screen;
+    }
+  }
+
+  .site-branding {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    a {
+      display: block;
+    }
+    
+    svg {
+      display: block;
+      width: auto;
+      height: 6rem;
+
+      @media (max-width: $hamburger-break) {
+        height: 4rem;
+      }
+    }
+  }
+
+  .button-wrapper {
+    display: none;
+  }
+
+  @media (max-width: $hamburger-break) {
+    height: $header-height-small-screen;
+
+    .button-wrapper {
+      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+.admin-bar.logged-in #masthead {
+  top: $adminbar-height;
+}

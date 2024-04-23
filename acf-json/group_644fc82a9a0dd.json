@@ -1,0 +1,88 @@
+{
+    "key": "group_644fc82a9a0dd",
+    "title": "Icon Select Component",
+    "fields": [
+        {
+            "key": "field_644fc82c5ec9d",
+            "label": "Icon",
+            "name": "icon",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "none": "None",
+                "accessibility": "Accessibility",
+                "add-circle": "Add Circle",
+                "arrow-circle-up": "Arrow Circle Up",
+                "arrow-circle-right": "Arrow Circle Right",
+                "arrow-up": "Arrow Up",
+                "arrow-down": "Arrow Down",
+                "arrow-left": "Arrow Left",
+                "arrow-right": "Arrow Right",
+                "backup": "Backup",
+                "cancel": "Cancel",
+                "check": "Check",
+                "chevron-down": "Chevron Down",
+                "chevron-up": "Chevron Up",
+                "chevron-left": "Chevron Left",
+                "chevron-right": "Chevron Right",
+                "cloud-sun-rain": "Cloud Sun Rain",
+                "code": "Code",
+                "cloudinary": "Cloudinarty",
+                "desktop": "Desktop",
+                "facebook": "Facebook",
+                "gray-scale": "Gray Scale",
+                "house1": "House 1",
+                "house2": "House 2",
+                "house3": "house 3",
+                "laptop": "Laptop",
+                "linkedin": "LinkedIn",
+                "mail": "Mail",
+                "phone": "Phone",
+                "reset": "Reset",
+                "scale": "Scale",
+                "search": "Search",
+                "tablet": "Tablet",
+                "twitter": "Twitter",
+                "underline": "Underline",
+                "user": "User",
+                "vimeo": "Vimeo",
+                "youtube": "YouTube",
+                "zoom-in": "Zoom In"
+            },
+            "default_value": "none",
+            "return_format": "value",
+            "multiple": 0,
+            "allow_null": 0,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": false,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1713644668
+}

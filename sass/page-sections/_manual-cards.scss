@@ -1,0 +1,230 @@
+.page-section.manual-cards {
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: $small-padding;
+
+  .container {
+    flex-direction: column;
+  }
+
+  .text-title,
+  .text-subtitle,
+  .text-prose {
+    text-align: center;
+    margin-bottom: $text-margin;
+  }
+
+  .ctas-container {
+    justify-content: center;
+    margin-bottom: $gap-width;
+  }
+
+  /**
+   * Card list default style is vertical cards arrangement
+   */ 
+
+  .manual-cards-list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $gap-width;
+    margin-top: 4rem;
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      max-width: $default-card-width;
+      margin-bottom: $gap-width; // in case they wrap to the next line
+      background-color: $color__background-body;
+      border: $default-border;
+
+      /**
+       * Simple example of two CSS patterns as card backgrounds.
+       * The patterns are defined as mixins so they can be reused easily.
+       * With the background pattern, the color is known, so the text 
+       * color can be set appropriately. 
+       */
+       &[class *="pattern"] {
+        min-height: 40rem;
+        padding: $default-padding 0;
+        justify-content: space-between;
+
+        .body .title {
+          font-size: 2.4rem;
+          font-weight: bold;
+        }
+       }   
+       &.pattern1 {
+        @include css-background-p1();
+      }
+      &.pattern2 {
+        @include css-background-p2();
+        * {
+          color: $color__text-dark-background;
+        }
+      }
+
+      .header { // image or icon
+        height: 15rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        svg {
+          height: 12rem;
+        }
+      }
+
+      .card-text {
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+      }
+
+      .body {
+        font-size: 1.6rem;
+        text-align: center;
+        padding: $gap-width;
+
+        .title {
+          font-size: 1.8rem;
+          margin: 0;
+        }
+        .subtitle {
+          font-size: 1.6rem;
+          font-style: italic;
+          margin: 0 0 $gap-width;
+        }
+      }
+
+      .footer {
+        height: 2 * $gap-width;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 $gap-width;
+        margin-top: auto;
+
+        a {
+          text-decoration: none;
+          font-size: 1.4rem;
+          text-transform: uppercase;
+        }
+      }
+    }
+  }
+
+  /**
+   * Horizontal cards arrangement
+   */
+  &.is-horizontal {
+    .container {
+      flex-direction: row;
+
+      @media (max-width: $tablet-width-portrait) {
+        flex-direction: column;
+        padding-top: $default-padding;
+      }
+    }
+
+    .section-text {
+      flex: 0 0 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .section-header {
+      * {
+        text-align: left;
+
+        @media (max-width: $small-screen-width) {
+          text-align: center;
+        }
+      }
+      .text-title,
+      .text-subtitle {
+        margin: 0 0 $gap-width;
+      }
+    }
+    .ctas-container {
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin-top: $gap-width;
+
+      @media (max-width: $small-screen-width) {
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    .manual-cards-list {
+      flex-direction: column;
+      justify-content: flex-start;
+
+      .card {
+        max-width: none;
+        flex-direction: row;
+        margin: 0;
+        border: 1px solid $color__border;
+
+        @media (max-width: $small-screen-width) {
+          display: block;
+        }
+        @media (max-width: $small-screen-width) {
+          max-width: $default-card-width;
+          margin: 0 auto $gap-width;
+        }
+
+        * {
+          text-align: left;
+
+          @media (max-width: $small-screen-width) {
+            text-align: center;
+          }
+        }
+        .header {
+          flex: 0 0 40%;
+          height: 100%;
+
+          @media (max-width: $tablet-width-portrait) {
+            height: auto; // important height: auto allows .header to strech to the height of the container
+          }
+          @media (max-width: $small-screen-width) {
+            height: 15rem;
+          }
+        }
+
+        .card-text {
+          display: block;
+        }
+
+        .footer {
+          display: block;
+          padding: 0 $gap-width;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+
+  /**
+   * dark background forces all text to be light
+   */
+  &.is-dark {
+    color: $color__text-dark-background;
+
+    svg {
+      g {
+        fill: $color__text-dark-background;
+      }
+    }
+  }
+}

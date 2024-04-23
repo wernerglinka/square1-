@@ -1,0 +1,58 @@
+/*!
+Theme Name: square1
+Theme URI: http://underscores.me/
+Author: werner@glinka.co
+Author URI: http://glinka.co
+Description: My starter theme for WordPress.
+Version: 1.0.0
+Tested up to: 5.4
+Requires PHP: 5.6
+License: GNU General Public License v2 or later
+License URI: LICENSE
+Text Domain: square1
+Tags: component-based
+
+square1 is based on Underscores https://underscores.me/, (C) 2012-2020 Automattic, Inc.
+Underscores is distributed under the terms of the GNU GPL v2 or later.
+
+Normalizing styles have been helped along thanks to the fine work of
+Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
+*/
+
+/* TABLE OF CONTENTS:
+
+	# Definitions
+		- Variables
+		- Mixins
+	# Initial
+		- Normalize
+		- Box sizing
+	# Base
+		- Typography
+		- Elements
+	# Utilities
+		- Accessibility
+	# Page Sections
+
+*/
+
+/* Import variables and mixins. */
+@import "definitions/definitions";
+
+/* Initial - resets and box-sizing */
+@import "initial/normalize";
+@import "initial/box-sizing";
+@import "initial/base";
+
+/* Base - elements and typography*/
+@import "base/base";
+
+/* Utilities - Accessibility */
+@import "utilities/accessibility";
+
+/* Page Sections */
+@import "page-sections/page-sections";
+
+/* Flex Section components */
+@import "flex-sections/index";
+

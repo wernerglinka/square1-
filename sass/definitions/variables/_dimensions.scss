@@ -1,0 +1,41 @@
+// for media queries use
+// Ref: https://medium.com/@barrypeng6/why-should-not-use-rem-unit-in-media-query-5645d0163ce5
+$mid-sized-screen: 1200px;
+$tablet-pro-width-landscape: 1360px;
+$tablet-pro-width-portrait: 1024px;
+$tablet-width-landscape: 1024px;
+$tablet-width-portrait: 767px;
+$narrow-content-width: 900px;
+$small-screen-width: 600px;
+$very-small-screen-width: 400px;
+
+
+$max-content-width: 120rem;
+$max-content-width-in-container: 120rem - 2 * 4rem;
+
+$large-card-width: 40rem;
+$default-card-width: 28rem; // 280px wide matches old phones with 320px screen and 20px padding
+
+$header-height: 9rem;
+$header-clearance: 4rem;
+$header-height-small-screen: 7rem;
+$header-small-clerance: 2rem;
+$hamburger-height: 3.6rem;
+
+$hamburger-break: 48rem;
+
+$banner-clearance: 5rem;
+
+$adminbar-height: 3.2rem;
+
+// fluid padding if the viewport is wider than 767px then the padding is 40px,
+// if it's smaller than 767px then the padding is reduced until it sticks at 20px
+$default-padding: unquote("clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem)");
+$small-padding: unquote("clamp(1rem, -0.0909rem + 3.4091vw, 4rem)");
+//$small-padding: unquote("clamp(1rem, 0.2841rem + 2.2371vw, 2rem)");
+
+$default-section-margin: 5rem;
+$text-margin: 0.5em;
+$gap-width: 2rem;
+
+$default-border: 1px solid $color__border;

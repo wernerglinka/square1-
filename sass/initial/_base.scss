@@ -1,0 +1,38 @@
+html {
+	scroll-behavior: smooth;
+	scroll-margin: -$header-height;
+	scroll-padding-top: $header-height;
+}
+
+body {
+	margin: 0;
+	padding-top: $header-height;
+	background: $color__background-body;
+	min-height: 100vh;
+
+	@media (max-width: $hamburger-break) {
+		padding-top: $header-height-small-screen;
+	}
+
+	&.hamburger-active {
+		overflow: hidden;
+	}
+}
+
+#primary {
+	// ensure that footer is at the bottom of the page even if content doesn't fill the viewport
+	min-height: calc(100vh - #{$header-height});
+	display: flex;
+	flex-direction: column;
+}
+
+.container {
+	max-width: $max-content-width;
+	margin: 0 auto;
+	padding: $default-padding;
+
+	&.narrow-width {
+		max-width: $narrow-content-width;
+	}
+
+}

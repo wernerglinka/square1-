@@ -1,0 +1,20 @@
+.flex-section {
+  .columns {
+    display: flex;
+    justify-content: center;
+    gap: $gap-width;
+
+    .column {
+      flex: 0 0 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  &.is-reversed {
+    .columns {
+      flex-direction: row-reverse;
+    }
+  }
+}

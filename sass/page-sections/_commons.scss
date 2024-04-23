@@ -1,0 +1,134 @@
+/**
+ * Common styles for page sections
+ * A page section consists of a container and task-specific structure. The 
+ * task-specific structure is defined in separate files. It typically consists 
+ * of one or two columns, each with a specific layout.
+ */
+.page-section {
+  position: relative;
+  margin-block: $default-section-margin;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /**
+   * add a light or dark screen overlay 
+   */
+  &.has-light-screen {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), var(--bg-image);
+
+    :is(h1, h2, h3, h4, h5, h6) {
+      color: $color__text-screen;
+    }
+  }
+  &.has-dark-screen {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), var(--bg-image);
+
+    :is(h1, h2, h3, h4, h5, h6, p, a) {
+      color: $color__text-dark-background;
+    }
+  }
+  &.is-dark {
+    :is(h1, h2, h3, h4, h5, h6, p, a) {
+      color: $color__text-dark-background;
+    }
+  }
+  /**
+   * Simple example of two CSS patterns as card backgrounds.
+   * The patterns are defined as mixins so they can be reused easily.
+   * With the background pattern, the color is known, so the text 
+   * color can be set appropriately. 
+   */ 
+  &.pattern1 {
+    @include css-background-p1();
+  }
+  &.pattern2 {
+    @include css-background-p2();
+    * {
+      color: $color__text-dark-background;
+    }
+  }
+
+  /**
+   * section "moving-up" animations.
+   */
+   &.is-hidden {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.5s ease-in-out, opacity 1s ease-in-out;
+
+  /**
+   * section width is constricted to max-content-width
+   */
+  &.in-container {
+    width: 100%;
+    max-width: $max-content-width-in-container;
+    margin: 5rem auto;
+  }
+
+  /**
+   * section margins can be removed
+   */
+  &.no-top-margin {
+    margin-top: 0;
+  }
+  &.no-bottom-margin {
+    margin-bottom: 0;
+  }
+  
+  /**
+   * all section content is centered
+   */
+  &.center-text {
+    * {
+      text-align: center;
+      justify-content: center;
+    }
+  }
+  
+  /**
+   * section container
+   
+  .container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+    // select the container if more than one child
+    &:has(> * + *) {
+      justify-content: flex-start;
+    }
+  }
+  */
+  
+  /**
+   * used for text only sections to prevent long lines
+   */
+  &.narrow-width {
+    .container {
+      max-width: $narrow-content-width;
+      margin-left: auto;
+      margin-right: auto;
+      //box-shadow: $color__drop-shadow;
+    }
+  }
+
+  /**
+   * animate text content
+   */
+  h2, h3, h4, p, li, a, img {
+    @include animate;
+  }
+
+  .prose {
+    p:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
