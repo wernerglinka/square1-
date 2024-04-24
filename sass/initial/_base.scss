@@ -28,11 +28,11 @@ body {
 
 .container {
 	max-width: $max-content-width;
+	min-height: inherit;
 	margin: 0 auto;
 	padding: 0 $default-padding;
 
 	&.narrow-width {
 		max-width: $narrow-content-width;
 	}
-
 }

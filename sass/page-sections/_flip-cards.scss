@@ -67,7 +67,15 @@
     transition: transform 0.8s;
     transform-style: preserve-3d;
    
-    
+    .flip-icon {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+
+      svg {
+        stroke: $color__brand_very-light;
+      }
+    }
 
     h3 {
       font-size: 22px;

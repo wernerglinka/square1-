@@ -297,7 +297,8 @@ function render_flip_card_component($card) {
   $output = "<li>
     <div class='flip-card-wrapper'>
       <div class='flip-card'>
-        <span class='icon'>" . get_icon($card['icon']) . "</span>";
+        <span class='icon'>" . get_icon($card['icon']) . "</span>
+        <span class='flip-icon'>" . get_icon('rotate') . "</span>";
   if ($title) {
     $output .= "<h3>" . $title . "</h3>";
   }

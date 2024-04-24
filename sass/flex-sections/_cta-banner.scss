@@ -1,4 +1,8 @@
 .flex-section.cta-banner {
+  .container {
+    /* padding all around for the banner */
+    padding: $default-padding;
+  }
   * {
     text-align: center;
   }
