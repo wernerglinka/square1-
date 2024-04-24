@@ -6,7 +6,7 @@
  */
 
 $props = $args['props'];
-$columns = $props['columns'];
+$columns = isset($props['columns']) && is_array($props['columns']) ? $props['columns'] : [];
 $number_of_columns = count($columns);
 
 ?>

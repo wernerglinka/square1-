@@ -1,0 +1,35 @@
+.flex-section.images {
+  &.variant-a {
+    .column {
+      max-width: 50rem;
+    }
+  }
+
+  &.variant-b {
+    .columns {
+      align-items: stretch;
+      gap: 0;
+
+      .image {
+        height: 100%;
+
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+    @media (max-width: $tablet-width-portrait) {
+      .columns {
+        flex: 0 0 100%;
+        flex-direction: column;
+
+        .column {
+          max-width: 50rem;
+          margin: 0 auto;
+        }
+      }   
+    }
+  }
+}

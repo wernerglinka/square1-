@@ -1772,6 +1772,7 @@ button.inverted, .button.inverted {
 .flex-section .columns {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
   height: 100%;
 }
@@ -1802,6 +1803,32 @@ button.inverted, .button.inverted {
 }
 .flex-section.cta-banner * {
   text-align: center;
+}
+
+.flex-section.images.variant-a .column {
+  max-width: 50rem;
+}
+.flex-section.images.variant-b .columns {
+  align-items: stretch;
+  gap: 0;
+}
+.flex-section.images.variant-b .columns .image {
+  height: 100%;
+}
+.flex-section.images.variant-b .columns .image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+@media (max-width: 767px) {
+  .flex-section.images.variant-b .columns {
+    flex: 0 0 100%;
+    flex-direction: column;
+  }
+  .flex-section.images.variant-b .columns .column {
+    max-width: 50rem;
+    margin: 0 auto;
+  }
 }
 
 .flex-section.text-icon-link-list .column:nth-child(2) {

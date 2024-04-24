@@ -48,6 +48,7 @@
                 "none": "Custom",
                 "banner": "Banner",
                 "cta-banner": "CTA Banner",
+                "images": "Images",
                 "text": "Text",
                 "text-icon": "Text with Icon",
                 "text-icon-link-list": "Text with Icon Link List",
@@ -192,5 +193,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1713977678
+    "modified": 1713981209
 }
