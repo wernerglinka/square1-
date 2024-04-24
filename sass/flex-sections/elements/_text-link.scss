@@ -1,5 +1,6 @@
 .text-link {
   text-decoration: none;
+  display: inline-block;
 
   &:after {
     position: relative;

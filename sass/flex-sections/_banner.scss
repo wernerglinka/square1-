@@ -3,3 +3,66 @@
     justify-content: flex-start;
   }
 }
+
+/////////////////// Variants are styled below ///////////////////
+/* Variant A */ 
+.flex-section.banner.variant-a {
+
+  .columns {
+    justify-content: space-between;
+
+    @media (max-width: $hamburger-break) {
+      flex-direction: column;
+    }
+  }
+
+  .column:first-child {
+    flex: 0 0 45%;
+    @include glass($color__brand_very-dark);
+    padding: $default-padding;
+
+    .text {
+      h1 {
+        line-height: 1;
+      }
+      .text-subtitle {
+        margin: 0.5em 0;
+      }
+    }
+  }
+  .column:nth-child(2) {
+    flex: 0 0 30%;
+    @include glass($color__brand_very-light);
+    padding: $default-padding;
+
+    h2 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 1.6rem;
+    }
+    a {
+      margin-top: 1em;
+    }
+  }
+}
+
+/* Variant B */
+.flex-section.banner.variant-b {
+  .text {
+    padding: $default-padding;
+    max-width: 50%;
+    @include glass($color__brand_very-light);
+    margin: 3rem 0 -3rem;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+
+  &.pattern2 {
+    .text * {
+      color: $color__brand_very-dark;
+    }
+  }
+}

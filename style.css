@@ -411,7 +411,7 @@ body.hamburger-active {
 .container {
   max-width: 120rem;
   margin: 0 auto;
-  padding: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+  padding: 0 clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
 }
 .container.narrow-width {
   max-width: 900px;
@@ -703,6 +703,443 @@ textarea {
 }
 
 /* Page Sections */
+.accessibility-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  width: 320px;
+  transform: translateX(-260px);
+  transition: transform 0.3s ease-in-out;
+}
+.accessibility-menu.is-active {
+  transform: translateX(0);
+}
+.accessibility-menu svg {
+  width: 32px;
+  height: 32px;
+}
+.accessibility-menu .accessibility-icon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  background-color: #3f2787;
+  cursor: pointer;
+  transition: opacity 0.3s ease-in-out;
+}
+.accessibility-menu .accessibility-icon:hover {
+  opacity: 0.6;
+}
+.accessibility-menu .accessibility-icon g {
+  stroke: #fff;
+}
+.accessibility-menu .accessibility-list {
+  margin: 0 60px 0 0;
+  padding: 40px 0 40px 40px;
+  list-style: none;
+  /* the background */
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+}
+.accessibility-menu .accessibility-list li {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px;
+  cursor: pointer;
+}
+.accessibility-menu .accessibility-list li svg {
+  margin-right: 20px;
+}
+.accessibility-menu .accessibility-list li:last-child {
+  padding-bottom: 0;
+}
+.accessibility-menu .accessibility-list li.decrease-text {
+  display: none;
+}
+
+.fontsizePlus .decrease-text {
+  display: block !important;
+}
+
+.fontsizePlus .increase-text {
+  display: none !important;
+}
+
+#masthead {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100%;
+  height: 9rem;
+  /* the background */
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+}
+#masthead .container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+}
+@media (max-width: 48rem) {
+  #masthead .container {
+    height: 7rem;
+  }
+}
+#masthead .site-branding {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#masthead .site-branding a {
+  display: block;
+}
+#masthead .site-branding svg {
+  display: block;
+  width: auto;
+  height: 6rem;
+}
+@media (max-width: 48rem) {
+  #masthead .site-branding svg {
+    height: 4rem;
+  }
+}
+#masthead .button-wrapper {
+  display: none;
+}
+@media (max-width: 48rem) {
+  #masthead {
+    height: 7rem;
+  }
+  #masthead .button-wrapper {
+    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.admin-bar.logged-in #masthead {
+  top: 3.2rem;
+}
+
+.page-section.footer {
+  margin-top: auto !important;
+  padding-bottom: 5rem !important;
+}
+.page-section.footer .wp-block-column {
+  padding: 0 2rem;
+}
+.page-section.footer .wp-block-column:first-child {
+  padding-left: 0;
+}
+@media (max-width: 767px) {
+  .page-section.footer .wp-block-column {
+    padding: 4rem 0 0;
+  }
+  .page-section.footer .wp-block-column:first-child {
+    padding-left: 0;
+  }
+}
+.page-section.footer a {
+  color: #fff;
+}
+.page-section.footer strong {
+  font-weight: bold;
+}
+.page-section.footer .copyright-notice {
+  padding-top: 2rem;
+  text-align: center;
+  font-size: 0.9em;
+}
+.page-section.footer.is-dark * {
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+#site-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#site-navigation #primary-menu ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#site-navigation #primary-menu ul > li {
+  position: relative;
+  height: 9rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+#site-navigation #primary-menu ul > li a {
+  display: block;
+  padding: 1rem;
+  font-size: 1.4rem;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+#site-navigation #primary-menu ul > li > .sub-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  max-height: 0;
+  width: 25rem;
+  overflow: hidden;
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  transition: all 0.5s ease-in-out;
+  /* the background */
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+}
+#site-navigation #primary-menu ul > li > .sub-menu a {
+  line-height: 3rem;
+  padding: 1rem 2rem;
+  transition: all 0.5s ease-in-out;
+}
+#site-navigation #primary-menu ul > li:hover {
+  background-color: #f1eefa;
+}
+#site-navigation #primary-menu ul > li:hover > .sub-menu {
+  padding: 2rem 0;
+  max-height: 80rem;
+}
+#site-navigation #primary-menu ul > li:hover > .sub-menu li:hover {
+  background-color: #f1eefa;
+}
+@media (max-width: 48rem) {
+  #site-navigation {
+    display: none;
+  }
+}
+
+@media (max-width: 48rem) {
+  .hamburger-active #site-navigation {
+    display: block;
+    position: fixed;
+    top: 9rem;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    height: 100vh;
+    z-index: 100;
+    padding: 4rem 0;
+    background-color: #fff;
+    box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 1s;
+    overflow: auto;
+  }
+  .hamburger-active #site-navigation #primary-menu {
+    margin: 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #fff;
+    padding-bottom: 5rem;
+    max-width: 30rem;
+    margin: 0 auto;
+  }
+  .hamburger-active #site-navigation #primary-menu > li {
+    height: auto;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #f1eefa;
+    margin-bottom: 1rem;
+    transform: translateY(0);
+    animation: p-anime 0.8s ease-in-out;
+  }
+  .hamburger-active #site-navigation #primary-menu > li:last-child {
+    border-bottom: none;
+  }
+  .hamburger-active #site-navigation #primary-menu > li a {
+    width: 100%;
+    padding: 0.5rem 3rem;
+    font-size: 2rem;
+  }
+  .hamburger-active #site-navigation #primary-menu > li.no-link > a {
+    cursor: default;
+    pointer-events: none;
+    display: none;
+  }
+  .hamburger-active #site-navigation #primary-menu > li > .sub-menu {
+    position: static;
+    height: auto;
+    width: 100%;
+    max-height: none;
+    background: none;
+    box-shadow: none;
+  }
+  .hamburger-active #site-navigation #primary-menu > li > .sub-menu a {
+    width: 100%;
+    padding: 1rem 3rem;
+  }
+  .hamburger-active #site-navigation #primary-menu > li:hover {
+    background-color: transparent;
+  }
+  .hamburger-active #site-navigation #primary-menu > li:hover > .sub-menu {
+    padding: 0;
+  }
+  .hamburger-active #site-navigation #primary-menu > li:hover > .sub-menu li:hover {
+    background-color: transparent;
+  }
+  .hamburger-active.menu-fadeout {
+    animation: fadeOut 1s ease-in-out;
+  }
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+/**
+ * Common styles for page sections
+ * A page section consists of a container and task-specific structure. The 
+ * task-specific structure is defined in separate files. It typically consists 
+ * of one or two columns, each with a specific layout.
+ */
+.page-section {
+  position: relative;
+  margin-block: 5rem;
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  /**
+   * add a light or dark screen overlay 
+   */
+  /**
+   * Simple example of two CSS patterns as card backgrounds.
+   * The patterns are defined as mixins so they can be reused easily.
+   * With the background pattern, the color is known, so the text 
+   * color can be set appropriately. 
+   */
+  /**
+   * section "moving-up" animations.
+   */
+  transform: translateY(0);
+  opacity: 1;
+  transition: transform 0.5s ease-in-out, opacity 1s ease-in-out;
+  /**
+   * section width is constricted to max-content-width
+   */
+  /**
+   * section margins can be removed
+   */
+  /**
+   * all section content is centered
+   */
+  /**
+   * section container
+
+  .container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+
+    // select the container if more than one child
+    &:has(> * + *) {
+      justify-content: flex-start;
+    }
+  }
+  */
+  /**
+   * used for text only sections to prevent long lines
+   */
+  /**
+   * animate text content
+   */
+}
+.page-section.has-light-screen {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), var(--bg-image);
+}
+.page-section.has-light-screen :is(h1, h2, h3, h4, h5, h6) {
+  color: #00080f;
+}
+.page-section.has-dark-screen {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), var(--bg-image);
+}
+.page-section.has-dark-screen :is(h1, h2, h3, h4, h5, h6, p, a) {
+  color: #fff;
+}
+.page-section.is-dark :is(h1, h2, h3, h4, h5, h6, p, a) {
+  color: #fff;
+}
+.page-section.pattern1 {
+  background-image: radial-gradient(circle at 28% 90%, rgba(113, 113, 113, 0.03) 0%, rgba(113, 113, 113, 0.03) 24%, transparent 24%, transparent 100%), radial-gradient(circle at 84% 65%, rgba(173, 173, 173, 0.03) 0%, rgba(173, 173, 173, 0.03) 45%, transparent 45%, transparent 100%), radial-gradient(circle at 46% 12%, rgba(141, 141, 141, 0.03) 0%, rgba(141, 141, 141, 0.03) 22%, transparent 22%, transparent 100%), radial-gradient(circle at 26% 14%, rgba(119, 119, 119, 0.03) 0%, rgba(119, 119, 119, 0.03) 35%, transparent 35%, transparent 100%), radial-gradient(circle at 81% 90%, rgba(42, 42, 42, 0.03) 0%, rgba(42, 42, 42, 0.03) 40%, transparent 40%, transparent 100%), radial-gradient(circle at 28% 100%, rgba(234, 234, 234, 0.03) 0%, rgba(234, 234, 234, 0.03) 56%, transparent 56%, transparent 100%), linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255));
+}
+.page-section.pattern2 {
+  background-image: radial-gradient(circle at 29% 55%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 4%, transparent 4%, transparent 44%, transparent 44%, transparent 100%), radial-gradient(circle at 85% 89%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 51%, transparent 51%, transparent 52%, transparent 52%, transparent 100%), radial-gradient(circle at 6% 90%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 53%, transparent 53%, transparent 64%, transparent 64%, transparent 100%), radial-gradient(circle at 35% 75%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 6%, transparent 6%, transparent 98%, transparent 98%, transparent 100%), radial-gradient(circle at 56% 75%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 16%, transparent 16%, transparent 23%, transparent 23%, transparent 100%), radial-gradient(circle at 42% 0%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 3%, transparent 3%, transparent 26%, transparent 26%, transparent 100%), radial-gradient(circle at 29% 28%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 51%, transparent 51%, transparent 75%, transparent 75%, transparent 100%), radial-gradient(circle at 77% 21%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 35%, transparent 35%, transparent 55%, transparent 55%, transparent 100%), radial-gradient(circle at 65% 91%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 46%, transparent 46%, transparent 76%, transparent 76%, transparent 100%), linear-gradient(45deg, rgb(83, 91, 235), rgb(76, 11, 174));
+}
+.page-section.pattern2 * {
+  color: #fff;
+}
+.page-section.is-hidden {
+  transform: translateY(100px);
+  opacity: 0;
+}
+.page-section.in-container {
+  width: 100%;
+  max-width: 112rem;
+  margin: 5rem auto;
+}
+.page-section.no-top-margin {
+  margin-top: 0;
+}
+.page-section.no-bottom-margin {
+  margin-bottom: 0;
+}
+.page-section.center-text * {
+  text-align: center;
+  justify-content: center;
+}
+.page-section.narrow-width .container {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.page-section h2, .page-section h3, .page-section h4, .page-section p, .page-section li, .page-section a, .page-section img {
+  transform: translateY(0);
+  animation: header-anime 0.5s ease-in-out;
+}
+.page-section .prose p:last-child {
+  margin-bottom: 0;
+}
+
+/* Flex Section components */
 .audio {
   position: relative;
   width: 100%;
@@ -767,6 +1204,7 @@ button.inverted, .button.inverted {
 
 .text-link {
   text-decoration: none;
+  display: inline-block;
 }
 .text-link:after {
   position: relative;
@@ -1076,447 +1514,11 @@ button.inverted, .button.inverted {
   width: 80%;
 }
 
-.accessibility-menu {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  width: 320px;
-  transform: translateX(-260px);
-  transition: transform 0.3s ease-in-out;
-}
-.accessibility-menu.is-active {
-  transform: translateX(0);
-}
-.accessibility-menu svg {
-  width: 32px;
-  height: 32px;
-}
-.accessibility-menu .accessibility-icon {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  background-color: #3f2787;
-  cursor: pointer;
-  transition: opacity 0.3s ease-in-out;
-}
-.accessibility-menu .accessibility-icon:hover {
-  opacity: 0.6;
-}
-.accessibility-menu .accessibility-icon g {
-  stroke: #fff;
-}
-.accessibility-menu .accessibility-list {
-  margin: 0 60px 0 0;
-  padding: 40px 0 40px 40px;
-  list-style: none;
-  /* the background */
-  background: rgba(255, 255, 255, 0.5);
-  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
-}
-.accessibility-menu .accessibility-list li {
-  display: flex;
-  align-items: center;
-  padding-bottom: 20px;
-  cursor: pointer;
-}
-.accessibility-menu .accessibility-list li svg {
-  margin-right: 20px;
-}
-.accessibility-menu .accessibility-list li:last-child {
-  padding-bottom: 0;
-}
-.accessibility-menu .accessibility-list li.decrease-text {
-  display: none;
-}
-
-.fontsizePlus .decrease-text {
-  display: block !important;
-}
-
-.fontsizePlus .increase-text {
-  display: none !important;
-}
-
-#masthead {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  width: 100%;
-  height: 9rem;
-  /* the background */
-  background: rgba(255, 255, 255, 0.5);
-  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
-}
-#masthead .container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  padding: 0 clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
-}
-@media (max-width: 48rem) {
-  #masthead .container {
-    height: 7rem;
-  }
-}
-#masthead .site-branding {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-#masthead .site-branding a {
-  display: block;
-}
-#masthead .site-branding svg {
-  display: block;
-  width: auto;
-  height: 6rem;
-}
-@media (max-width: 48rem) {
-  #masthead .site-branding svg {
-    height: 4rem;
-  }
-}
-#masthead .button-wrapper {
-  display: none;
-}
-@media (max-width: 48rem) {
-  #masthead {
-    height: 7rem;
-  }
-  #masthead .button-wrapper {
-    display: block;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.admin-bar.logged-in #masthead {
-  top: 3.2rem;
-}
-
-.page-section.footer {
-  margin-top: auto !important;
-  padding-bottom: 5rem !important;
-}
-.page-section.footer .wp-block-column {
-  padding: 0 2rem;
-}
-.page-section.footer .wp-block-column:first-child {
-  padding-left: 0;
-}
-@media (max-width: 767px) {
-  .page-section.footer .wp-block-column {
-    padding: 4rem 0 0;
-  }
-  .page-section.footer .wp-block-column:first-child {
-    padding-left: 0;
-  }
-}
-.page-section.footer a {
-  color: #fff;
-}
-.page-section.footer strong {
-  font-weight: bold;
-}
-.page-section.footer .copyright-notice {
-  padding-top: 2rem;
-  text-align: center;
-  font-size: 0.9em;
-}
-.page-section.footer.is-dark * {
-  color: #fff;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-#site-navigation {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#site-navigation #primary-menu {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#site-navigation #primary-menu > li {
-  position: relative;
-  height: 9rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-}
-#site-navigation #primary-menu > li a {
-  display: block;
-  padding: 1rem;
-  font-size: 1.4rem;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-#site-navigation #primary-menu > li > .sub-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  position: absolute;
-  left: 0;
-  top: 100%;
-  max-height: 0;
-  width: 25rem;
-  overflow: hidden;
-  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
-  transition: all 0.5s ease-in-out;
-  /* the background */
-  background: rgba(255, 255, 255, 0.5);
-  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(5px);
-}
-#site-navigation #primary-menu > li > .sub-menu a {
-  line-height: 3rem;
-  padding: 1rem 2rem;
-  transition: all 0.5s ease-in-out;
-}
-#site-navigation #primary-menu > li:hover {
-  background-color: #f1eefa;
-}
-#site-navigation #primary-menu > li:hover > .sub-menu {
-  padding: 2rem 0;
-  max-height: 80rem;
-}
-#site-navigation #primary-menu > li:hover > .sub-menu li:hover {
-  background-color: #f1eefa;
-}
-@media (max-width: 48rem) {
-  #site-navigation {
-    display: none;
-  }
-}
-
-@media (max-width: 48rem) {
-  .hamburger-active #site-navigation {
-    display: block;
-    position: fixed;
-    top: 9rem;
-    right: 0;
-    left: 0;
-    bottom: 0;
-    height: 100vh;
-    z-index: 100;
-    padding: 4rem 0;
-    background-color: #fff;
-    box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 1s;
-    overflow: auto;
-  }
-  .hamburger-active #site-navigation #primary-menu {
-    margin: 0;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    background-color: #fff;
-    padding-bottom: 5rem;
-    max-width: 30rem;
-    margin: 0 auto;
-  }
-  .hamburger-active #site-navigation #primary-menu > li {
-    height: auto;
-    width: 100%;
-    align-items: flex-start;
-    justify-content: flex-start;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #f1eefa;
-    margin-bottom: 1rem;
-    transform: translateY(0);
-    animation: p-anime 0.8s ease-in-out;
-  }
-  .hamburger-active #site-navigation #primary-menu > li:last-child {
-    border-bottom: none;
-  }
-  .hamburger-active #site-navigation #primary-menu > li a {
-    width: 100%;
-    padding: 0.5rem 3rem;
-    font-size: 2rem;
-  }
-  .hamburger-active #site-navigation #primary-menu > li.no-link > a {
-    cursor: default;
-    pointer-events: none;
-    display: none;
-  }
-  .hamburger-active #site-navigation #primary-menu > li > .sub-menu {
-    position: static;
-    height: auto;
-    width: 100%;
-    max-height: none;
-    background: none;
-    box-shadow: none;
-  }
-  .hamburger-active #site-navigation #primary-menu > li > .sub-menu a {
-    width: 100%;
-    padding: 1rem 3rem;
-  }
-  .hamburger-active #site-navigation #primary-menu > li:hover {
-    background-color: transparent;
-  }
-  .hamburger-active #site-navigation #primary-menu > li:hover > .sub-menu {
-    padding: 0;
-  }
-  .hamburger-active #site-navigation #primary-menu > li:hover > .sub-menu li:hover {
-    background-color: transparent;
-  }
-  .hamburger-active.menu-fadeout {
-    animation: fadeOut 1s ease-in-out;
-  }
-}
-@keyframes fadeOut {
-  from {
-    opacity: 1;
-  }
-  to {
-    opacity: 0;
-  }
-}
-/**
- * Common styles for page sections
- * A page section consists of a container and task-specific structure. The 
- * task-specific structure is defined in separate files. It typically consists 
- * of one or two columns, each with a specific layout.
- */
-.page-section {
-  position: relative;
-  margin-block: 5rem;
-  background-image: var(--bg-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  /**
-   * add a light or dark screen overlay 
-   */
-  /**
-   * Simple example of two CSS patterns as card backgrounds.
-   * The patterns are defined as mixins so they can be reused easily.
-   * With the background pattern, the color is known, so the text 
-   * color can be set appropriately. 
-   */
-  /**
-   * section "moving-up" animations.
-   */
-  transform: translateY(0);
-  opacity: 1;
-  transition: transform 0.5s ease-in-out, opacity 1s ease-in-out;
-  /**
-   * section width is constricted to max-content-width
-   */
-  /**
-   * section margins can be removed
-   */
-  /**
-   * all section content is centered
-   */
-  /**
-   * section container
-
-  .container {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-
-    // select the container if more than one child
-    &:has(> * + *) {
-      justify-content: flex-start;
-    }
-  }
-  */
-  /**
-   * used for text only sections to prevent long lines
-   */
-  /**
-   * animate text content
-   */
-}
-.page-section.has-light-screen {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.5)), var(--bg-image);
-}
-.page-section.has-light-screen :is(h1, h2, h3, h4, h5, h6) {
-  color: #00080f;
-}
-.page-section.has-dark-screen {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), var(--bg-image);
-}
-.page-section.has-dark-screen :is(h1, h2, h3, h4, h5, h6, p, a) {
-  color: #fff;
-}
-.page-section.is-dark :is(h1, h2, h3, h4, h5, h6, p, a) {
-  color: #fff;
-}
-.page-section.pattern1 {
-  background-image: radial-gradient(circle at 28% 90%, rgba(113, 113, 113, 0.03) 0%, rgba(113, 113, 113, 0.03) 24%, transparent 24%, transparent 100%), radial-gradient(circle at 84% 65%, rgba(173, 173, 173, 0.03) 0%, rgba(173, 173, 173, 0.03) 45%, transparent 45%, transparent 100%), radial-gradient(circle at 46% 12%, rgba(141, 141, 141, 0.03) 0%, rgba(141, 141, 141, 0.03) 22%, transparent 22%, transparent 100%), radial-gradient(circle at 26% 14%, rgba(119, 119, 119, 0.03) 0%, rgba(119, 119, 119, 0.03) 35%, transparent 35%, transparent 100%), radial-gradient(circle at 81% 90%, rgba(42, 42, 42, 0.03) 0%, rgba(42, 42, 42, 0.03) 40%, transparent 40%, transparent 100%), radial-gradient(circle at 28% 100%, rgba(234, 234, 234, 0.03) 0%, rgba(234, 234, 234, 0.03) 56%, transparent 56%, transparent 100%), linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255));
-}
-.page-section.pattern2 {
-  background-image: radial-gradient(circle at 29% 55%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 4%, transparent 4%, transparent 44%, transparent 44%, transparent 100%), radial-gradient(circle at 85% 89%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 51%, transparent 51%, transparent 52%, transparent 52%, transparent 100%), radial-gradient(circle at 6% 90%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 53%, transparent 53%, transparent 64%, transparent 64%, transparent 100%), radial-gradient(circle at 35% 75%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 6%, transparent 6%, transparent 98%, transparent 98%, transparent 100%), radial-gradient(circle at 56% 75%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 16%, transparent 16%, transparent 23%, transparent 23%, transparent 100%), radial-gradient(circle at 42% 0%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 3%, transparent 3%, transparent 26%, transparent 26%, transparent 100%), radial-gradient(circle at 29% 28%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 51%, transparent 51%, transparent 75%, transparent 75%, transparent 100%), radial-gradient(circle at 77% 21%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 35%, transparent 35%, transparent 55%, transparent 55%, transparent 100%), radial-gradient(circle at 65% 91%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 46%, transparent 46%, transparent 76%, transparent 76%, transparent 100%), linear-gradient(45deg, rgb(83, 91, 235), rgb(76, 11, 174));
-}
-.page-section.pattern2 * {
-  color: #fff;
-}
-.page-section.is-hidden {
-  transform: translateY(100px);
-  opacity: 0;
-}
-.page-section.in-container {
-  width: 100%;
-  max-width: 112rem;
-  margin: 5rem auto;
-}
-.page-section.no-top-margin {
-  margin-top: 0;
-}
-.page-section.no-bottom-margin {
-  margin-bottom: 0;
-}
-.page-section.center-text * {
-  text-align: center;
-  justify-content: center;
-}
-.page-section.narrow-width .container {
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.page-section h2, .page-section h3, .page-section h4, .page-section p, .page-section li, .page-section a, .page-section img {
-  transform: translateY(0);
-  animation: header-anime 0.5s ease-in-out;
-}
-.page-section .prose p:last-child {
-  margin-bottom: 0;
-}
-
-/* Flex Section components */
 .ctas {
   display: flex;
   justify-content: center;
   gap: 2rem;
+  flex-wrap: wrap;
 }
 
 .column .text .text-title {
@@ -1527,10 +1529,66 @@ button.inverted, .button.inverted {
   justify-content: flex-start;
 }
 
+/* Variant A */
+.flex-section.banner.variant-a .columns {
+  justify-content: space-between;
+}
+@media (max-width: 48rem) {
+  .flex-section.banner.variant-a .columns {
+    flex-direction: column;
+  }
+}
+.flex-section.banner.variant-a .column:first-child {
+  flex: 0 0 45%;
+  background: rgba(13, 8, 28, 0.5);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  padding: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+}
+.flex-section.banner.variant-a .column:first-child .text h1 {
+  line-height: 1;
+}
+.flex-section.banner.variant-a .column:first-child .text .text-subtitle {
+  margin: 0.5em 0;
+}
+.flex-section.banner.variant-a .column:nth-child(2) {
+  flex: 0 0 30%;
+  background: rgba(241, 238, 250, 0.5);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  padding: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+}
+.flex-section.banner.variant-a .column:nth-child(2) h2 {
+  font-size: 2rem;
+}
+.flex-section.banner.variant-a .column:nth-child(2) p {
+  font-size: 1.6rem;
+}
+.flex-section.banner.variant-a .column:nth-child(2) a {
+  margin-top: 1em;
+}
+
+/* Variant B */
+.flex-section.banner.variant-b .text {
+  padding: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+  max-width: 50%;
+  background: rgba(241, 238, 250, 0.5);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  margin: 3rem 0 -3rem;
+}
+.flex-section.banner.variant-b .text p {
+  margin-bottom: 0;
+}
+.flex-section.banner.variant-b.pattern2 .text * {
+  color: #0d081c;
+}
+
 .flex-section .columns {
   display: flex;
   justify-content: center;
   gap: 2rem;
+  height: 100%;
 }
 .flex-section .columns .column {
   display: flex;
