@@ -1170,6 +1170,180 @@ textarea {
   color: #fff;
 }
 
+.page-section.resources-list .container {
+  flex-direction: column;
+  gap: 2rem;
+}
+.page-section.resources-list .text-title {
+  text-align: center;
+  padding-block: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem) 0;
+  margin-bottom: 0;
+}
+.page-section.resources-list .text-subtitle {
+  text-align: center;
+  margin: 0;
+}
+.page-section.resources-list .resources-cards {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+.page-section.resources-list .resources-cards li {
+  flex: 0 0 28rem;
+  height: 40rem;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 2rem;
+  border: 1px solid #ccc;
+}
+@media (max-width: 767px) {
+  .page-section.resources-list .resources-cards li {
+    height: 30rem;
+  }
+}
+.page-section.resources-list .resources-cards li .header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
+  transition: all 0.3s linear;
+  padding-bottom: 20px;
+  background: rgba(13, 8, 28, 0.5);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+}
+.page-section.resources-list .resources-cards li .header .category {
+  font-size: 1.5rem;
+  color: #dce9b3;
+  margin: 20px 0 0;
+  text-align: center;
+}
+.page-section.resources-list .resources-cards li .header .title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0;
+  color: #fff;
+}
+.page-section.resources-list .resources-cards li .image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s linear;
+}
+.page-section.resources-list .resources-cards li .image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+@media (max-width: 767px) {
+  .page-section.resources-list .resources-cards li .image {
+    height: 30rem;
+    overflow: hidden;
+  }
+}
+.page-section.resources-list .resources-cards li .footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+.page-section.resources-list .resources-cards li .footer a {
+  text-decoration: none;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+.page-section.resources-list .resources-cards li:hover .header {
+  left: 40px;
+  padding-right: 40px;
+}
+.page-section.resources-list .resources-cards li:hover .image {
+  transform-origin: top right;
+  transform: translate(40px, -40px);
+}
+.page-section.resources-list .ctas-container {
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.page-section.logo-list .container {
+  flex-direction: column;
+  gap: 2rem;
+}
+.page-section.logo-list .text-title {
+  text-align: center;
+  padding-block: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem) 0;
+}
+.page-section.logo-list .text-subtitle {
+  text-align: center;
+}
+.page-section.logo-list .logos-cards {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+.page-section.logo-list .logos-cards li {
+  flex: 0 0 28rem;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 4rem;
+  margin-bottom: 2rem;
+  border: 1px solid #ccc;
+}
+.page-section.logo-list .logos-cards li .image {
+  width: 100%;
+  height: 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.page-section.logo-list .logos-cards li .image img {
+  max-height: 6rem;
+  max-width: 60%;
+}
+.page-section.logo-list .logos-cards li .category {
+  font-size: 1.5rem;
+  color: #dce9b3;
+  margin: 0;
+  text-align: center;
+}
+.page-section.logo-list .logos-cards li .title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 0;
+}
+.page-section.logo-list .logos-cards li .synopsis {
+  padding: 1rem;
+  margin: 0;
+}
+.page-section.logo-list .logos-cards li .footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+}
+.page-section.logo-list .logos-cards li .footer a {
+  text-decoration: none;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+.page-section.logo-list .ctas-container {
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
 .page-section.flip-cards {
   background-position: center;
   background-repeat: no-repeat;
@@ -1285,6 +1459,515 @@ textarea {
 }
 .flip-cards-list .flip-card-wrapper.flip .flip-card-back {
   transform: rotateY(0deg);
+}
+
+.page-section.manual-cards {
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: clamp(1rem, -0.0909rem + 3.4091vw, 4rem);
+  /**
+   * Card list default style is vertical cards arrangement
+   */
+  /**
+   * Horizontal cards arrangement
+   */
+  /**
+   * dark background forces all text to be light
+   */
+}
+.page-section.manual-cards .container {
+  flex-direction: column;
+}
+.page-section.manual-cards .text-title,
+.page-section.manual-cards .text-subtitle,
+.page-section.manual-cards .text-prose {
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+.page-section.manual-cards .ctas-container {
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+.page-section.manual-cards .manual-cards-list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+.page-section.manual-cards .manual-cards-list .card {
+  display: flex;
+  flex-direction: column;
+  max-width: 28rem;
+  margin-bottom: 2rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  /**
+   * Simple example of two CSS patterns as card backgrounds.
+   * The patterns are defined as mixins so they can be reused easily.
+   * With the background pattern, the color is known, so the text 
+   * color can be set appropriately. 
+   */
+}
+.page-section.manual-cards .manual-cards-list .card[class*=pattern] {
+  min-height: 40rem;
+  padding: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem) 0;
+  justify-content: space-between;
+}
+.page-section.manual-cards .manual-cards-list .card[class*=pattern] .body .title {
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+.page-section.manual-cards .manual-cards-list .card.pattern1 {
+  background-image: radial-gradient(circle at 28% 90%, rgba(113, 113, 113, 0.03) 0%, rgba(113, 113, 113, 0.03) 24%, transparent 24%, transparent 100%), radial-gradient(circle at 84% 65%, rgba(173, 173, 173, 0.03) 0%, rgba(173, 173, 173, 0.03) 45%, transparent 45%, transparent 100%), radial-gradient(circle at 46% 12%, rgba(141, 141, 141, 0.03) 0%, rgba(141, 141, 141, 0.03) 22%, transparent 22%, transparent 100%), radial-gradient(circle at 26% 14%, rgba(119, 119, 119, 0.03) 0%, rgba(119, 119, 119, 0.03) 35%, transparent 35%, transparent 100%), radial-gradient(circle at 81% 90%, rgba(42, 42, 42, 0.03) 0%, rgba(42, 42, 42, 0.03) 40%, transparent 40%, transparent 100%), radial-gradient(circle at 28% 100%, rgba(234, 234, 234, 0.03) 0%, rgba(234, 234, 234, 0.03) 56%, transparent 56%, transparent 100%), linear-gradient(90deg, rgb(255, 255, 255), rgb(255, 255, 255));
+}
+.page-section.manual-cards .manual-cards-list .card.pattern2 {
+  background-image: radial-gradient(circle at 29% 55%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 4%, transparent 4%, transparent 44%, transparent 44%, transparent 100%), radial-gradient(circle at 85% 89%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 51%, transparent 51%, transparent 52%, transparent 52%, transparent 100%), radial-gradient(circle at 6% 90%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 53%, transparent 53%, transparent 64%, transparent 64%, transparent 100%), radial-gradient(circle at 35% 75%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 6%, transparent 6%, transparent 98%, transparent 98%, transparent 100%), radial-gradient(circle at 56% 75%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 16%, transparent 16%, transparent 23%, transparent 23%, transparent 100%), radial-gradient(circle at 42% 0%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 3%, transparent 3%, transparent 26%, transparent 26%, transparent 100%), radial-gradient(circle at 29% 28%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 51%, transparent 51%, transparent 75%, transparent 75%, transparent 100%), radial-gradient(circle at 77% 21%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 35%, transparent 35%, transparent 55%, transparent 55%, transparent 100%), radial-gradient(circle at 65% 91%, hsla(329, 0%, 99%, 0.05) 0%, hsla(329, 0%, 99%, 0.05) 46%, transparent 46%, transparent 76%, transparent 76%, transparent 100%), linear-gradient(45deg, rgb(83, 91, 235), rgb(76, 11, 174));
+}
+.page-section.manual-cards .manual-cards-list .card.pattern2 * {
+  color: #fff;
+}
+.page-section.manual-cards .manual-cards-list .card .header {
+  height: 15rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.page-section.manual-cards .manual-cards-list .card .header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.page-section.manual-cards .manual-cards-list .card .header svg {
+  height: 12rem;
+}
+.page-section.manual-cards .manual-cards-list .card .card-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+}
+.page-section.manual-cards .manual-cards-list .card .body {
+  font-size: 1.6rem;
+  text-align: center;
+  padding: 2rem;
+}
+.page-section.manual-cards .manual-cards-list .card .body .title {
+  font-size: 1.8rem;
+  margin: 0;
+}
+.page-section.manual-cards .manual-cards-list .card .body .subtitle {
+  font-size: 1.6rem;
+  font-style: italic;
+  margin: 0 0 2rem;
+}
+.page-section.manual-cards .manual-cards-list .card .footer {
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+  margin-top: auto;
+}
+.page-section.manual-cards .manual-cards-list .card .footer a {
+  text-decoration: none;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+}
+.page-section.manual-cards.is-horizontal .container {
+  flex-direction: row;
+}
+@media (max-width: 767px) {
+  .page-section.manual-cards.is-horizontal .container {
+    flex-direction: column;
+    padding-top: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+  }
+}
+.page-section.manual-cards.is-horizontal .section-text {
+  flex: 0 0 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.page-section.manual-cards.is-horizontal .section-header * {
+  text-align: left;
+}
+@media (max-width: 600px) {
+  .page-section.manual-cards.is-horizontal .section-header * {
+    text-align: center;
+  }
+}
+.page-section.manual-cards.is-horizontal .section-header .text-title,
+.page-section.manual-cards.is-horizontal .section-header .text-subtitle {
+  margin: 0 0 2rem;
+}
+.page-section.manual-cards.is-horizontal .ctas-container {
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+@media (max-width: 600px) {
+  .page-section.manual-cards.is-horizontal .ctas-container {
+    justify-content: center;
+    align-items: center;
+  }
+}
+.page-section.manual-cards.is-horizontal .manual-cards-list {
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.page-section.manual-cards.is-horizontal .manual-cards-list .card {
+  max-width: none;
+  flex-direction: row;
+  margin: 0;
+  border: 1px solid #ccc;
+}
+@media (max-width: 600px) {
+  .page-section.manual-cards.is-horizontal .manual-cards-list .card {
+    display: block;
+  }
+}
+@media (max-width: 600px) {
+  .page-section.manual-cards.is-horizontal .manual-cards-list .card {
+    max-width: 28rem;
+    margin: 0 auto 2rem;
+  }
+}
+.page-section.manual-cards.is-horizontal .manual-cards-list .card * {
+  text-align: left;
+}
+@media (max-width: 600px) {
+  .page-section.manual-cards.is-horizontal .manual-cards-list .card * {
+    text-align: center;
+  }
+}
+.page-section.manual-cards.is-horizontal .manual-cards-list .card .header {
+  flex: 0 0 40%;
+  height: 100%;
+}
+@media (max-width: 767px) {
+  .page-section.manual-cards.is-horizontal .manual-cards-list .card .header {
+    height: auto;
+  }
+}
+@media (max-width: 600px) {
+  .page-section.manual-cards.is-horizontal .manual-cards-list .card .header {
+    height: 15rem;
+  }
+}
+.page-section.manual-cards.is-horizontal .manual-cards-list .card .card-text {
+  display: block;
+}
+.page-section.manual-cards.is-horizontal .manual-cards-list .card .footer {
+  display: block;
+  padding: 0 2rem;
+  margin-top: 0;
+}
+.page-section.manual-cards.is-dark {
+  color: #fff;
+}
+.page-section.manual-cards.is-dark svg g {
+  fill: #fff;
+}
+
+.page-section.tabs .container {
+  flex-direction: column;
+}
+.page-section.tabs h2,
+.page-section.tabs .text-subtitle {
+  text-align: center;
+  margin: 0 0 1rem;
+}
+.page-section.tabs .text-prose {
+  text-align: center;
+  margin: 0 auto 4rem;
+}
+.page-section.tabs .is-horizontal {
+  /**
+  * Tab content
+  * During the initial page render, we use JS to find the tallest tab-content
+  * elements. That height is then added as an inline style to the .tabs-content
+  * container. Setting the height of every .tab-content container to 100% allows
+  * for a smooth transition between tabs.
+  */
+}
+.page-section.tabs .is-horizontal .tabs {
+  padding: 0 0 5rem;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .page-section.tabs .is-horizontal .tabs {
+    display: none;
+  }
+}
+.page-section.tabs .is-horizontal .tabs li {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  height: 4rem;
+  border-bottom: 1px solid #ccc;
+  text-align: center;
+  margin: 0;
+}
+.page-section.tabs .is-horizontal .tabs li.active {
+  border-bottom: 3px solid #ff0000;
+}
+.page-section.tabs .is-horizontal .tabs-content {
+  position: relative;
+  min-height: 400px;
+}
+@media (max-width: 600px) {
+  .page-section.tabs .is-horizontal .tabs-content {
+    height: auto !important;
+    padding-top: 0;
+  }
+}
+.page-section.tabs .is-horizontal .tab-content {
+  height: 100%;
+  display: flex;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: opacity 0.3s ease-in-out;
+  background-color: var(--high-contrast-glass-background);
+  backdrop-filter: var(--default-glass-blur);
+  box-shadow: var(--default-box-shadow);
+}
+@media (max-width: 600px) {
+  .page-section.tabs .is-horizontal .tab-content {
+    position: static;
+    opacity: 1;
+    margin-bottom: 2rem;
+    flex-direction: column;
+  }
+}
+.page-section.tabs .is-horizontal .tab-content.active {
+  opacity: 1;
+  pointer-events: all;
+}
+.page-section.tabs .is-horizontal .tab-content .text {
+  flex: 0 0 50%;
+  padding: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+}
+.page-section.tabs .is-horizontal .tab-content .text * {
+  margin-top: 0;
+}
+.page-section.tabs .is-horizontal .tab-content .text .text-prose {
+  text-align: left;
+  margin: 0 0 2rem;
+}
+.page-section.tabs .is-horizontal .tab-content .text .ctas-container {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.page-section.tabs .is-horizontal .tab-content .media {
+  flex: 0 0 50%;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.page-section.tabs .is-horizontal .tab-content .media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.page-section.tabs .container {
+  flex-direction: column;
+}
+.page-section.tabs h2,
+.page-section.tabs .text-subtitle {
+  text-align: center;
+  margin: 0 0 1rem;
+}
+.page-section.tabs .text-prose {
+  text-align: center;
+  margin: 0 auto 4rem;
+}
+.page-section.tabs .is-vertical {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin: 0 auto;
+  position: relative;
+}
+@media (max-width: 767px) {
+  .page-section.tabs .is-vertical {
+    display: block;
+  }
+}
+.page-section.tabs .is-vertical > * {
+  flex: 0 0 50%;
+  list-style: none;
+}
+.page-section.tabs .is-vertical ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.page-section.tabs .is-vertical li {
+  /**
+   * reset the transform from the li so we can position  
+   * the media absolutely with reference to flex container.
+   * li's have a transform applied to them globally to 
+   * animate them on page load 
+   */
+  transform: none;
+  padding-left: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+  border-left: 4px solid #ccc;
+}
+.page-section.tabs .is-vertical li.active {
+  border-left-color: #3f2787;
+}
+.page-section.tabs .is-vertical li h4 {
+  position: relative;
+  font-size: 1.5625rem;
+  font-weight: bold;
+  margin: 0;
+  padding: 2rem 0;
+  cursor: pointer;
+}
+.page-section.tabs .is-vertical li h4 .status {
+  float: right;
+}
+.page-section.tabs .is-vertical li h4 + div {
+  max-height: 1px;
+  overflow: hidden;
+  border-bottom: 1px solid #ccc;
+  transition: all 0.3s ease-in-out;
+}
+@media (max-width: 767px) {
+  .page-section.tabs .is-vertical li h4 + div {
+    max-height: 0;
+    width: 100%;
+  }
+}
+.page-section.tabs .is-vertical li.active h4 {
+  cursor: default;
+  pointer-events: none;
+}
+.page-section.tabs .is-vertical li.active h4 .status {
+  display: none;
+}
+.page-section.tabs .is-vertical li .text-prose {
+  text-align: left;
+  margin: 0 0 2rem;
+}
+@media (max-width: 767px) {
+  .page-section.tabs .is-vertical li {
+    padding: 0;
+    border: none;
+  }
+}
+.page-section.tabs .is-vertical li.active h4 + div {
+  max-height: 800px;
+  padding-bottom: 20px;
+}
+.page-section.tabs .is-vertical li:last-of-type h4 + div {
+  border-bottom: none;
+}
+.page-section.tabs .is-vertical li .media {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 400px;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+  transition: opacity 0.3s ease-in-out;
+}
+@media (max-width: 767px) {
+  .page-section.tabs .is-vertical li .media {
+    position: static;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+.page-section.tabs .is-vertical li .media img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+}
+.page-section.tabs .is-vertical li.active .media {
+  opacity: 1;
+}
+
+.page-section.testimonials .container {
+  flex-direction: column;
+}
+.page-section.testimonials .attribution {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+.page-section.testimonials .attribution img {
+  width: 8rem;
+  height: 8rem;
+}
+.page-section.testimonials .attribution .quotee {
+  padding-left: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+}
+.page-section.testimonials .attribution .quotee .name {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.page-section.testimonials .attribution p {
+  margin: 0;
+  font-size: 1.6rem;
+}
+.page-section.testimonials .testimonial-single {
+  display: flex;
+}
+.page-section.testimonials .testimonial-single blockquote {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.page-section.testimonials .testimonial-single blockquote > p {
+  font-size: 3rem;
+  font-style: italic;
+}
+.page-section.testimonials .testimonials-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin: 5rem 0;
+}
+.page-section.testimonials .testimonials-list .testimonial {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  max-width: 32rem;
+  margin: 0;
+}
+.page-section.testimonials .testimonials-list blockquote {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding-top: 2rem;
+}
+.page-section.testimonials .testimonials-list blockquote footer {
+  margin-top: auto;
+}
+.page-section.testimonials .testimonials-list + .ctas-container {
+  justify-content: center;
 }
 
 /* Flex Section components */
