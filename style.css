@@ -1970,6 +1970,189 @@ textarea {
   justify-content: center;
 }
 
+#video-overlay,
+#cloudinary-video-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3000;
+  background-color: #3f2787;
+  display: none;
+}
+#video-overlay.is-open,
+#cloudinary-video-overlay.is-open {
+  display: block;
+}
+#video-overlay .close,
+#cloudinary-video-overlay .close {
+  position: absolute;
+  z-index: 1;
+  top: 7vh;
+  right: 10vw;
+  font-size: 20px;
+  color: #fff;
+}
+#video-overlay .close:hover,
+#cloudinary-video-overlay .close:hover {
+  cursor: pointer;
+  color: #666;
+}
+#video-overlay .responsive-wrapper,
+#cloudinary-video-overlay .responsive-wrapper {
+  position: fixed;
+  top: 10vh;
+  left: 10vw;
+  width: 80vw;
+  z-index: 1003;
+  overflow: visible;
+}
+#video-overlay .video-container,
+#cloudinary-video-overlay .video-container {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+#video-overlay .video-container iframe,
+#cloudinary-video-overlay .video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+#video-overlay.fadeout,
+#cloudinary-video-overlay.fadeout {
+  animation-duration: 1s;
+  animation-name: fadeout;
+  animation-fill-mode: forwards;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+#video-overlay.fadein,
+#cloudinary-video-overlay.fadein {
+  display: block;
+  animation-duration: 1s;
+  animation-name: fadein;
+  animation-fill-mode: forwards;
+}
+
+.video {
+  background-color: #000;
+}
+.video button {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+.video button .play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+  margin: -30px 0 0 -30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: #fff;
+  transition: all 0.5s ease-in-out;
+  cursor: pointer;
+}
+.video button .play-button:after {
+  position: absolute;
+  top: 12px;
+  left: 20px;
+  display: block;
+  content: "";
+  width: 0;
+  height: 0;
+  border-width: 18px 28px;
+  border-style: solid;
+  border-color: transparent transparent transparent #000;
+  transition: all 0.5s ease-in-out;
+}
+.video button:hover {
+  transform: none;
+}
+.video button:hover .play-button {
+  background-color: #666;
+}
+.video button:hover .play-button:after {
+  border-color: transparent transparent transparent #fff;
+}
+.video .inline {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.video .inline .inline-video-wrapper {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+.video .inline .video-trigger {
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  transition: opacity 0.5s ease-in-out;
+  height: 100%;
+}
+.video .inline.video-playing .video-trigger {
+  opacity: 0;
+  pointer-events: none;
+}
+.video .inline.video-playing .inline-video-wrapper {
+  opacity: 1;
+}
+
+.inline-video-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+.inline-video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.inline-video-link {
+  display: inline-block;
+  height: 1.4em;
+  width: 1.4em;
+  line-height: 1.3;
+  text-align: center;
+  padding-left: 0.1em;
+  font-size: 0.75em;
+  border: 1px solid blue;
+  border-radius: 0.7em;
+  margin: 0 0.5em;
+}
+
 /* Flex Section components */
 .audio {
   position: relative;
@@ -2352,6 +2535,16 @@ button.inverted, .button.inverted {
   flex-wrap: wrap;
 }
 
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon svg {
+  width: 80%;
+  height: 80%;
+}
+
 .icon-links li {
   margin-bottom: 1rem;
 }
@@ -2512,6 +2705,14 @@ button.inverted, .button.inverted {
     max-width: 50rem;
     margin: 0 auto;
   }
+}
+
+.flex-section.text-audio .ctas {
+  justify-content: flex-start;
+}
+
+.flex-section.text-image .ctas {
+  justify-content: flex-start;
 }
 
 .flex-section.text-icon-link-list .column:nth-child(2) {

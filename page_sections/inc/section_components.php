@@ -6,6 +6,9 @@
    * In addition the opening tag for a container div is added
    */
   function render_open_tag($section) {
+    // Get section name
+    $section_name = str_replace('_', '-', $section);
+
     // Get the properties for the current section
     $props = get_sub_field($section);
 
@@ -24,20 +27,19 @@
     // Get the section ID, if any
     $section_id = $common_fields ? $props['common_section_fields']['section_id'] : '';
 
-    // Start the wrapper element tag
-    echo sprintf("<%s", $wrapper_type);
-    // If a section ID is set, add it to the wrapper element
-    if (!empty($section_id)) {
-        echo sprintf(" id='%s'", $section_id);
-    }
-    // Add the classes to the wrapper element
-    echo sprintf(" class='page-section %s %s' ", str_replace('_', '-', $section), $body_classes);
-    // If styles are set, add them to the wrapper element
-    if ($body_styles) {
-        echo sprintf("style='%s'", $body_styles);
-    }
-    // Close the the opening wrapper element tag
-    echo ">";
+    // Prepare the id attribute
+    $id_attr = !empty($section_id) ? " id='{$section_id}'" : '';
+
+    // Prepare the style attribute
+    $style_attr = $body_styles ? " style='{$body_styles}'" : '';
+
+    // Output the opening tag
+    $tag = <<<OPENTAG
+      <$wrapper_type$id_attr class='page-section $section_name $body_classes'$style_attr>
+    OPENTAG;
+
+    echo $tag;
+
   }
 
   /**
@@ -51,7 +53,13 @@
     // Get the wrapper type, default to 'section' if not set
     $wrapper_type = $props['common_section_fields'] ? $props['common_section_fields']['wrapper_element'] : 'section';
 
-    echo sprintf("</%s>", $wrapper_type);
+    // Output the closing tag
+    $tag = <<<CLOSINGTAG
+    </$wrapper_type>
+    CLOSINGTAG;
+
+    echo $tag;
+
   }
 
   /**
@@ -102,7 +110,12 @@
     $external_attributes = isset($cta['link']['target']) ? "target='_blank' rel='noopener noreferrer'" : null;
     $hint = $cta['link']['target'] === "_blank" ? "<span class='screen-reader-text'>Opens a new tab</span>" : null;
 
-    echo "<a class='cta " . esc_attr($button_class) . "' href='" . esc_url($url) . "' $external_attributes>" . esc_html($label) . $hint . "</a>";
+    $output = <<<CTA
+      <a class='cta {$button_class}' href='{$url}' {$external_attributes}>{$label}{$hint}</a>
+    CTA;
+
+    echo $output;
+
   }
 
   /**
@@ -116,34 +129,48 @@
     $output = "<ul class='icon-links'>";
     foreach ($links as $link) {
       $icon = get_icon($link['icon']);
-      $output .= "<li>
-        <a href='" . esc_url($link['target']['url']) . "' target='" . esc_attr($link['target']['target']) . "'>
-          {$icon}
-          <span>" . esc_html($link['label']) . "</span>
-        </a>
-      </li>";
+      $url = esc_url($link['target']['url']);
+      $target = esc_attr($link['target']['target']);
+      $label = esc_html($link['label']);
+
+      $output .= <<<ICONLINK
+        <li>
+          <a href="{$url}" target="{$target}">
+            {$icon}
+            <span>{$label}</span>
+          </a>
+        </li>
+      ICONLINK;
     }
     $output .= "</ul>";
     echo $output;
   }
+
   
   /**
    * Render an audio component with optional thumbnail
    */
   function render_audio_component($audio) {
-    if (!isset($audio['source'])) {
-      return;
-    }
+      if (!isset($audio['source'])) {
+        return;
+      }
 
-    // get the audio file extension so we can form the proper mime type
-    // the url may include a query parameter, so we use parse_url to get the path
-    $audio_path = parse_url($audio['source'])['path'];
-    $audio_file_extension = trim(pathinfo($audio_path)['extension']);
+      // get the audio file extension so we can form the proper mime type
+      // the url may include a query parameter, so we use parse_url to get the path
+      $audio_path = parse_url($audio['source'])['path'];
+      $audio_file_extension = trim(pathinfo($audio_path)['extension']);
 
-    echo "<audio controls>
-      <source src='" . esc_url($audio['source']) . "' type='audio/" . esc_attr($audio_file_extension) . "'/>
-      Your browser does not support the audio element.
-    </audio>";
+      $source = esc_url($audio['source']);
+      $type = esc_attr($audio_file_extension);
+
+      $output = <<<AUDIO
+        <audio controls>
+          <source src="{$source}" type="audio/{$type}"/>
+          Your browser does not support the audio element.
+        </audio>
+      AUDIO;
+
+      echo $output;
   }
 
   function get_icon($icon) {
@@ -179,35 +206,52 @@
    */
   function render_lottie_component($lottie) {
     if (!isset($lottie['source'])) {
-        return;
+      return;
     }
-    echo "<lottie-player class='js-lottie' src='" . $lottie['source'] . "' background='transparent'  'speed=1' autoplay=true loop=true ></lottie-player>";
+
+    $source = $lottie['source'];
+
+    $output = <<<LOTTIEPLAYER
+      <lottie-player class='js-lottie' src='{$source}' background='transparent' speed='1' autoplay=true loop=true></lottie-player>
+    LOTTIEPLAYER;
+
+    echo $output;
   }
+
 
   /**
    * Render an video component with optional thumbnail
    */
   function render_video_component($video) {
-      extract($video);
+    extract($video);
 
-      if ($inline) : ?>
+    $video_thumbnail = wp_get_attachment_image($thumbnail['id'], 'large', false, ['alt' => $thumbnail['alt_text']]);
+
+    if ($inline) {
+      $output = <<<EOT
         <div class="inline">
           <div class="inline-video-wrapper js-inline-video-wrapper">
-            <div class="js-inline-video" data-videoid="<?php echo esc_attr($id); ?>"></div>
+            <div class="js-inline-video" data-videoid="{$id}"></div>
           </div>
-      
+
           <button class="video-trigger">
             <div class="play-button"></div>
-            <img src="<?php echo esc_url($thumbnail['url']); ?>" alt="<?php echo esc_attr($thumbnail['alt_text']); ?>" />
+            $video_thumbnail
           </button>
         </div>
-      <?php else : ?>
-        <button class="js-modal-video" data-videoid="<?php echo esc_attr($id); ?>" data-videosrc="<?php echo esc_url($source); ?>" >
+      EOT;
+            
+    } else {        
+      $output = <<<EOT
+        <button class="js-modal-video js-modal-{$source}-video" data-videoid="{$id}" data-videosrc="{$source}">
           <div class="play-button"></div>
-          <img src="<?php echo esc_url($thumbnail['url']); ?>" alt="<?php echo esc_attr($thumbnail['alt_text']); ?>" />
+          $video_thumbnail
         </button>
-      <?php endif;  
+      EOT;
+    }
+    echo $output;
   }
+
 
   /** 
    * Render a resourse card component

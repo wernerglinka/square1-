@@ -1,9 +1,10 @@
 <?php
 /**
- * Renders a row with CTAs
- * This row is used in the any-block section.
- * It is called via 'get_template_part('section_column_rows/' . $row_name, null, $row)'
- * where $args is passing in the $row array
+ * Renders a CTAs component
+ * It is called in flex_section via:
+ * $component_name = $component['acf_fc_layout'];
+ * get_template_part('section_blocks/' . $component_name, null, $component);
+ * where $args is passing in the $component array
  *
  * @package square1
  */

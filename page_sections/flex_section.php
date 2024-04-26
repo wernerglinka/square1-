@@ -15,11 +15,15 @@ $number_of_columns = count($columns);
   <?php foreach ($columns as $column) : ?>
     <div class="column">
       <?php 
-        $components = $column['components'];
+      $components = $column['components'];
+      if (empty($components)) {
+        echo "No components found.";
+      } else {
         foreach ($components as $component) :
           $component_name = $component['acf_fc_layout'];
           get_template_part('section_blocks/' . $component_name, null, $component);
         endforeach; 
+      }
       ?>
     </div>
   <?php endforeach; ?>

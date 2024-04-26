@@ -5,9 +5,13 @@
   function render_title($title, $header_level) {
     $title = preg_replace('/^<[^>]+>|<\/[^>]+>$/', '', $title);
 
-    echo "<" . $header_level . " class='text-title'>";
-    echo $title;
-    echo "</" . $header_level . ">";
+    $output = <<<EOT
+      <$header_level class='text-title'>
+        $title
+      </$header_level>
+    EOT;
+
+    echo $output;
   }
 ?>
 
@@ -62,86 +66,75 @@
 
 <?php 
   function build_section_class_string($params) {
-    // build the body classes string
-    $string= "";
-    // add the section type to the classes string
-    if (!empty($params['common_section_fields']['section_type'])) {
-      $string .= $params['common_section_fields']['section_type'];
+    $classes = [];
+    $fields = $params['common_section_fields'] ?? [];
+
+    if (!empty($fields['section_type'])) {
+      $classes[] = $fields['section_type'];
     }
-    // add the section direction to the classes string - false is normal, true is reversed
-    if (isset($params['common_section_fields']['section_direction']) && $params['common_section_fields']['section_direction']) {
-      $string .= " is-reversed";
+
+    if (!empty($fields['section_direction'])) {
+      $classes[] = 'is-reversed';
     }
-    if (isset($params['common_section_fields']['settings']) && in_array("in_container", $params['common_section_fields']['settings'])) {
-      $string .= " in-container";
-    }
-    if (isset($params['common_section_fields']['settings']) && in_array("no_top_margin", $params['common_section_fields']['settings'])) {
-      $string .= " no-top-margin";
-    }
-    if (isset($params['common_section_fields']['settings']) && in_array("no_bottom_margin", $params['common_section_fields']['settings'])) {
-      $string .= " no-bottom-margin";
-    }
-    if (isset($params['common_section_fields']['settings']) && in_array("narrow_width", $params['common_section_fields']['settings'])) {
-      $string .= " narrow-width";
-    }
-    if (!empty($params['common_section_fields']['background_is_dark'])) {
-      $string .= " is-dark";
-    }
-    if (isset($params['is_horizontal']) && $params['is_horizontal']) {
-      $string .= " is-horizontal";
-    }
-    if(isset($params['common_section_fields']['section_classes']) && $params['common_section_fields']['section_classes'] != "") {
-      $string .= " " . $params['common_section_fields']['section_classes'];
-    }
-    // Check if a background color is set and not "none"
-    if (isset($params['common_section_fields']['background_color'])
-      && !empty($params['common_section_fields']['background_color'])
-      && $params['common_section_fields']['background_color'] !== "none") {
-      $string .= " has-background-color";
-    }
-    // Check if a background image is set, then add it to the styles string
-    if (isset($params['common_section_fields']['background_image']['id'])
-      && !empty($params['common_section_fields']['background_image']['id'])) {
-      $string .= " has-background-image";
-    }
-    // Check if the section has a CSS Pattern background
-    if (isset($params['common_section_fields']['background_pattern']['css_pattern']) && $params['common_section_fields']['background_pattern']['css_pattern'] !== "none") {
-      $string .= " " . $params['common_section_fields']['background_pattern']['css_pattern'];
-    }
-    // section has a screen in front of the background image
-    if (isset($params['common_section_fields']['screen']['has_screen']) && $params['common_section_fields']['screen']['has_screen']) {
-      if ($params['common_section_fields']['screen']['dark_screen']) {
-        $string .= " has-dark-screen";
-      } else {
-        $string .= " has-light-screen";
+
+    $settings = $fields['settings'] ?? [];
+    $settingsClasses = [
+      'in_container' => 'in-container',
+      'no_top_margin' => 'no-top-margin',
+      'no_bottom_margin' => 'no-bottom-margin',
+      'narrow_width' => 'narrow-width',
+    ];
+
+    foreach ($settingsClasses as $setting => $class) {
+      if (in_array($setting, $settings)) {
+        $classes[] = $class;
       }
     }
 
-    //echo "<pre>";
-    //print_r($string); 
-    //echo "</pre>";
+    if (!empty($fields['background_is_dark'])) {
+      $classes[] = 'is-dark';
+    }
 
-    return $string;
-  } // end build_section_class_string
+    if (!empty($params['is_horizontal'])) {
+      $classes[] = 'is-horizontal';
+    }
+
+    if (!empty($fields['section_classes'])) {
+      $classes[] = $fields['section_classes'];
+    }
+
+    if (!empty($fields['background_color']) && $fields['background_color'] !== 'none') {
+      $classes[] = 'has-background-color';
+    }
+
+    if (!empty($fields['background_image']['id'])) {
+      $classes[] = 'has-background-image';
+    }
+
+    if (!empty($fields['background_pattern']['css_pattern']) && $fields['background_pattern']['css_pattern'] !== 'none') {
+      $classes[] = $fields['background_pattern']['css_pattern'];
+    }
+
+    if (!empty($fields['screen']['has_screen'])) {
+      $classes[] = $fields['screen']['dark_screen'] ? 'has-dark-screen' : 'has-light-screen';
+    }
+
+    return implode(' ', $classes);
+  }
 ?>
 
 <?php
   function build_section_styles_string($params) {
-    // Initialize the styles string
     $styles = "";
+    $fields = $params['common_section_fields'] ?? [];
 
-    // Check if a background color is set and not "none", then add it to the styles string
-    if (isset($params['common_section_fields']['background_color']) 
-      && !empty($params['common_section_fields']['background_color']) 
-      && $params['common_section_fields']['background_color'] !== "none") {
-      $styles .= "background-color: " . $params['common_section_fields']['background_color'] . ";";
+    if (!empty($fields['background_color']) && $fields['background_color'] !== "none") {
+      $styles .= "background-color: {$fields['background_color']};";
     }
 
-    // Check if a background image is set, then add it to the styles string
-    if (isset($params['common_section_fields']['background_image']['id'])
-      && !empty($params['common_section_fields']['background_image']['id'])) {
-        $image_id = $params['common_section_fields']['background_image']['id'];
-        $styles .= "--bg-image: url(" . wp_get_attachment_image_url($image_id, 'full size') . ");";
+    if (!empty($fields['background_image']['id'])) {
+      $image_id = $fields['background_image']['id'];
+      $styles .= "--bg-image: url(" . wp_get_attachment_image_url($image_id, 'full size') . ");";
     }
 
     return $styles;

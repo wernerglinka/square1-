@@ -50,9 +50,12 @@
                 "cta-banner": "CTA Banner",
                 "images": "Images",
                 "text": "Text",
+                "text-audio": "Text with Audio",
                 "text-icon": "Text with Icon",
                 "text-icon-link-list": "Text with Icon Link List",
-                "text-image": "Text with Image"
+                "text-image": "Text with Image",
+                "text-lottie": "Text with Lottie Animation",
+                "text-video": "Text with Video"
             },
             "default_value": "none",
             "return_format": "value",
@@ -193,5 +196,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1713984117
+    "modified": 1714146479
 }

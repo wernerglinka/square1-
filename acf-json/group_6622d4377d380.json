@@ -7,7 +7,7 @@
             "label": "Source",
             "name": "source",
             "aria-label": "",
-            "type": "text",
+            "type": "file",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -16,11 +16,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "",
-            "maxlength": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": ""
+            "return_format": "url",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": ""
         }
     ],
     "location": [
@@ -41,5 +41,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1713642524
+    "modified": 1714150708
 }

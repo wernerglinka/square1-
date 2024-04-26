@@ -576,16 +576,16 @@
                                                 "id": ""
                                             },
                                             "layouts": {
-                                                "layout_6627ce4c986ab": {
-                                                    "key": "layout_6627ce4c986ab",
-                                                    "name": "text",
-                                                    "label": "Text",
+                                                "layout_662bcbf9d844a": {
+                                                    "key": "layout_662bcbf9d844a",
+                                                    "name": "audio",
+                                                    "label": "Audio",
                                                     "display": "block",
                                                     "sub_fields": [
                                                         {
-                                                            "key": "field_6627ce667e7e5",
-                                                            "label": "Text",
-                                                            "name": "text",
+                                                            "key": "field_662bcc0ed844d",
+                                                            "label": "Audio",
+                                                            "name": "audio",
                                                             "aria-label": "",
                                                             "type": "clone",
                                                             "instructions": "",
@@ -597,39 +597,7 @@
                                                                 "id": ""
                                                             },
                                                             "clone": [
-                                                                "group_64385730e00de"
-                                                            ],
-                                                            "display": "seamless",
-                                                            "layout": "block",
-                                                            "prefix_label": 0,
-                                                            "prefix_name": 0
-                                                        }
-                                                    ],
-                                                    "min": "",
-                                                    "max": ""
-                                                },
-                                                "layout_6627ce847e7e6": {
-                                                    "key": "layout_6627ce847e7e6",
-                                                    "name": "image",
-                                                    "label": "Image",
-                                                    "display": "block",
-                                                    "sub_fields": [
-                                                        {
-                                                            "key": "field_6627ce8b7e7e9",
-                                                            "label": "Image",
-                                                            "name": "image",
-                                                            "aria-label": "",
-                                                            "type": "clone",
-                                                            "instructions": "",
-                                                            "required": 0,
-                                                            "conditional_logic": 0,
-                                                            "wrapper": {
-                                                                "width": "",
-                                                                "class": "",
-                                                                "id": ""
-                                                            },
-                                                            "clone": [
-                                                                "group_6438592227af1"
+                                                                "group_6622d4bf47192"
                                                             ],
                                                             "display": "seamless",
                                                             "layout": "block",
@@ -696,6 +664,38 @@
                                                     "min": "",
                                                     "max": ""
                                                 },
+                                                "layout_662bd46ab249b": {
+                                                    "key": "layout_662bd46ab249b",
+                                                    "name": "icon",
+                                                    "label": "Icon",
+                                                    "display": "block",
+                                                    "sub_fields": [
+                                                        {
+                                                            "key": "field_662bd46ab249d",
+                                                            "label": "Icon",
+                                                            "name": "icon",
+                                                            "aria-label": "",
+                                                            "type": "clone",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "clone": [
+                                                                "group_644fc82a9a0dd"
+                                                            ],
+                                                            "display": "seamless",
+                                                            "layout": "block",
+                                                            "prefix_label": 0,
+                                                            "prefix_name": 0
+                                                        }
+                                                    ],
+                                                    "min": "",
+                                                    "max": ""
+                                                },
                                                 "layout_662933f5b0ed0": {
                                                     "key": "layout_662933f5b0ed0",
                                                     "name": "icon_link_list",
@@ -718,6 +718,134 @@
                                                             },
                                                             "clone": [
                                                                 "group_6629331e327cf"
+                                                            ],
+                                                            "display": "seamless",
+                                                            "layout": "block",
+                                                            "prefix_label": 0,
+                                                            "prefix_name": 0
+                                                        }
+                                                    ],
+                                                    "min": "",
+                                                    "max": ""
+                                                },
+                                                "layout_6627ce847e7e6": {
+                                                    "key": "layout_6627ce847e7e6",
+                                                    "name": "image",
+                                                    "label": "Image",
+                                                    "display": "block",
+                                                    "sub_fields": [
+                                                        {
+                                                            "key": "field_6627ce8b7e7e9",
+                                                            "label": "Image",
+                                                            "name": "image",
+                                                            "aria-label": "",
+                                                            "type": "clone",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "clone": [
+                                                                "group_6438592227af1"
+                                                            ],
+                                                            "display": "seamless",
+                                                            "layout": "block",
+                                                            "prefix_label": 0,
+                                                            "prefix_name": 0
+                                                        }
+                                                    ],
+                                                    "min": "",
+                                                    "max": ""
+                                                },
+                                                "layout_662bd7f2ff188": {
+                                                    "key": "layout_662bd7f2ff188",
+                                                    "name": "lottie",
+                                                    "label": "Lottie",
+                                                    "display": "block",
+                                                    "sub_fields": [
+                                                        {
+                                                            "key": "field_662bd7f2ff18a",
+                                                            "label": "Lottie",
+                                                            "name": "lottie",
+                                                            "aria-label": "",
+                                                            "type": "clone",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "clone": [
+                                                                "group_6622d4377d380"
+                                                            ],
+                                                            "display": "seamless",
+                                                            "layout": "block",
+                                                            "prefix_label": 0,
+                                                            "prefix_name": 0
+                                                        }
+                                                    ],
+                                                    "min": "",
+                                                    "max": ""
+                                                },
+                                                "layout_6627ce4c986ab": {
+                                                    "key": "layout_6627ce4c986ab",
+                                                    "name": "text",
+                                                    "label": "Text",
+                                                    "display": "block",
+                                                    "sub_fields": [
+                                                        {
+                                                            "key": "field_6627ce667e7e5",
+                                                            "label": "Text",
+                                                            "name": "text",
+                                                            "aria-label": "",
+                                                            "type": "clone",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "clone": [
+                                                                "group_64385730e00de"
+                                                            ],
+                                                            "display": "seamless",
+                                                            "layout": "block",
+                                                            "prefix_label": 0,
+                                                            "prefix_name": 0
+                                                        }
+                                                    ],
+                                                    "min": "",
+                                                    "max": ""
+                                                },
+                                                "layout_662be5d648c70": {
+                                                    "key": "layout_662be5d648c70",
+                                                    "name": "video",
+                                                    "label": "Video",
+                                                    "display": "block",
+                                                    "sub_fields": [
+                                                        {
+                                                            "key": "field_662be5d648c72",
+                                                            "label": "Video",
+                                                            "name": "video",
+                                                            "aria-label": "",
+                                                            "type": "clone",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "clone": [
+                                                                "group_6622d5e7385f9"
                                                             ],
                                                             "display": "seamless",
                                                             "layout": "block",
@@ -3575,5 +3703,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1713979373
+    "modified": 1714152953
 }

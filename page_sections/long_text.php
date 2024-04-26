@@ -7,7 +7,7 @@
 
   $props = $args['props'];
   $text = $props['text'];
-  $background_image = $props['common_section_fields']['background_image'];
+  //$background_image = $props['common_section_fields']['background_image'];
   
   //echo "<pre>";
   //print_r($props);
