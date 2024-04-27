@@ -1,6 +1,6 @@
-const youtubeVideo = ( function () {
+const vimeoVideo = ( function () {
   const init = function () {
-    const modalVideoTriggers = document.querySelectorAll( '.js-modal-youtube-video' );
+    const modalVideoTriggers = document.querySelectorAll( '.js-modal-vimeo-video' );
     // if no video trigger links on page return
     if ( modalVideoTriggers.length < 1 ) {
       return;
@@ -10,9 +10,11 @@ const youtubeVideo = ( function () {
 
     // delegate click event listeners for modal videos to the document
     document.addEventListener( 'click', ( e ) => {
-      if ( e.target.matches( '.js-modal-youtube-video, .js-modal-youtube-video * ' ) ) {
-        const thisTrigger = e.target.closest( '.js-modal-youtube-video' );
+      if ( e.target.matches( '.js-modal-vimeo-video, .js-modal-vimeo-video * ' ) ) {
+        const thisTrigger = e.target.closest( '.js-modal-vimeo-video' );
         const requestedVideoID = thisTrigger.dataset.videoid;
+
+        console.log( 'hey' );
 
         e.preventDefault();
         e.stopPropagation();
@@ -33,13 +35,12 @@ const youtubeVideo = ( function () {
 
         const newIFrame = `
           <iframe
-            src="https://www.youtube.com/embed/${ requestedVideoID }"
-            width="560"
-            height="315"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            src="https://player.vimeo.com/video/${ requestedVideoID }"
+            width="640"
+            height="360"
             frameborder="0"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen></iframe>
         `;
         // insert iframe into the video-container in the overlay
         document.querySelector( '#video-overlay .video-container' ).innerHTML = newIFrame;
@@ -75,4 +76,4 @@ const youtubeVideo = ( function () {
   };
 }() );
 
-export default youtubeVideo;
+export default vimeoVideo;

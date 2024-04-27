@@ -1971,7 +1971,8 @@ textarea {
 }
 
 #video-overlay,
-#cloudinary-video-overlay {
+#cloudinary-video-overlay,
+#vimeo-video-overlay {
   position: fixed;
   top: 0;
   right: 0;
@@ -1982,11 +1983,13 @@ textarea {
   display: none;
 }
 #video-overlay.is-open,
-#cloudinary-video-overlay.is-open {
+#cloudinary-video-overlay.is-open,
+#vimeo-video-overlay.is-open {
   display: block;
 }
 #video-overlay .close,
-#cloudinary-video-overlay .close {
+#cloudinary-video-overlay .close,
+#vimeo-video-overlay .close {
   position: absolute;
   z-index: 1;
   top: 7vh;
@@ -1995,12 +1998,14 @@ textarea {
   color: #fff;
 }
 #video-overlay .close:hover,
-#cloudinary-video-overlay .close:hover {
+#cloudinary-video-overlay .close:hover,
+#vimeo-video-overlay .close:hover {
   cursor: pointer;
   color: #666;
 }
 #video-overlay .responsive-wrapper,
-#cloudinary-video-overlay .responsive-wrapper {
+#cloudinary-video-overlay .responsive-wrapper,
+#vimeo-video-overlay .responsive-wrapper {
   position: fixed;
   top: 10vh;
   left: 10vw;
@@ -2009,14 +2014,16 @@ textarea {
   overflow: visible;
 }
 #video-overlay .video-container,
-#cloudinary-video-overlay .video-container {
+#cloudinary-video-overlay .video-container,
+#vimeo-video-overlay .video-container {
   position: relative;
   width: 100%;
   height: 0;
   padding-bottom: 56.25%;
 }
 #video-overlay .video-container iframe,
-#cloudinary-video-overlay .video-container iframe {
+#cloudinary-video-overlay .video-container iframe,
+#vimeo-video-overlay .video-container iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -2032,7 +2039,8 @@ textarea {
   }
 }
 #video-overlay.fadeout,
-#cloudinary-video-overlay.fadeout {
+#cloudinary-video-overlay.fadeout,
+#vimeo-video-overlay.fadeout {
   animation-duration: 1s;
   animation-name: fadeout;
   animation-fill-mode: forwards;
@@ -2046,7 +2054,8 @@ textarea {
   }
 }
 #video-overlay.fadein,
-#cloudinary-video-overlay.fadein {
+#cloudinary-video-overlay.fadein,
+#vimeo-video-overlay.fadein {
   display: block;
   animation-duration: 1s;
   animation-name: fadein;

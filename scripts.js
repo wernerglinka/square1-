@@ -3,11 +3,9 @@
   var navigation = function() {
     "use strict";
     const init = () => {
-      console.log("enter init navigation");
       if (!document.querySelector(".js-header")) {
         return;
       }
-      console.log("init navigation");
       const header = document.querySelector(".js-header");
       const mainMenu = document.querySelector(".js-main-menu");
       const page = document.body;
@@ -57,43 +55,38 @@
   var debounce_default = debounce;
 
   // js/modules/section-animation.js
-  var sectionAnimations = function() {
+  var sectionAnimations = (() => {
     "use strict";
     const showSection = (entries, observer) => {
-      for (const entry of entries) {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const thisSection = entry.target;
           thisSection.classList.remove("is-hidden");
           observer.unobserve(thisSection);
         }
-      }
+      });
     };
-    const updateSections = debounce_default(function() {
+    const updateSections = debounce_default(() => {
       const observer = new IntersectionObserver(showSection);
       const allSections = document.querySelectorAll(".js-is-animated");
-      for (const section of allSections) {
-        observer.observe(section);
-      }
+      allSections.forEach((section) => observer.observe(section));
     }, 500);
     const init = () => {
-      console.log("init section animations");
       const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
       const allSections = document.querySelectorAll(".js-is-animated");
-      for (const section of allSections) {
+      allSections.forEach((section) => {
         const rect = section.getBoundingClientRect();
         if (rect.top > viewportHeight) {
-          console.log("hide section");
           section.classList.add("is-hidden");
         }
-      }
+      });
       const resizeObserver = new ResizeObserver(updateSections);
-      const resizeElement = document.body;
-      resizeObserver.observe(resizeElement);
+      resizeObserver.observe(document.body);
     };
     return {
       init
     };
-  }();
+  })();
   var section_animation_default = sectionAnimations;
 
   // js/modules/mobileFlipcardSupport.js
@@ -194,15 +187,18 @@
   var lottieAnimation_default = lottieAnimations;
 
   // js/modules/youtube.js
-  var youtubeVideo = /* @__PURE__ */ (() => {
-    let player;
-    const initVideoLinks = () => {
+  var youtubeVideo = /* @__PURE__ */ function() {
+    const init = function() {
+      const modalVideoTriggers = document.querySelectorAll(".js-modal-youtube-video");
+      if (modalVideoTriggers.length < 1) {
+        return;
+      }
       const videoOverlay = document.getElementById("video-overlay");
       const closeVideoOverlay = videoOverlay.querySelector(".close");
       document.addEventListener("click", (e) => {
-        if (e.target.matches(".js-modal-youtube-video, .js-modal-youtube-video *")) {
+        if (e.target.matches(".js-modal-youtube-video, .js-modal-youtube-video * ")) {
           const thisTrigger = e.target.closest(".js-modal-youtube-video");
-          const { videoid: requestedVideoID, startTime, endTime } = thisTrigger.dataset;
+          const requestedVideoID = thisTrigger.dataset.videoid;
           e.preventDefault();
           e.stopPropagation();
           videoOverlay.addEventListener(
@@ -215,28 +211,21 @@
           );
           videoOverlay.classList.add("fadein");
           document.body.classList.add("modal-active");
-          if (requestedVideoID === player.getVideoEmbedCode()) {
-            player.playVideo();
-          } else {
-            player.loadVideoById({
-              videoId: requestedVideoID,
-              startSeconds: startTime || null,
-              endSeconds: endTime || null
-            });
-          }
-          player.setVolume(50);
+          const newIFrame = `
+          <iframe
+            src="https://www.youtube.com/embed/${requestedVideoID}"
+            width="560"
+            height="315"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            frameborder="0"
+            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        `;
+          document.querySelector("#video-overlay .video-container").innerHTML = newIFrame;
         }
       });
       closeVideoOverlay.addEventListener("click", () => {
-        let currentVolume = player.getVolume();
-        const fadeout = setInterval(() => {
-          if (currentVolume <= 0) {
-            player.pauseVideo();
-            clearInterval(fadeout);
-          }
-          currentVolume -= 5;
-          player.setVolume(currentVolume);
-        }, 100);
+        document.querySelector("#video-overlay .video-container").innerHTML = "";
         videoOverlay.addEventListener(
           "animationend",
           () => {
@@ -247,56 +236,130 @@
         );
         videoOverlay.classList.add("fadeout");
         document.body.classList.remove("modal-active");
-      });
-    };
-    const onPlayerStateChange = (event) => {
-      const videoOverlay = document.getElementById("video-overlay");
-      if (event.data === YT.PlayerState.ENDED) {
-        videoOverlay.addEventListener(
-          "animationend",
-          () => {
-            videoOverlay.classList.remove("is-open");
-            videoOverlay.classList.remove("fadeout");
-          },
-          { once: true }
-        );
-        videoOverlay.classList.add("fadeout");
-        document.body.classList.remove("modal-active");
-      }
-    };
-    const init = () => {
-      const modalVideoTriggers = document.querySelectorAll(".js-modal-youtube-video");
-      if (modalVideoTriggers.length < 1) {
-        return;
-      }
-      window.videoAPIReady.then(() => {
-        const { videoid: videoId, startTime, endTime } = modalVideoTriggers[0].dataset;
-        const playerVars = {
-          autoplay: 0,
-          start: startTime || null,
-          end: endTime || null,
-          controls: 1,
-          enablejsapi: 1,
-          wmode: "opaque",
-          origin: window.location.origin,
-          rel: 0
-        };
-        player = new YT.Player("ytvideo", {
-          videoId,
-          host: "https://www.youtube.com",
-          playerVars,
-          events: {
-            onReady: initVideoLinks,
-            onStateChange: onPlayerStateChange
-          }
-        });
       });
     };
     return {
       init
     };
-  })();
+  }();
   var youtube_default = youtubeVideo;
+
+  // js/modules/cloudinary.js
+  var cloudinaryVideo = /* @__PURE__ */ function() {
+    const init = function() {
+      const modalVideoTriggers = document.querySelectorAll(".js-modal-cloudinary-video");
+      if (modalVideoTriggers.length < 1) {
+        return;
+      }
+      const videoOverlay = document.getElementById("video-overlay");
+      const closeVideoOverlay = videoOverlay.querySelector(".close");
+      document.addEventListener("click", (e) => {
+        if (e.target.matches(".js-modal-cloudinary-video, .js-modal-cloudinary-video * ")) {
+          const thisTrigger = e.target.closest(".js-modal-cloudinary-video");
+          const requestedVideoID = thisTrigger.dataset.videoid;
+          e.preventDefault();
+          e.stopPropagation();
+          videoOverlay.addEventListener(
+            "animationend",
+            () => {
+              videoOverlay.classList.add("is-open");
+              videoOverlay.classList.remove("fadein");
+            },
+            { once: true }
+          );
+          videoOverlay.classList.add("fadein");
+          document.body.classList.add("modal-active");
+          const newIFrame = `
+          <iframe
+            src="https://player.cloudinary.com/embed/?cloud_name=demo&public_id=${requestedVideoID}",
+            width="640"
+            height="360"
+            style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowfullscreen
+            frameborder="0"
+          ></iframe>
+        `;
+          document.querySelector("#video-overlay .video-container").innerHTML = newIFrame;
+        }
+      });
+      closeVideoOverlay.addEventListener("click", () => {
+        document.querySelector("#video-overlay .video-container").innerHTML = "";
+        videoOverlay.addEventListener(
+          "animationend",
+          () => {
+            videoOverlay.classList.remove("is-open");
+            videoOverlay.classList.remove("fadeout");
+          },
+          { once: true }
+        );
+        videoOverlay.classList.add("fadeout");
+        document.body.classList.remove("modal-active");
+      });
+    };
+    return {
+      init
+    };
+  }();
+  var cloudinary_default = cloudinaryVideo;
+
+  // js/modules/vimeo.js
+  var vimeoVideo = /* @__PURE__ */ function() {
+    const init = function() {
+      const modalVideoTriggers = document.querySelectorAll(".js-modal-vimeo-video");
+      if (modalVideoTriggers.length < 1) {
+        return;
+      }
+      const videoOverlay = document.getElementById("video-overlay");
+      const closeVideoOverlay = videoOverlay.querySelector(".close");
+      document.addEventListener("click", (e) => {
+        if (e.target.matches(".js-modal-vimeo-video, .js-modal-vimeo-video * ")) {
+          const thisTrigger = e.target.closest(".js-modal-vimeo-video");
+          const requestedVideoID = thisTrigger.dataset.videoid;
+          console.log("hey");
+          e.preventDefault();
+          e.stopPropagation();
+          videoOverlay.addEventListener(
+            "animationend",
+            () => {
+              videoOverlay.classList.add("is-open");
+              videoOverlay.classList.remove("fadein");
+            },
+            { once: true }
+          );
+          videoOverlay.classList.add("fadein");
+          document.body.classList.add("modal-active");
+          const newIFrame = `
+          <iframe
+            src="https://player.vimeo.com/video/${requestedVideoID}"
+            width="640"
+            height="360"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen></iframe>
+        `;
+          document.querySelector("#video-overlay .video-container").innerHTML = newIFrame;
+        }
+      });
+      closeVideoOverlay.addEventListener("click", () => {
+        document.querySelector("#video-overlay .video-container").innerHTML = "";
+        videoOverlay.addEventListener(
+          "animationend",
+          () => {
+            videoOverlay.classList.remove("is-open");
+            videoOverlay.classList.remove("fadeout");
+          },
+          { once: true }
+        );
+        videoOverlay.classList.add("fadeout");
+        document.body.classList.remove("modal-active");
+      });
+    };
+    return {
+      init
+    };
+  }();
+  var vimeo_default = vimeoVideo;
 
   // js/main.js
   function initPage() {
@@ -312,33 +375,29 @@
       const script = document.createElement("script");
       script.src = "https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js";
       script.onload = function() {
-        console.log("lottie player loaded");
         lottieAnimation_default.init();
       };
       document.head.appendChild(script);
     }
-    if (document.querySelector(".js-youtube-video")) {
-      const tag = document.createElement("script");
-      tag.src = "https://www.youtube.com/iframe_api";
-      const firstScriptTag = document.getElementsByTagName("script")[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      window.videoAPIReady = new Promise((resolve) => {
-        window.onYouTubeIframeAPIReady = resolve;
-      });
-      if (!document.querySelector("#video-overlay")) {
-        const newVideoOverlay = `
+    if (document.querySelector(".js-youtube-video") || document.querySelector(".js-cloudinary-video") || document.querySelector(".js-vimeo-video")) {
+      const newVideoOverlay = `
         <div id="video-overlay" class="js-video-overlay">
           <span class="close">[Close]</span>
           <div class="responsive-wrapper">
-            <div class="video-container">
-              <div id="ytvideo"></div>
-            </div>
+            <div class="video-container"></div>
           </div>
         </div>
       `;
-        document.body.insertAdjacentHTML("beforeend", newVideoOverlay);
-      }
+      document.body.insertAdjacentHTML("beforeend", newVideoOverlay);
+    }
+    if (document.querySelector(".js-youtube-video")) {
       youtube_default.init();
+    }
+    if (document.querySelector(".js-cloudinary-video")) {
+      cloudinary_default.init();
+    }
+    if (document.querySelector(".js-vimeo-video")) {
+      vimeo_default.init();
     }
   }
   window.addEventListener("load", function() {

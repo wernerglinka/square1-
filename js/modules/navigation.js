@@ -2,11 +2,9 @@ const navigation = ( function () {
   'use strict';
 
   const init = () => {
-    console.log( 'enter init navigation' );
     if ( !document.querySelector( '.js-header' ) ) {
       return;
     }
-    console.log( 'init navigation' );
     const header = document.querySelector( '.js-header' );
     const mainMenu = document.querySelector( '.js-main-menu' );
     const page = document.body;

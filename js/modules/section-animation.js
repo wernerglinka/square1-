@@ -1,55 +1,51 @@
 import debounce from './debounce.js';
 
-const sectionAnimations = ( function () {
+const sectionAnimations = ( () => {
   'use strict';
+
+  // Function to show section when it's in the viewport
   const showSection = ( entries, observer ) => {
     // During initial page load the entries array contains all watched objects. The
     // isIntersecting property for the individual object indicates visibility.
-    for ( const entry of entries ) {
+    entries.forEach( ( entry ) => {
       if ( entry.isIntersecting ) {
         const thisSection = entry.target;
-        // add class to trigger animation
-        thisSection.classList.remove( 'is-hidden' );
+        // re move class to trigger animation and
         // take this section off the observe list
+        thisSection.classList.remove( 'is-hidden' );
         observer.unobserve( thisSection );
       }
-    }
+    } );
   };
 
-  const updateSections = debounce( function () {
+  // Function to update sections on resize
+  const updateSections = debounce( () => {
     const observer = new IntersectionObserver( showSection );
-
-    // loop over all image wrappers and add to intersection observer
     const allSections = document.querySelectorAll( '.js-is-animated' );
-    for ( const section of allSections ) {
-      observer.observe( section );
-    }
+    allSections.forEach( ( section ) => observer.observe( section ) );
   }, 500 );
 
+  // Initialize the module
   const init = () => {
-    console.log( 'init section animations' );
     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-
-    // hide all sections that are out of the view port
     const allSections = document.querySelectorAll( '.js-is-animated' );
-    for ( const section of allSections ) {
-      // get position of section, if it is already partly visible, don't hide it
+
+    // Add 'is-hidden' class to sections that are below the viewport
+    allSections.forEach( ( section ) => {
       const rect = section.getBoundingClientRect();
       if ( rect.top > viewportHeight ) {
-        console.log( 'hide section' );
         section.classList.add( 'is-hidden' );
       }
-    }
+    } );
 
-    // images will update on page load and after a resize
+    // Observe for resize events
     const resizeObserver = new ResizeObserver( updateSections );
-    const resizeElement = document.body;
-    resizeObserver.observe( resizeElement );
+    resizeObserver.observe( document.body );
   };
 
   return {
     init,
   };
-}() );
+} )();
 
 export default sectionAnimations;

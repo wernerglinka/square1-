@@ -1,17 +1,18 @@
-const youtubeVideo = ( function () {
+const cloudinaryVideo = ( function () {
   const init = function () {
-    const modalVideoTriggers = document.querySelectorAll( '.js-modal-youtube-video' );
+    const modalVideoTriggers = document.querySelectorAll( '.js-modal-cloudinary-video' );
     // if no video trigger links on page return
     if ( modalVideoTriggers.length < 1 ) {
       return;
     }
+
     const videoOverlay = document.getElementById( 'video-overlay' );
     const closeVideoOverlay = videoOverlay.querySelector( '.close' );
 
     // delegate click event listeners for modal videos to the document
     document.addEventListener( 'click', ( e ) => {
-      if ( e.target.matches( '.js-modal-youtube-video, .js-modal-youtube-video * ' ) ) {
-        const thisTrigger = e.target.closest( '.js-modal-youtube-video' );
+      if ( e.target.matches( '.js-modal-cloudinary-video, .js-modal-cloudinary-video * ' ) ) {
+        const thisTrigger = e.target.closest( '.js-modal-cloudinary-video' );
         const requestedVideoID = thisTrigger.dataset.videoid;
 
         e.preventDefault();
@@ -33,13 +34,14 @@ const youtubeVideo = ( function () {
 
         const newIFrame = `
           <iframe
-            src="https://www.youtube.com/embed/${ requestedVideoID }"
-            width="560"
-            height="315"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            src="https://player.cloudinary.com/embed/?cloud_name=demo&public_id=${ requestedVideoID }",
+            width="640"
+            height="360"
+            style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
+            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+            allowfullscreen
             frameborder="0"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          ></iframe>
         `;
         // insert iframe into the video-container in the overlay
         document.querySelector( '#video-overlay .video-container' ).innerHTML = newIFrame;
@@ -75,4 +77,4 @@ const youtubeVideo = ( function () {
   };
 }() );
 
-export default youtubeVideo;
+export default cloudinaryVideo;
