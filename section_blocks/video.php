@@ -14,6 +14,6 @@ $video_source = $args['source'];
 
 ?>
 
-<div class="video <?php echo 'js-' . $video_source . '-video'; ?>">
+<div class="video">
   <?php render_video_component($args);?>
 </div>

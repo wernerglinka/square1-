@@ -186,18 +186,18 @@
   }();
   var lottieAnimation_default = lottieAnimations;
 
-  // js/modules/youtube.js
+  // js/modules/modal-video.js
   var youtubeVideo = /* @__PURE__ */ function() {
     const init = function() {
-      const modalVideoTriggers = document.querySelectorAll(".js-modal-youtube-video");
+      const modalVideoTriggers = document.querySelectorAll(".js-modal-video");
       if (modalVideoTriggers.length < 1) {
         return;
       }
       const videoOverlay = document.getElementById("video-overlay");
       const closeVideoOverlay = videoOverlay.querySelector(".close");
       document.addEventListener("click", (e) => {
-        if (e.target.matches(".js-modal-youtube-video, .js-modal-youtube-video * ")) {
-          const thisTrigger = e.target.closest(".js-modal-youtube-video");
+        if (e.target.matches(".js-modal-video, .js-modal-video * ")) {
+          const thisTrigger = e.target.closest(".js-modal-video");
           const requestedVideoID = thisTrigger.dataset.videoid;
           e.preventDefault();
           e.stopPropagation();
@@ -211,131 +211,29 @@
           );
           videoOverlay.classList.add("fadein");
           document.body.classList.add("modal-active");
+          let url;
+          switch (thisTrigger.dataset.videosrc) {
+            case "youtube":
+              url = `https://www.youtube.com/embed/${requestedVideoID}`;
+              break;
+            case "vimeo":
+              url = `https://player.vimeo.com/video/${requestedVideoID}`;
+              break;
+            case "cloudinary":
+              url = `https://player.cloudinary.com/embed/?cloud_name=demo&public_id=${requestedVideoID}`;
+              break;
+            default:
+              url = "";
+              break;
+          }
           const newIFrame = `
           <iframe
-            src="https://www.youtube.com/embed/${requestedVideoID}"
-            width="560"
-            height="315"
+            src=${url}
+            width="640"
+            height="360"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             frameborder="0"
-            referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        `;
-          document.querySelector("#video-overlay .video-container").innerHTML = newIFrame;
-        }
-      });
-      closeVideoOverlay.addEventListener("click", () => {
-        document.querySelector("#video-overlay .video-container").innerHTML = "";
-        videoOverlay.addEventListener(
-          "animationend",
-          () => {
-            videoOverlay.classList.remove("is-open");
-            videoOverlay.classList.remove("fadeout");
-          },
-          { once: true }
-        );
-        videoOverlay.classList.add("fadeout");
-        document.body.classList.remove("modal-active");
-      });
-    };
-    return {
-      init
-    };
-  }();
-  var youtube_default = youtubeVideo;
-
-  // js/modules/cloudinary.js
-  var cloudinaryVideo = /* @__PURE__ */ function() {
-    const init = function() {
-      const modalVideoTriggers = document.querySelectorAll(".js-modal-cloudinary-video");
-      if (modalVideoTriggers.length < 1) {
-        return;
-      }
-      const videoOverlay = document.getElementById("video-overlay");
-      const closeVideoOverlay = videoOverlay.querySelector(".close");
-      document.addEventListener("click", (e) => {
-        if (e.target.matches(".js-modal-cloudinary-video, .js-modal-cloudinary-video * ")) {
-          const thisTrigger = e.target.closest(".js-modal-cloudinary-video");
-          const requestedVideoID = thisTrigger.dataset.videoid;
-          e.preventDefault();
-          e.stopPropagation();
-          videoOverlay.addEventListener(
-            "animationend",
-            () => {
-              videoOverlay.classList.add("is-open");
-              videoOverlay.classList.remove("fadein");
-            },
-            { once: true }
-          );
-          videoOverlay.classList.add("fadein");
-          document.body.classList.add("modal-active");
-          const newIFrame = `
-          <iframe
-            src="https://player.cloudinary.com/embed/?cloud_name=demo&public_id=${requestedVideoID}",
-            width="640"
-            height="360"
-            style="height: auto; width: 100%; aspect-ratio: 640 / 360;"
-            allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
-            allowfullscreen
-            frameborder="0"
-          ></iframe>
-        `;
-          document.querySelector("#video-overlay .video-container").innerHTML = newIFrame;
-        }
-      });
-      closeVideoOverlay.addEventListener("click", () => {
-        document.querySelector("#video-overlay .video-container").innerHTML = "";
-        videoOverlay.addEventListener(
-          "animationend",
-          () => {
-            videoOverlay.classList.remove("is-open");
-            videoOverlay.classList.remove("fadeout");
-          },
-          { once: true }
-        );
-        videoOverlay.classList.add("fadeout");
-        document.body.classList.remove("modal-active");
-      });
-    };
-    return {
-      init
-    };
-  }();
-  var cloudinary_default = cloudinaryVideo;
-
-  // js/modules/vimeo.js
-  var vimeoVideo = /* @__PURE__ */ function() {
-    const init = function() {
-      const modalVideoTriggers = document.querySelectorAll(".js-modal-vimeo-video");
-      if (modalVideoTriggers.length < 1) {
-        return;
-      }
-      const videoOverlay = document.getElementById("video-overlay");
-      const closeVideoOverlay = videoOverlay.querySelector(".close");
-      document.addEventListener("click", (e) => {
-        if (e.target.matches(".js-modal-vimeo-video, .js-modal-vimeo-video * ")) {
-          const thisTrigger = e.target.closest(".js-modal-vimeo-video");
-          const requestedVideoID = thisTrigger.dataset.videoid;
-          console.log("hey");
-          e.preventDefault();
-          e.stopPropagation();
-          videoOverlay.addEventListener(
-            "animationend",
-            () => {
-              videoOverlay.classList.add("is-open");
-              videoOverlay.classList.remove("fadein");
-            },
-            { once: true }
-          );
-          videoOverlay.classList.add("fadein");
-          document.body.classList.add("modal-active");
-          const newIFrame = `
-          <iframe
-            src="https://player.vimeo.com/video/${requestedVideoID}"
-            width="640"
-            height="360"
-            frameborder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen></iframe>
         `;
           document.querySelector("#video-overlay .video-container").innerHTML = newIFrame;
@@ -359,7 +257,60 @@
       init
     };
   }();
-  var vimeo_default = vimeoVideo;
+  var modal_video_default = youtubeVideo;
+
+  // js/modules/inline-video.js
+  var inlineVideos = function() {
+    const allVideos = document.querySelectorAll(".js-inline-video");
+    const allVideoWrappers = document.querySelectorAll(".js-inline-video-wrapper");
+    const allPlayers = [];
+    const initVideoLinks = function() {
+      allVideoWrappers.forEach(function(thisTrigger, i) {
+        thisTrigger.nextElementSibling.addEventListener("click", (e) => {
+          e.target.parentNode.parentNode.classList.add("video-playing");
+        });
+      });
+    };
+    const init = function() {
+      allVideos.forEach(function(thisVideo, thisVideoIndex) {
+        thisVideo.id = `inline-video-${thisVideoIndex}`;
+      });
+      allVideos.forEach((thisVideo, i) => {
+        const videoID = thisVideo.dataset.videoid;
+        let url;
+        switch (thisVideo.dataset.videosrc) {
+          case "youtube":
+            url = `https://www.youtube.com/embed/${videoID}`;
+            break;
+          case "vimeo":
+            url = `https://player.vimeo.com/video/${videoID}`;
+            break;
+          case "cloudinary":
+            url = `https://player.cloudinary.com/embed/?cloud_name=demo&public_id=${videoID}`;
+            break;
+          default:
+            url = "";
+            break;
+        }
+        const newIFrame = `
+          <iframe
+            src=${url}
+            width="640"
+            height="360"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            frameborder="0"
+            allowfullscreen></iframe>
+        `;
+        thisVideo.insertAdjacentHTML("beforeend", newIFrame);
+      });
+      initVideoLinks();
+    };
+    return {
+      init
+    };
+  }();
+  var inline_video_default = inlineVideos;
 
   // js/main.js
   function initPage() {
@@ -379,7 +330,7 @@
       };
       document.head.appendChild(script);
     }
-    if (document.querySelector(".js-youtube-video") || document.querySelector(".js-cloudinary-video") || document.querySelector(".js-vimeo-video")) {
+    if (document.querySelector(".js-modal-video")) {
       const newVideoOverlay = `
         <div id="video-overlay" class="js-video-overlay">
           <span class="close">[Close]</span>
@@ -389,15 +340,10 @@
         </div>
       `;
       document.body.insertAdjacentHTML("beforeend", newVideoOverlay);
+      modal_video_default.init();
     }
-    if (document.querySelector(".js-youtube-video")) {
-      youtube_default.init();
-    }
-    if (document.querySelector(".js-cloudinary-video")) {
-      cloudinary_default.init();
-    }
-    if (document.querySelector(".js-vimeo-video")) {
-      vimeo_default.init();
+    if (document.querySelector(".js-inline-video")) {
+      inline_video_default.init();
     }
   }
   window.addEventListener("load", function() {

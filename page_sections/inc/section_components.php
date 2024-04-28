@@ -231,7 +231,7 @@
       $output = <<<EOT
         <div class="inline">
           <div class="inline-video-wrapper js-inline-video-wrapper">
-            <div class="js-inline-video" data-videoid="{$id}"></div>
+            <div class="js-inline-video" data-videoid="{$id}" data-videosrc="{$source}"></div>
           </div>
 
           <button class="video-trigger">
@@ -243,7 +243,7 @@
             
     } else {        
       $output = <<<EOT
-        <button class="js-modal-video js-modal-{$source}-video" data-videoid="{$id}" data-videosrc="{$source}">
+        <button class="js-modal-video" data-videoid="{$id}" data-videosrc="{$source}">
           <div class="play-button"></div>
           $video_thumbnail
         </button>

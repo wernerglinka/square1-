@@ -1,11 +1,11 @@
+/* eslint-disable space-before-function-paren */
 import navigation from './modules/navigation';
 import sectionAnimation from './modules/section-animation';
 import mobileFlipCardSupport from './modules/mobileFlipcardSupport';
 import tabs from './modules/tabs';
 import lottieAnimations from './modules/lottieAnimation';
-import youtubeVideo from './modules/youtube';
-import cloudinaryVideo from './modules/cloudinary';
-import vimeoVideo from './modules/vimeo';
+import modalVideo from './modules/modal-video';
+import inlineVideo from './modules/inline-video';
 
 function initPage() {
   navigation.init();
@@ -29,9 +29,7 @@ function initPage() {
     document.head.appendChild( script );
   }
 
-  if ( document.querySelector( '.js-youtube-video' ) ||
-    document.querySelector( '.js-cloudinary-video' ) ||
-    document.querySelector( '.js-vimeo-video' ) ) {
+  if ( document.querySelector( '.js-modal-video' ) ) {
     // create an video overlay and add to DOM
     const newVideoOverlay = `
         <div id="video-overlay" class="js-video-overlay">
@@ -42,18 +40,12 @@ function initPage() {
         </div>
       `;
     document.body.insertAdjacentHTML( 'beforeend', newVideoOverlay );
+
+    modalVideo.init();
   }
 
-  if ( document.querySelector( '.js-youtube-video' ) ) {
-    youtubeVideo.init();
-  }
-
-  if ( document.querySelector( '.js-cloudinary-video' ) ) {
-    cloudinaryVideo.init();
-  }
-
-  if ( document.querySelector( '.js-vimeo-video' ) ) {
-    vimeoVideo.init();
+  if ( document.querySelector( '.js-inline-video' ) ) {
+    inlineVideo.init();
   }
 }
 
