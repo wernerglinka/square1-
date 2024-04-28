@@ -157,3 +157,15 @@ function add_upload_mimes($types)
     return $types;
 }
 add_filter('upload_mimes', 'add_upload_mimes');
+
+/**
+ * Add some JS to wp-admin pages
+ */
+
+function square1_enqueue_admin_js() {
+	if (is_admin()) {
+		$version = filemtime(get_template_directory() . '/admin-tweaks.js');
+		wp_enqueue_script('square1-admin-js', get_template_directory_uri() . '/admin-tweaks.js', array(), $version, true);
+	}
+}
+add_action('admin_enqueue_scripts', 'square1_enqueue_admin_js');

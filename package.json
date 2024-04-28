@@ -26,9 +26,11 @@
   "scripts": {
     "watch:sass": "sass sass/:./ --style=expanded --no-charset --watch",
     "watch:js": "esbuild js/main.js --bundle --outfile=scripts.js --watch",
-    "watch": "npm-run-all --parallel watch:sass watch:js",
+    "bundle-admin": "esbuild js/admin.mjs --bundle --outfile=admin-tweaks.js",
+    "watch": "npm-run-all --parallel watch:sass watch:js bundle-admin",
     "browser-sync": "browser-sync start --proxy 'http://localhost:10003' --files '**/*'",
     "start": "npm-run-all --parallel watch browser-sync",
+    
 
 
     "compile:css": "sass sass/:./ --no-source-map --style=expanded --no-charset && stylelint '*.css' --fix || true && stylelint '*.css' --fix",

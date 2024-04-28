@@ -3,6 +3,26 @@
     "title": "Common Section Fields",
     "fields": [
         {
+            "key": "field_662ed019e7e03",
+            "label": "Admin Section Description",
+            "name": "admin_section_description",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "This description will be injected in the admin header of the section",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Enter a section description",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_643b02461f4b8",
             "label": "Wrapper Element",
             "name": "wrapper_element",
@@ -196,5 +216,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714146479
+    "modified": 1714347590
 }
