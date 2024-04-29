@@ -12,6 +12,7 @@
       if (!document.querySelector(".acf-fc-layout-handle")) {
         return;
       }
+      console.log("Adding ACF Section Descriptions");
       const layouts = document.querySelectorAll("[data-layout=flex_section]");
       layouts.forEach(updateLayoutDescription);
       const observer = new MutationObserver((mutationsList, observer2) => {
@@ -23,7 +24,6 @@
         }
       });
       observer.observe(document.body, { childList: true, subtree: true });
-      console.log("ACF Section Descriptions Loaded! ... YAY");
     };
     return { init };
   }();

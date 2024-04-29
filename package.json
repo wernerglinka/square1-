@@ -27,9 +27,9 @@
     "watch:sass": "sass sass/:./ --style=expanded --no-charset --watch",
     "watch:js": "esbuild js/main.js --bundle --outfile=scripts.js --watch",
     "bundle-admin": "esbuild js/admin.mjs --bundle --outfile=admin-tweaks.js",
-    "watch": "npm-run-all --parallel watch:sass watch:js bundle-admin",
+    "watch": "npm-run-all --parallel watch:sass watch:js",
     "browser-sync": "browser-sync start --proxy 'http://localhost:10003' --files '**/*'",
-    "start": "npm-run-all --parallel watch browser-sync",
+    "start": "npm run bundle-admin && npm-run-all --parallel watch browser-sync",
     
 
 

@@ -19,6 +19,10 @@ const sectionDescriptions = ( function () {
     if ( !document.querySelector( '.acf-fc-layout-handle' ) ) {
       return;
     }
+
+    // let the world know what we are doing
+    console.log( 'Adding ACF Section Descriptions' );
+
     const layouts = document.querySelectorAll( '[data-layout=flex_section]' );
     layouts.forEach( updateLayoutDescription );
 
@@ -36,8 +40,6 @@ const sectionDescriptions = ( function () {
 
     // Start observing the document with the configured parameters
     observer.observe( document.body, { childList: true, subtree: true } );
-
-    console.log( 'ACF Section Descriptions Loaded! ... YAY' );
   };
 
   return { init };
