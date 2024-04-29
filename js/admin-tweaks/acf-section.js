@@ -12,7 +12,7 @@ const sectionDescriptions = ( function () {
     const textNode = layoutHandle.childNodes[ 1 ];
 
     // Change the text node's value
-    textNode.nodeValue = layoutDescription;
+    textNode.nodeValue = ' ' + layoutDescription;
   };
 
   const init = () => {

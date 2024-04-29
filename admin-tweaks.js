@@ -6,7 +6,7 @@
       const layoutDescription = layout.querySelector(".acf-fields [data-name=admin_section_description] input").value;
       const layoutHandle = layout.querySelector(".acf-fc-layout-handle");
       const textNode = layoutHandle.childNodes[1];
-      textNode.nodeValue = layoutDescription;
+      textNode.nodeValue = " " + layoutDescription;
     };
     const init = () => {
       if (!document.querySelector(".acf-fc-layout-handle")) {
