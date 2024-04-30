@@ -252,6 +252,41 @@
     echo $output;
   }
 
+  /**
+ * Render an video with its JS API component with optional thumbnail
+ */
+function render_video_via_api_component($video)
+{
+    extract($video);
+
+    $video_thumbnail = wp_get_attachment_image($thumbnail['id'], 'large', false, ['alt' => $thumbnail['alt_text']]);
+
+    if ($inline) {
+        $output = <<<EOT
+        <div class="inline">
+          <div class="inline-video-wrapper js-inline-{$video['source']}-video-wrapper">
+            <div class="js-inline-video" data-videoid="{$id}" data-videosrc="{$source}"></div>
+          </div>
+
+          <button class="video-trigger">
+            <div class="play-button"></div>
+            $video_thumbnail
+          </button>
+        </div>
+      EOT;
+
+    } else {
+        $output = <<<EOT
+        <button class="js-modal-{$video['source']}-video" data-videoid="{$id}" data-videosrc="{$source}">
+          <div class="play-button"></div>
+          $video_thumbnail
+        </button>
+      EOT;
+    }
+    echo $output;
+}
+
+
 
   /** 
    * Render a resourse card component

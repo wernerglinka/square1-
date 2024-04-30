@@ -1,13 +1,12 @@
-#video-overlay,
-#cloudinary-video-overlay,
-#vimeo-video-overlay {
+#video-overlay {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
     z-index: 3000;
-    background-color: $color__brand_dark;
+    @include overlay($color__brand_dark);
+    //background-color: $color__brand_dark;
     display: none;
 
     &.is-open {
@@ -79,4 +78,11 @@
       animation-name: fadein;
       animation-fill-mode: forwards;
     }
+}
+
+body.modal-active {
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    position: fixed;
 }
