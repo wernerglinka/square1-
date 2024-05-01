@@ -2,8 +2,9 @@
 /* eslint-disable space-before-function-paren */
 /* eslint-disable indent */
 /* global cloudinary */
-import loadScript from './load-script';
-import closeModal from './close-modal';
+import loadScript from './helpers/load-script';
+import loadStyles from './helpers/load-styles';
+import { closeModal } from './helpers/modal';
 
 /**
  * @function modalCloudinaryVideo
@@ -29,19 +30,16 @@ const modalCloudinaryVideo = ( function () {
     }
 
     // load the cloudinary video player API
-    const loadingCloudinary = loadScript( 'https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.1/cld-video-player.min.js' );
+    const loadingCloudinary = loadScript( 'https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.1/cld-video-player.min.js', 'cloudinary' );
     // Add the cloudinary player styles
-    const cloudinaryStyles = document.createElement( 'link' );
-    cloudinaryStyles.rel = 'stylesheet';
-    cloudinaryStyles.href = 'https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.1/cld-video-player.min.css';
-    document.head.appendChild( cloudinaryStyles );
+    loadStyles( 'https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.1/cld-video-player.min.css' );
 
     // get the video overlay element and the close link
     const videoOverlay = document.getElementById( 'video-overlay' );
     const closeVideoOverlay = videoOverlay.querySelector( '.close' );
 
     // add eventlisteners to everty video trigger link
-    modalVideoTriggers.forEach( ( trigger ) => {
+    modalVideoTriggers.forEach( ( trigger, index ) => {
       trigger.addEventListener( 'click', ( e ) => {
         e.preventDefault();
         e.stopPropagation();
@@ -50,11 +48,11 @@ const modalCloudinaryVideo = ( function () {
         // that is the link that was clicked
         if ( e.target.matches( '.js-modal-cloudinary-video, .js-modal-cloudinary-video * ' ) ) {
           const thisTrigger = e.target.closest( '.js-modal-cloudinary-video' );
-          const requestedVideoID = thisTrigger.dataset.videoid;
+          const videoID = thisTrigger.dataset.videoid;
 
           // add the target element for the video player in the overlay
           const videoTarget = document.createElement( 'div' );
-          videoTarget.id = 'cloudinary-video-player';
+          videoTarget.id = `cloudinary-video-player-modal`;
           document.querySelector( '#video-overlay .video-container' ).appendChild( videoTarget );
 
           // fade in the overlay
@@ -75,18 +73,18 @@ const modalCloudinaryVideo = ( function () {
             .then( () => {
               const videoTag = `
               <video
-                id="demo-player"
+                id=demo-player-modal-${ index }
                 controls
                 autoplay
                 class="cld-video-player"
-                data-cld-public-id=${ requestedVideoID }
+                data-cld-public-id=${ videoID }
               ></video>`;
 
               // add this video tag to the video target
-              document.getElementById( 'cloudinary-video-player' ).innerHTML = videoTag;
+              document.getElementById( `cloudinary-video-player-modal` ).innerHTML = videoTag;
 
               // instantiate the cloudinary video player
-              const player = cloudinary.videoPlayer( 'demo-player', {
+              const player = cloudinary.videoPlayer( `demo-player-modal-${ index }`, {
                 cloudName: 'demo',
                 playedEventPercents: [ 100 ]
               } );

@@ -2,116 +2,99 @@
 /* eslint-disable space-before-function-paren */
 /* eslint-disable indent */
 /* global YT */
-import loadScript from './load-script';
-import closeModal from './close-modal';
+
+import loadYouTubeAPI from './helpers/load-youtube-api';
+import { createElementWithId, fadeInElement, attachEventOnce } from './helpers/dom';
+import { closeModal } from './helpers/modal';
 
 /**
- * @function modalYoutubeVideo
+ * @function modalYoutubePlayer
  * @description: Opens a modal overlay with a youtube video player
- * @requires: loadScript
- * @requires: https://www.youtube.com/iframe_api
- * This implementation uses an iFrame player by including the
- * IFrame Player API library, allowing full control of all video player
- * instances.
- * @reference: https://developers.google.com/youtube/iframe_api_reference
+ * @requires: loadYouTubeAPI, helpers utilities, modal utilities
+ * 
  */
-const modalYoutubeVideo = ( () => {
+const modalYoutubePlayer = ( () => {
   let player;
 
-  const onPlayerStateChange = ( event ) => {
+  /** 
+   * -1 – UNDSTARTED
+   * 0 – ENDED
+   * 1 – PLAYING
+   * 2 – PAUSED
+   * 3 – BUFFERING
+   * 5 – VIDEO CUED 
+   */
+  const handlePlayerStateChange = ( event ) => {
     // close the overlay when the video ends
     if ( event.data === YT.PlayerState.ENDED ) {
       closeModal();
     }
   };
 
-  const init = () => {
-    console.log( 'modalYoutubeVideo Init' );
+  const startVideo = () => {
+    player.playVideo();
+  };
 
-    // get all the video trigger links
-    const modalVideoTriggers = document.querySelectorAll( '.js-modal-youtube-video' );
-
-    // if no video trigger links on page return
-    if ( modalVideoTriggers.length < 1 ) {
-      return;
-    }
-
-    // load the youtube IFrame Player API
-    // loadingYoutube is a Promise that resolves when the YouTube IFrame Player API has loaded.
-    loadScript( 'https://www.youtube.com/iframe_api' );
-
-    // videoAPIReady is a Promise that resolves when the YouTube API is ready.
-    window.videoAPIReady = new Promise( ( resolve ) => {
-      window.onYouTubeIframeAPIReady = () => resolve();
+  const createPlayer = ( videoId, containerId, playerOptions ) => {
+    player = new YT.Player( containerId, {
+      videoId,
+      host: 'https://www.youtube.com',
+      ...playerOptions,
+      events: {
+        onReady: startVideo,
+        onStateChange: handlePlayerStateChange,
+      },
     } );
+  };
 
-    // get the video overlay element and the close link
-    const videoOverlay = document.getElementById( 'video-overlay' );
-    const closeVideoOverlay = videoOverlay.querySelector( '.close' );
+  const handleTriggerClick = ( e, index ) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-    // add eventlisteners to everty video trigger link
-    modalVideoTriggers.forEach( ( trigger ) => {
-      trigger.addEventListener( 'click', ( e ) => {
-        e.preventDefault();
-        e.stopPropagation();
+    // find the closest parent element with the class of js-modal-video
+    if ( e.target.matches( '.js-modal-youtube-video, .js-modal-youtube-video *' ) ) {
+      const trigger = e.target.closest( '.js-modal-youtube-video' );
+      const videoId = trigger.dataset.videoid;
+      const startTime = trigger.dataset.starttime || null;
+      const endTime = trigger.dataset.endtime || null;
 
-        // find the closest parent element with the class of js-modal-youtube-video
-        // that is the link that was clicked
-        if ( e.target.matches( '.js-modal-youtube-video, .js-modal-youtube-video * ' ) ) {
-          const thisTrigger = e.target.closest( '.js-modal-youtube-video' );
-          const requestedVideoID = thisTrigger.dataset.videoid;
-          const startTime = thisTrigger.dataset.starttime || null;
-          const endTime = thisTrigger.dataset.endtime || null;
+      // Add the target element for the video player in the overlay
+      const videoTarget = createElementWithId( 'div', `video-target-${ index }` );
+      document.querySelector( '#video-overlay .video-container' ).appendChild( videoTarget );
 
-          // add the target element for the video player in the overlay
-          const videoTarget = document.createElement( 'div' );
-          videoTarget.id = 'ytvideo';
-          document.querySelector( '#video-overlay .video-container' ).appendChild( videoTarget );
-
-          // fade in the overlay
-          videoOverlay.addEventListener(
-            'animationend',
-            () => {
-              videoOverlay.classList.add( 'is-open' );
-              videoOverlay.classList.remove( 'fadein' );
-            },
-            { once: true }
-          );
-          videoOverlay.classList.add( 'fadein' );
-
-          // prevent scrolling under the overlay
-          document.body.classList.add( 'modal-active' );
-
-          // load the youtube player
-          window.videoAPIReady.then( () => {
-            const playerVars = {
-              autoplay: 1,
-              start: startTime,
-              end: endTime,
-              controls: 1,
-              enablejsapi: 1,
-              wmode: 'opaque',
-              origin: window.location.origin,
-              rel: 0,
-            };
-
-            player = new YT.Player( 'ytvideo', {
-              videoId: requestedVideoID,
-              host: 'https://www.youtube.com',
-              playerVars,
-              events: {
-                onStateChange: onPlayerStateChange,
-              },
-            } );
-          } );
-        }
+      // Fade in the overlay
+      const videoOverlay = document.getElementById( 'video-overlay' );
+      fadeInElement( videoOverlay, 'is-open', () => {
+        document.body.classList.add( 'modal-active' );
       } );
+
+      // Load the video player
+      loadYouTubeAPI().then( () => {
+        const playerOptions = {
+          autoplay: 0,
+          start: startTime,
+          end: endTime,
+          controls: 1,
+          enablejsapi: 1,
+          wmode: 'opaque',
+          origin: window.location.origin,
+          rel: 0,
+        };
+
+        createPlayer( videoId, `video-target-${ index }`, playerOptions );
+      } );
+    }
+  };
+
+  const init = () => {
+    const modalVideoTriggers = document.querySelectorAll( '.js-modal-youtube-video' );
+    const closeVideoOverlay = document.getElementById( 'video-overlay' ).querySelector( '.close' );
+
+    modalVideoTriggers.forEach( ( trigger, index ) => {
+      trigger.addEventListener( 'click', ( e ) => handleTriggerClick( e, index ) );
     } );
 
-    // close video overlay when close link is clicked
-    closeVideoOverlay.addEventListener( 'click', () => {
-      closeModal();
-    } );
+    closeVideoOverlay.addEventListener( 'click', closeModal );
   };
 
   return {
@@ -119,4 +102,4 @@ const modalYoutubeVideo = ( () => {
   };
 } )();
 
-export default modalYoutubeVideo;
+export default modalYoutubePlayer;

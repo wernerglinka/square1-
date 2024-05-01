@@ -1,4 +1,4 @@
-function closeModal() {
+export function closeModal() {
   const videoOverlay = document.getElementById( 'video-overlay' );
   // delete the video player instance, stops the sound
   document.querySelector( '#video-overlay .video-container' ).innerHTML = '';
@@ -16,4 +16,3 @@ function closeModal() {
   document.body.classList.remove( 'modal-active' );
 }
 
-export default closeModal;

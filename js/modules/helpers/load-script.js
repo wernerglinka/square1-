@@ -1,3 +1,8 @@
+/**
+ * @function loadScript
+ * @param {*} url
+ */
+
 function loadScript( url ) {
   return new Promise( ( resolve, reject ) => {
     const script = document.createElement( 'script' );
@@ -7,4 +12,5 @@ function loadScript( url ) {
     document.head.appendChild( script );
   } );
 }
+
 export default loadScript;

@@ -1,4 +1,4 @@
-import debounce from './debounce.js';
+import debounce from './helpers/debounce.js';
 
 const lottieAnimations = ( function ( $ ) {
   const playLottie = ( entries, observer ) => {

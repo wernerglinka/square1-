@@ -263,16 +263,17 @@ function render_video_via_api_component($video)
 
     if ($inline) {
         $output = <<<EOT
-        <div class="inline">
-          <div class="inline-video-wrapper js-inline-{$video['source']}-video-wrapper">
-            <div class="js-inline-video" data-videoid="{$id}" data-videosrc="{$source}"></div>
+
+          <div class="js-inline-video inline-video-wrapper" data-videoid="{$id}" data-videosrc="{$source}">
+            <span class="close">X</span>
           </div>
+         
 
           <button class="video-trigger">
             <div class="play-button"></div>
             $video_thumbnail
           </button>
-        </div>
+
       EOT;
 
     } else {

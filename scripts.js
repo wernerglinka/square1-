@@ -32,7 +32,7 @@
   }();
   var navigation_default = navigation;
 
-  // js/modules/debounce.js
+  // js/modules/helpers/debounce.js
   function debounce(func, wait, immediate) {
     let timeout;
     return function() {
@@ -186,7 +186,7 @@
   }();
   var lottieAnimation_default = lottieAnimations;
 
-  // js/modules/close-modal.js
+  // js/modules/helpers/modal.js
   function closeModal() {
     const videoOverlay = document.getElementById("video-overlay");
     document.querySelector("#video-overlay .video-container").innerHTML = "";
@@ -201,7 +201,6 @@
     videoOverlay.classList.add("fadeout");
     document.body.classList.remove("modal-active");
   }
-  var close_modal_default = closeModal;
 
   // js/modules/modal-video.js
   var modalVideo = /* @__PURE__ */ function() {
@@ -261,7 +260,7 @@
         });
       });
       closeVideoOverlay.addEventListener("click", () => {
-        close_modal_default();
+        closeModal();
       });
     };
     return {
@@ -270,60 +269,7 @@
   }();
   var modal_video_default = modalVideo;
 
-  // js/modules/inline-video.js
-  var inlineVideos = function() {
-    const allVideos = document.querySelectorAll(".js-inline-video");
-    const allVideoWrappers = document.querySelectorAll(".js-inline-video-wrapper");
-    const allPlayers = [];
-    const initVideoLinks = function() {
-      allVideoWrappers.forEach(function(thisTrigger, i) {
-        thisTrigger.nextElementSibling.addEventListener("click", (e) => {
-          e.target.parentNode.parentNode.classList.add("video-playing");
-        });
-      });
-    };
-    const init = function() {
-      allVideos.forEach(function(thisVideo, thisVideoIndex) {
-        thisVideo.id = `inline-video-${thisVideoIndex}`;
-      });
-      allVideos.forEach((thisVideo, i) => {
-        const videoID = thisVideo.dataset.videoid;
-        let url;
-        switch (thisVideo.dataset.videosrc) {
-          case "youtube":
-            url = `https://www.youtube.com/embed/${videoID}`;
-            break;
-          case "vimeo":
-            url = `https://player.vimeo.com/video/${videoID}`;
-            break;
-          case "cloudinary":
-            url = `https://player.cloudinary.com/embed/?cloud_name=demo&public_id=${videoID}`;
-            break;
-          default:
-            url = "";
-            break;
-        }
-        const newIFrame = `
-          <iframe
-            src=${url}
-            width="640"
-            height="360"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            frameborder="0"
-            allowfullscreen></iframe>
-        `;
-        thisVideo.insertAdjacentHTML("beforeend", newIFrame);
-      });
-      initVideoLinks();
-    };
-    return {
-      init
-    };
-  }();
-  var inline_video_default = inlineVideos;
-
-  // js/modules/load-script.js
+  // js/modules/helpers/load-script.js
   function loadScript(url) {
     return new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -335,6 +281,209 @@
   }
   var load_script_default = loadScript;
 
+  // js/modules/helpers/load-styles.js
+  function loadStyles(url) {
+    if (document.querySelector(`link[href="${url}"]`)) {
+      return;
+    }
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = url;
+    document.head.appendChild(link);
+  }
+  var load_styles_default = loadStyles;
+
+  // js/modules/helpers/dom.js
+  function createElementWithId(tagName, id, className = "") {
+    const element = document.createElement(tagName);
+    element.id = id;
+    element.className = className;
+    return element;
+  }
+  function fadeInElement(element, fadeInClass, onAnimationEnd = () => {
+  }) {
+    element.addEventListener(
+      "animationend",
+      () => {
+        element.classList.add(fadeInClass);
+        element.classList.remove("fadein");
+        onAnimationEnd();
+      },
+      { once: true }
+    );
+    element.classList.add("fadein");
+  }
+
+  // js/modules/inline/cloudinary.js
+  var inlineCloudinaryVideo = (videoInstance, index) => {
+    console.log("Inline CloudinaryVideo Init");
+    const videoId = videoInstance.dataset.videoid;
+    const containerId = `cloudinary-video-player-${index}`;
+    const playerId = `demo-player-${index}`;
+    const videoTarget = createElementWithId("div", containerId);
+    videoInstance.appendChild(videoTarget);
+    Promise.all([
+      load_script_default("https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.1/cld-video-player.min.js", "cloudinary"),
+      load_styles_default("https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.1/cld-video-player.min.css")
+    ]).then(() => {
+      const videoTag = `
+        <video id="${playerId}" controls autoplay class="cld-video-player" data-cld-public-id="${videoId}"></video>
+      `;
+      videoInstance.querySelector(`#${containerId}`).innerHTML = videoTag;
+      const player = cloudinary.videoPlayer(playerId, {
+        cloudName: "demo",
+        playedEventPercents: [100]
+      });
+      videoInstance.parentNode.querySelector(".video-trigger").addEventListener("click", (e) => {
+        player.play();
+        videoInstance.parentNode.classList.add("video-playing");
+      });
+      player.on("percentsplayed", (event) => {
+        videoInstance.parentNode.classList.remove("video-playing");
+      });
+      videoInstance.querySelector(".close").addEventListener("click", () => {
+        player.pause();
+        videoInstance.parentNode.classList.remove("video-playing");
+      });
+    }).catch((error) => {
+      console.error(`Error loading script: ${error}`);
+    });
+  };
+  var cloudinary_default = inlineCloudinaryVideo;
+
+  // js/modules/helpers/load-youtube-api.js
+  function loadYouTubeAPI() {
+    return load_script_default("https://www.youtube.com/iframe_api").then(() => {
+      return new Promise((resolve) => {
+        const checkYTReady = () => {
+          if (window.YT && window.YT.Player) {
+            resolve();
+          } else {
+            setTimeout(checkYTReady, 100);
+          }
+        };
+        checkYTReady();
+      });
+    });
+  }
+  var load_youtube_api_default = loadYouTubeAPI;
+
+  // js/modules/inline/youtube.js
+  var inlineYoutubeVideo = (videoInstance, index) => {
+    let player;
+    const handlePlayerStateChange = (event) => {
+      if (event.data === YT.PlayerState.ENDED) {
+        videoInstance.parentNode.classList.remove("video-playing");
+      }
+    };
+    const createPlayer = (videoId2, containerId2, playerOptions) => {
+      player = new YT.Player(containerId2, {
+        videoId: videoId2,
+        host: "https://www.youtube.com",
+        ...playerOptions,
+        events: {
+          onStateChange: handlePlayerStateChange
+        }
+      });
+    };
+    const videoId = videoInstance.dataset.videoid;
+    const startTime = videoInstance.dataset.starttime || null;
+    const endTime = videoInstance.dataset.endtime || null;
+    const containerId = `ytvideo-inline-${index}`;
+    const videoTarget = createElementWithId("div", containerId);
+    videoInstance.appendChild(videoTarget);
+    load_youtube_api_default().then(() => {
+      console.log("Inline YouTube API Ready");
+      const playerOptions = {
+        autoplay: 0,
+        start: startTime,
+        end: endTime,
+        controls: 1,
+        enablejsapi: 1,
+        wmode: "opaque",
+        origin: window.location.origin,
+        rel: 0
+      };
+      createPlayer(videoId, containerId, playerOptions);
+      videoInstance.parentNode.querySelector(".video-trigger").addEventListener("click", (e) => {
+        player.playVideo();
+        videoInstance.parentNode.classList.add("video-playing");
+      });
+      videoInstance.querySelector(".close").addEventListener("click", () => {
+        player.stopVideo();
+        videoInstance.parentNode.classList.remove("video-playing");
+      });
+    }).catch((error) => {
+      console.error(`Error loading YouTube API: ${error}`);
+    });
+  };
+  var youtube_default = inlineYoutubeVideo;
+
+  // js/modules/inline/vimeo.js
+  var inlineVimeoVideo = (videoInstance, index) => {
+    console.log("Inline  VideoVideo Init");
+    const videoId = videoInstance.dataset.videoid;
+    const containerId = `vimeo-video-player-${index}`;
+    const playerId = `demo-player-${index}`;
+    const videoTarget = createElementWithId("div", containerId);
+    videoInstance.appendChild(videoTarget);
+    Promise.all([
+      load_script_default("https://player.vimeo.com/api/player.js", "vimeo")
+    ]).then(() => {
+      const vimeoPlayer = new Vimeo.Player(containerId, {
+        id: videoId,
+        width: 640,
+        height: 360,
+        autoplay: false,
+        muted: false
+      });
+      videoInstance.parentNode.querySelector(".video-trigger").addEventListener("click", (e) => {
+        vimeoPlayer.play();
+        videoInstance.parentNode.classList.add("video-playing");
+      });
+      vimeoPlayer.on("ended", (event) => {
+        videoInstance.parentNode.classList.remove("video-playing");
+      });
+      videoInstance.querySelector(".close").addEventListener("click", () => {
+        vimeoPlayer.pause();
+        videoInstance.parentNode.classList.remove("video-playing");
+      });
+    }).catch((error) => {
+      console.error(`Error loading script: ${error}`);
+    });
+  };
+  var vimeo_default = inlineVimeoVideo;
+
+  // js/modules/inline-video.js
+  var inlineVideos = /* @__PURE__ */ (() => {
+    const videoProviderMap = {
+      cloudinary: cloudinary_default,
+      youtube: youtube_default,
+      vimeo: vimeo_default
+    };
+    const initVideoPlayer = (videoInstance, index) => {
+      const providerId = videoInstance.dataset.videosrc;
+      const videoProvider = videoProviderMap[providerId];
+      if (videoProvider) {
+        videoProvider(videoInstance, index);
+      } else {
+        console.warn(`Unsupported video provider: ${providerId}`);
+      }
+    };
+    const init = () => {
+      console.log("Inline Videos Init");
+      const allVideos = document.querySelectorAll(".js-inline-video");
+      allVideos.forEach((video, index) => {
+        video.id = `inline-video-${index}`;
+        initVideoPlayer(video, index);
+      });
+    };
+    return {
+      init
+    };
+  })();
+  var inline_video_default = inlineVideos;
+
   // js/modules/cloudinary-video.js
   var modalCloudinaryVideo = /* @__PURE__ */ function() {
     const init = function() {
@@ -343,22 +492,19 @@
       if (modalVideoTriggers.length < 1) {
         return;
       }
-      const loadingCloudinary = load_script_default("https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.1/cld-video-player.min.js");
-      const cloudinaryStyles = document.createElement("link");
-      cloudinaryStyles.rel = "stylesheet";
-      cloudinaryStyles.href = "https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.1/cld-video-player.min.css";
-      document.head.appendChild(cloudinaryStyles);
+      const loadingCloudinary = load_script_default("https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.1/cld-video-player.min.js", "cloudinary");
+      load_styles_default("https://cdnjs.cloudflare.com/ajax/libs/cloudinary-video-player/2.0.1/cld-video-player.min.css");
       const videoOverlay = document.getElementById("video-overlay");
       const closeVideoOverlay = videoOverlay.querySelector(".close");
-      modalVideoTriggers.forEach((trigger) => {
+      modalVideoTriggers.forEach((trigger, index) => {
         trigger.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
           if (e.target.matches(".js-modal-cloudinary-video, .js-modal-cloudinary-video * ")) {
             const thisTrigger = e.target.closest(".js-modal-cloudinary-video");
-            const requestedVideoID = thisTrigger.dataset.videoid;
+            const videoID = thisTrigger.dataset.videoid;
             const videoTarget = document.createElement("div");
-            videoTarget.id = "cloudinary-video-player";
+            videoTarget.id = `cloudinary-video-player-modal`;
             document.querySelector("#video-overlay .video-container").appendChild(videoTarget);
             videoOverlay.addEventListener(
               "animationend",
@@ -373,19 +519,19 @@
             loadingCloudinary.then(() => {
               const videoTag = `
               <video
-                id="demo-player"
+                id=demo-player-modal-${index}
                 controls
                 autoplay
                 class="cld-video-player"
-                data-cld-public-id=${requestedVideoID}
+                data-cld-public-id=${videoID}
               ></video>`;
-              document.getElementById("cloudinary-video-player").innerHTML = videoTag;
-              const player = cloudinary.videoPlayer("demo-player", {
+              document.getElementById(`cloudinary-video-player-modal`).innerHTML = videoTag;
+              const player = cloudinary.videoPlayer(`demo-player-modal-${index}`, {
                 cloudName: "demo",
                 playedEventPercents: [100]
               });
               player.on("percentsplayed", (event) => {
-                close_modal_default();
+                closeModal();
               });
             }).catch((error) => {
               console.error(`Error loading script: ${error}`);
@@ -394,7 +540,7 @@
         });
       });
       closeVideoOverlay.addEventListener("click", () => {
-        close_modal_default();
+        closeModal();
       });
     };
     return {
@@ -404,79 +550,69 @@
   var cloudinary_video_default = modalCloudinaryVideo;
 
   // js/modules/youtube-video.js
-  var modalYoutubeVideo = /* @__PURE__ */ (() => {
+  var modalYoutubePlayer = /* @__PURE__ */ (() => {
     let player;
-    const onPlayerStateChange = (event) => {
+    const handlePlayerStateChange = (event) => {
       if (event.data === YT.PlayerState.ENDED) {
-        close_modal_default();
+        closeModal();
+      }
+    };
+    const startVideo = () => {
+      player.playVideo();
+    };
+    const createPlayer = (videoId, containerId, playerOptions) => {
+      player = new YT.Player(containerId, {
+        videoId,
+        host: "https://www.youtube.com",
+        ...playerOptions,
+        events: {
+          onReady: startVideo,
+          onStateChange: handlePlayerStateChange
+        }
+      });
+    };
+    const handleTriggerClick = (e, index) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.target.matches(".js-modal-youtube-video, .js-modal-youtube-video *")) {
+        const trigger = e.target.closest(".js-modal-youtube-video");
+        const videoId = trigger.dataset.videoid;
+        const startTime = trigger.dataset.starttime || null;
+        const endTime = trigger.dataset.endtime || null;
+        const videoTarget = createElementWithId("div", `video-target-${index}`);
+        document.querySelector("#video-overlay .video-container").appendChild(videoTarget);
+        const videoOverlay = document.getElementById("video-overlay");
+        fadeInElement(videoOverlay, "is-open", () => {
+          document.body.classList.add("modal-active");
+        });
+        load_youtube_api_default().then(() => {
+          const playerOptions = {
+            autoplay: 0,
+            start: startTime,
+            end: endTime,
+            controls: 1,
+            enablejsapi: 1,
+            wmode: "opaque",
+            origin: window.location.origin,
+            rel: 0
+          };
+          createPlayer(videoId, `video-target-${index}`, playerOptions);
+        });
       }
     };
     const init = () => {
-      console.log("modalYoutubeVideo Init");
       const modalVideoTriggers = document.querySelectorAll(".js-modal-youtube-video");
-      if (modalVideoTriggers.length < 1) {
-        return;
-      }
-      load_script_default("https://www.youtube.com/iframe_api");
-      window.videoAPIReady = new Promise((resolve) => {
-        window.onYouTubeIframeAPIReady = () => resolve();
+      const closeVideoOverlay = document.getElementById("video-overlay").querySelector(".close");
+      modalVideoTriggers.forEach((trigger, index) => {
+        trigger.addEventListener("click", (e) => handleTriggerClick(e, index));
       });
-      const videoOverlay = document.getElementById("video-overlay");
-      const closeVideoOverlay = videoOverlay.querySelector(".close");
-      modalVideoTriggers.forEach((trigger) => {
-        trigger.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          if (e.target.matches(".js-modal-youtube-video, .js-modal-youtube-video * ")) {
-            const thisTrigger = e.target.closest(".js-modal-youtube-video");
-            const requestedVideoID = thisTrigger.dataset.videoid;
-            const startTime = thisTrigger.dataset.starttime || null;
-            const endTime = thisTrigger.dataset.endtime || null;
-            const videoTarget = document.createElement("div");
-            videoTarget.id = "ytvideo";
-            document.querySelector("#video-overlay .video-container").appendChild(videoTarget);
-            videoOverlay.addEventListener(
-              "animationend",
-              () => {
-                videoOverlay.classList.add("is-open");
-                videoOverlay.classList.remove("fadein");
-              },
-              { once: true }
-            );
-            videoOverlay.classList.add("fadein");
-            document.body.classList.add("modal-active");
-            window.videoAPIReady.then(() => {
-              const playerVars = {
-                autoplay: 1,
-                start: startTime,
-                end: endTime,
-                controls: 1,
-                enablejsapi: 1,
-                wmode: "opaque",
-                origin: window.location.origin,
-                rel: 0
-              };
-              player = new YT.Player("ytvideo", {
-                videoId: requestedVideoID,
-                host: "https://www.youtube.com",
-                playerVars,
-                events: {
-                  onStateChange: onPlayerStateChange
-                }
-              });
-            });
-          }
-        });
-      });
-      closeVideoOverlay.addEventListener("click", () => {
-        close_modal_default();
-      });
+      closeVideoOverlay.addEventListener("click", closeModal);
     };
     return {
       init
     };
   })();
-  var youtube_video_default = modalYoutubeVideo;
+  var youtube_video_default = modalYoutubePlayer;
 
   // js/modules/vimeo-video.js
   var modalVimeoVideo = /* @__PURE__ */ function() {
@@ -489,15 +625,15 @@
       const loadingVimeo = load_script_default("https://player.vimeo.com/api/player.js");
       const videoOverlay = document.getElementById("video-overlay");
       const closeVideoOverlay = videoOverlay.querySelector(".close");
-      modalVideoTriggers.forEach((trigger) => {
+      modalVideoTriggers.forEach((trigger, index) => {
         trigger.addEventListener("click", (e) => {
           e.preventDefault();
           e.stopPropagation();
           if (e.target.matches(".js-modal-vimeo-video, .js-modal-vimeo-video * ")) {
             const thisTrigger = e.target.closest(".js-modal-vimeo-video");
-            const requestedVideoID = thisTrigger.dataset.videoid;
+            const videoID = thisTrigger.dataset.videoid;
             const videoTarget = document.createElement("div");
-            videoTarget.id = "vimeo-player";
+            videoTarget.id = `vimeo-video-player-modal-${index}`;
             document.querySelector("#video-overlay .video-container").appendChild(videoTarget);
             videoOverlay.addEventListener(
               "animationend",
@@ -510,15 +646,15 @@
             videoOverlay.classList.add("fadein");
             document.body.classList.add("modal-active");
             loadingVimeo.then(() => {
-              const vimeoPlayer = new Vimeo.Player("vimeo-player", {
-                id: requestedVideoID,
+              const vimeoPlayer = new Vimeo.Player(`vimeo-video-player-modal-${index}`, {
+                id: videoID,
                 width: 640,
                 height: 360,
                 autoplay: false,
                 muted: false
               });
               vimeoPlayer.play();
-              vimeoPlayer.on("ended", close_modal_default);
+              vimeoPlayer.on("ended", closeModal);
             }).catch((error) => {
               console.error(`Error loading script: ${error}`);
             });
@@ -526,7 +662,7 @@
         });
       });
       closeVideoOverlay.addEventListener("click", () => {
-        close_modal_default();
+        closeModal();
       });
     };
     return {
@@ -570,14 +706,14 @@
     if (document.querySelector(".js-inline-video")) {
       inline_video_default.init();
     }
-    if (document.querySelector(".js-modal-cloudinary-video")) {
-      cloudinary_video_default.init();
-    }
     if (document.querySelector(".js-modal-youtube-video")) {
       youtube_video_default.init();
     }
     if (document.querySelector(".js-modal-vimeo-video")) {
       vimeo_video_default.init();
+    }
+    if (document.querySelector(".js-modal-cloudinary-video")) {
+      cloudinary_video_default.init();
     }
   }
   window.addEventListener("load", function() {

@@ -57,16 +57,16 @@ function initPage() {
     inlineVideo.init();
   }
 
-  if ( document.querySelector( '.js-modal-cloudinary-video' ) ) {
-    modalCloudinaryVideo.init();
-  }
-
   if ( document.querySelector( '.js-modal-youtube-video' ) ) {
     modalYoutubeVideo.init();
   }
 
   if ( document.querySelector( '.js-modal-vimeo-video' ) ) {
     modalVimeoVideo.init();
+  }
+
+  if ( document.querySelector( '.js-modal-cloudinary-video' ) ) {
+    modalCloudinaryVideo.init();
   }
 }
 

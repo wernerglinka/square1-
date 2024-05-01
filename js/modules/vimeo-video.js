@@ -2,8 +2,8 @@
 /* eslint-disable space-before-function-paren */
 /* eslint-disable indent */
 /* global Vimeo */
-import loadScript from './load-script';
-import closeModal from './close-modal';
+import loadScript from './helpers/load-script';
+import { closeModal } from './helpers/modal';
 
 /**
  * @function modalVimeoVideo
@@ -36,7 +36,7 @@ const modalVimeoVideo = ( function () {
     const closeVideoOverlay = videoOverlay.querySelector( '.close' );
 
     // add eventlisteners to everty video trigger link
-    modalVideoTriggers.forEach( ( trigger ) => {
+    modalVideoTriggers.forEach( ( trigger, index ) => {
       trigger.addEventListener( 'click', ( e ) => {
         e.preventDefault();
         e.stopPropagation();
@@ -45,11 +45,11 @@ const modalVimeoVideo = ( function () {
         // that is the link that was clicked
         if ( e.target.matches( '.js-modal-vimeo-video, .js-modal-vimeo-video * ' ) ) {
           const thisTrigger = e.target.closest( '.js-modal-vimeo-video' );
-          const requestedVideoID = thisTrigger.dataset.videoid;
+          const videoID = thisTrigger.dataset.videoid;
 
           // add the target element for the video player in the overlay
           const videoTarget = document.createElement( 'div' );
-          videoTarget.id = 'vimeo-player';
+          videoTarget.id = `vimeo-video-player-modal-${ index }`;
           document.querySelector( '#video-overlay .video-container' ).appendChild( videoTarget );
 
           // fade in the overlay
@@ -68,8 +68,8 @@ const modalVimeoVideo = ( function () {
 
           loadingVimeo
             .then( () => {
-              const vimeoPlayer = new Vimeo.Player( 'vimeo-player', {
-                id: requestedVideoID,
+              const vimeoPlayer = new Vimeo.Player( `vimeo-video-player-modal-${ index }`, {
+                id: videoID,
                 width: 640,
                 height: 360,
                 autoplay: false,

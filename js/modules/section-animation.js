@@ -1,4 +1,4 @@
-import debounce from './debounce.js';
+import debounce from './helpers/debounce.js';
 
 const sectionAnimations = ( () => {
   'use strict';

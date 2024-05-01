@@ -1,6 +1,6 @@
 /* eslint-disable space-before-function-paren */
 /* eslint-disable indent */
-import closeModal from './close-modal';
+import { closeModal } from './helpers/modal';
 
 const modalVideo = ( function () {
   const init = function () {
