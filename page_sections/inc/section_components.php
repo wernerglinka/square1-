@@ -98,9 +98,44 @@
    * The link may rendered as a button or text link.
    * External links will be rendered with target="_blank" and rel="noopener noreferrer" 
    */
-  function render_cta_component($cta) {
-    if (!$cta['link']) {
+  function render_blurb_component($blurb) {
+    if (empty($blurb)) {
       return;
+    }
+    $title = $blurb['title'];
+    $heading_level = $blurb['heading_level'];
+    $sub_title = $blurb['sub_title'];
+    $prose = $blurb['prose'];
+    $ctas = $blurb['ctas'];
+    $icon = get_icon($blurb['icon']);
+    $image = $blurb['image'];
+
+    $output = <<<BLURBS
+      <div class='blurb'>
+        <div class='blurb-header'>
+          <span class='icon'>{$icon}</span>
+          <h3>{$title}</h3>
+          <p class='sub-title'>{$sub_title}</p>
+        </div>
+        <div class='blurb-body'>
+          <div class='prose'>{$prose}</div>
+          <div class='image'>{$image}</div>
+        </div>
+      </div>
+    BLURBS;
+
+    echo $output;
+  }
+
+  /**
+ * Render a CTA component.
+ * The link may rendered as a button or text link.
+ * External links will be rendered with target="_blank" and rel="noopener noreferrer"
+ */
+function render_cta_component($cta)
+{
+    if (!$cta['link']) {
+        return;
     }
 
     $url = $cta['link']['url'];
@@ -116,7 +151,8 @@
 
     echo $output;
 
-  }
+}
+
 
   /**
    * Render an icon link list component

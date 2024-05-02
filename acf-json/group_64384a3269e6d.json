@@ -67,6 +67,7 @@
             "choices": {
                 "none": "Custom",
                 "banner": "Banner",
+                "blurbs": "Blurbs",
                 "cta-banner": "CTA Banner",
                 "images": "Images",
                 "text": "Text",
@@ -217,5 +218,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714405924
+    "modified": 1714691180
 }
