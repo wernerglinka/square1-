@@ -23,26 +23,6 @@
             "ui": 1
         },
         {
-            "key": "field_662fc36cb7f12",
-            "label": "Use JS API",
-            "name": "use_js_api",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "Normally an iFrame is used to display a video. If this is true the associated JS API will be used. This provides more functionality but the API must be downloaded first.",
-            "default_value": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
             "key": "field_6622d61c0d747",
             "label": "Source",
             "name": "source",
@@ -148,5 +128,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714406391
+    "modified": 1714671278
 }

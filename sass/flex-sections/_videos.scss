@@ -1,4 +1,5 @@
-.flex-section.videos {
+.flex-section.videos,
+.flex-section.text-video {
   .video {
     width: 100%;
     max-width: 80rem;
@@ -92,8 +93,7 @@
           top: 0;
           left: 0;
           width: 100%;
-          height: 100%;
-          
+          height: 100%;  
       }
     }
 
@@ -114,14 +114,12 @@
 [id*=cloudinary-video-player] {
   position: relative;
   width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
-
-  .cld-video-player {
+  aspect-ratio: 16 / 9;
+}
+.cld-video-player {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-  }
 }

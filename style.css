@@ -2143,8 +2143,7 @@ body.modal-active {
 [id*=cloudinary-video-player] {
   position: relative;
   width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
+  aspect-ratio: 16/9;
 }
 [id*=cloudinary-video-player] video {
   position: absolute;
@@ -2733,16 +2732,19 @@ button.inverted, .button.inverted {
   align-items: center;
 }
 
-.flex-section.videos .video {
+.flex-section.videos .video,
+.flex-section.text-video .video {
   width: 100%;
   max-width: 80rem;
   margin: 0 auto;
   aspect-ratio: 16/9;
 }
-.flex-section.videos .video.inline {
+.flex-section.videos .video.inline,
+.flex-section.text-video .video.inline {
   position: relative;
 }
-.flex-section.videos .video > button {
+.flex-section.videos .video > button,
+.flex-section.text-video .video > button {
   display: block;
   width: 100%;
   aspect-ratio: 16/9;
@@ -2755,7 +2757,8 @@ button.inverted, .button.inverted {
   overflow: hidden;
   transition: all 0.5s ease-in-out;
 }
-.flex-section.videos .video > button .play-button {
+.flex-section.videos .video > button .play-button,
+.flex-section.text-video .video > button .play-button {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -2768,7 +2771,8 @@ button.inverted, .button.inverted {
   transition: all 0.5s ease-in-out;
   cursor: pointer;
 }
-.flex-section.videos .video > button .play-button:after {
+.flex-section.videos .video > button .play-button:after,
+.flex-section.text-video .video > button .play-button:after {
   position: absolute;
   top: 12px;
   left: 20px;
@@ -2781,21 +2785,26 @@ button.inverted, .button.inverted {
   border-color: transparent transparent transparent #000;
   transition: all 0.5s ease-in-out;
 }
-.flex-section.videos .video > button img {
+.flex-section.videos .video > button img,
+.flex-section.text-video .video > button img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-.flex-section.videos .video > button:hover {
+.flex-section.videos .video > button:hover,
+.flex-section.text-video .video > button:hover {
   transform: none;
 }
-.flex-section.videos .video > button:hover .play-button {
+.flex-section.videos .video > button:hover .play-button,
+.flex-section.text-video .video > button:hover .play-button {
   background-color: #666;
 }
-.flex-section.videos .video > button:hover .play-button:after {
+.flex-section.videos .video > button:hover .play-button:after,
+.flex-section.text-video .video > button:hover .play-button:after {
   border-color: transparent transparent transparent #fff;
 }
-.flex-section.videos .video .inline-video-wrapper {
+.flex-section.videos .video .inline-video-wrapper,
+.flex-section.text-video .video .inline-video-wrapper {
   position: absolute;
   top: 0;
   left: 0;
@@ -2803,7 +2812,8 @@ button.inverted, .button.inverted {
   height: 100%;
   z-index: -1;
 }
-.flex-section.videos .video .inline-video-wrapper .close {
+.flex-section.videos .video .inline-video-wrapper .close,
+.flex-section.text-video .video .inline-video-wrapper .close {
   position: absolute;
   top: 1rem;
   right: 1.5rem;
@@ -2811,18 +2821,21 @@ button.inverted, .button.inverted {
   color: red;
   cursor: pointer;
 }
-.flex-section.videos .video .inline-video-wrapper iframe {
+.flex-section.videos .video .inline-video-wrapper iframe,
+.flex-section.text-video .video .inline-video-wrapper iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
 }
-.flex-section.videos .video.video-playing > button {
+.flex-section.videos .video.video-playing > button,
+.flex-section.text-video .video.video-playing > button {
   opacity: 0;
   pointer-events: none;
 }
-.flex-section.videos .video.video-playing .inline-video-wrapper {
+.flex-section.videos .video.video-playing .inline-video-wrapper,
+.flex-section.text-video .video.video-playing .inline-video-wrapper {
   z-index: 1;
 }
 
@@ -2830,10 +2843,10 @@ button.inverted, .button.inverted {
 [id*=cloudinary-video-player] {
   position: relative;
   width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
+  aspect-ratio: 16/9;
 }
-[id*=cloudinary-video-player] .cld-video-player {
+
+.cld-video-player {
   position: absolute;
   top: 0;
   left: 0;

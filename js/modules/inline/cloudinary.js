@@ -11,7 +11,7 @@ const inlineCloudinaryVideo = ( videoInstance, index ) => {
 
   const videoId = videoInstance.dataset.videoid;
   const containerId = `cloudinary-video-player-${ index }`;
-  const playerId = `demo-player-${ index }`;
+  const playerId = `player-${ index }`;
 
   // Create the container element for the video player
   const videoTarget = createElementWithId( 'div', containerId );
@@ -25,7 +25,13 @@ const inlineCloudinaryVideo = ( videoInstance, index ) => {
     .then( () => {
       // Create the video tag
       const videoTag = `
-        <video id="${ playerId }" controls autoplay class="cld-video-player" data-cld-public-id="${ videoId }"></video>
+        <video
+          id="${ playerId }" 
+          controls
+          autoplay
+          class="cld-video-player"
+          data-cld-public-id="${ videoId }"
+        ></video>
       `;
       videoInstance.querySelector( `#${ containerId }` ).innerHTML = videoTag;
 

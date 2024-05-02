@@ -278,7 +278,7 @@ function render_video_via_api_component($video)
 
     } else {
         $output = <<<EOT
-        <button class="js-modal-{$video['source']}-video" data-videoid="{$id}" data-videosrc="{$source}">
+        <button class="js-modal-video" data-videoid="{$id}" data-videosrc="{$source}">
           <div class="play-button"></div>
           $video_thumbnail
         </button>
