@@ -14,8 +14,8 @@
 
 <?php render_text_component($text);?>
 
+<div class="container">
 <?php if ($is_vertical): ?>
-
   <div class="is-vertical js-tabs">
     <ul class="tabs-list">
       <?php foreach ($tabs as $key=>$tab) : ?>
@@ -91,3 +91,5 @@
   </div>
 
 <?php endif;?>
+
+</div><!-- .container -->

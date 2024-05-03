@@ -1082,6 +1082,10 @@ textarea {
    */
   /**
    * animate text content
+   *
+   * May introduce side effects, so use with caution.
+   * See vertical tabs for an example. Image is positioned absolte and jumps
+   * into position when the text is animated.
    */
 }
 .page-section.has-light-screen {
@@ -1131,10 +1135,6 @@ textarea {
   max-width: 900px;
   margin-left: auto;
   margin-right: auto;
-}
-.page-section h2, .page-section h3, .page-section h4, .page-section p, .page-section li, .page-section a, .page-section img {
-  transform: translateY(0);
-  animation: header-anime 0.5s ease-in-out;
 }
 .page-section .prose p:last-child {
   margin-bottom: 0;
@@ -1785,6 +1785,7 @@ textarea {
 
 .page-section.tabs .container {
   flex-direction: column;
+  justify-content: flex-start;
 }
 .page-section.tabs h2,
 .page-section.tabs .text-subtitle {
@@ -1845,7 +1846,7 @@ textarea {
   max-height: 1px;
   overflow: hidden;
   border-bottom: 1px solid #ccc;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 @media (max-width: 767px) {
   .page-section.tabs .is-vertical li h4 + div {
@@ -1873,6 +1874,7 @@ textarea {
 .page-section.tabs .is-vertical li.active h4 + div {
   max-height: 800px;
   padding-bottom: 20px;
+  transition: all 0.5s ease-in-out;
 }
 .page-section.tabs .is-vertical li:last-of-type h4 + div {
   border-bottom: none;
@@ -1888,7 +1890,7 @@ textarea {
   justify-content: center;
   align-items: center;
   padding: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 1s ease-in-out;
 }
 @media (max-width: 767px) {
   .page-section.tabs .is-vertical li .media {

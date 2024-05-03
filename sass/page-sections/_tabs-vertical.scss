@@ -1,7 +1,9 @@
 .page-section.tabs {
 
   .container {
+    // avoid the elements to jump when tab content is of different height
     flex-direction: column;
+    justify-content: flex-start;
   }
   
   h2, 
@@ -69,7 +71,7 @@
           max-height: 1px;
           overflow: hidden;
           border-bottom: 1px solid #ccc;
-          transition: all 0.3s ease-in-out;
+          transition: all 0.5s ease-in-out;
           //color: $color__text-dark-background;
 
           @media (max-width: $tablet-width-portrait) {
@@ -102,6 +104,7 @@
         h4 + div {
           max-height: 800px;
           padding-bottom: 20px;
+          transition: all 0.5s ease-in-out;
         }
       }
 
@@ -120,7 +123,7 @@
         justify-content: center;
         align-items: center;
         padding: $default-padding;
-        transition: opacity 0.3s ease-in-out;
+        transition: opacity 1s ease-in-out;
 
         @media (max-width: $tablet-width-portrait) {
           position: static;

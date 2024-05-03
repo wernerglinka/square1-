@@ -121,9 +121,13 @@
 
   /**
    * animate text content
+   *
+   * May introduce side effects, so use with caution.
+   * See vertical tabs for an example. Image is positioned absolte and jumps
+   * into position when the text is animated.
    */
   h2, h3, h4, p, li, a, img {
-    @include animate;
+    //@include animate;
   }
 
   .prose {
