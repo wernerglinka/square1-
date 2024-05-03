@@ -12,6 +12,6 @@
 ?>
   
 <div class="icon">
-  <?php render_lottie_component($args); ?>
+  <?php echo render_lottie_component($args); ?>
 </div>
 

@@ -38,7 +38,7 @@
       <$wrapper_type$id_attr class='page-section $section_name $body_classes'$style_attr>
     OPENTAG;
 
-    echo $tag;
+    return $tag;
 
   }
 
@@ -58,7 +58,7 @@
     </$wrapper_type>
     CLOSINGTAG;
 
-    echo $tag;
+    return $tag;
 
   }
 
@@ -77,7 +77,7 @@
     $title = $text['title'] ?? null;
     if ($title) {
         $title = preg_replace('/^<[^>]+>|<\/[^>]+>$/', '', $title);
-        render_title($title, $text['heading_level']);
+        $output .= render_title($title, $text['heading_level']);
     }
 
     $sub_title = $text['sub_title'] ?? null;
@@ -90,41 +90,53 @@
         $output .= "<div class='text-prose'>{$prose}</div>";
     }
 
-    echo $output;
+    return $output;
   }
 
   /**
-   * Render a CTA component. 
-   * The link may rendered as a button or text link.
-   * External links will be rendered with target="_blank" and rel="noopener noreferrer" 
+   * Render a blurb component.
    */
   function render_blurb_component($blurb) {
     if (empty($blurb)) {
       return;
     }
-    $title = $blurb['title'];
-    $heading_level = $blurb['heading_level'];
-    $sub_title = $blurb['sub_title'];
-    $prose = $blurb['prose'];
-    $ctas = $blurb['ctas'];
-    $icon = get_icon($blurb['icon']);
-    $image = $blurb['image'];
+    $text = isset($blurb['text']['title']) || isset($blurb['text']['sub_title']) || isset($blurb['text']['prose']) ? render_text_component($blurb['text']) : null;
+    $ctas = '';
+    if (count($blurb['ctas']) > 0) {
+      $ctas .= '<div class="ctas-container">';
+      foreach ($blurb['ctas'] as $cta) {
+        $ctas .= render_cta_component($cta);
+      }
+      $ctas .= '</div>';
+    } else {
+      $ctas = null;
+    }
+    $icon = isset($blurb['icon']) && $blurb['icon'] !== 'none' ? "<span class='icon'>" . get_icon($blurb['icon']) . "</span>" : null;
+   
+    $image_src = null;
+    if (isset($blurb['image']['id'])) {
+      $image_src_array = wp_get_attachment_image_src($blurb['image']['id'], 'thumbnail');
+      if ($image_src_array !== false) {
+        $image_src = $image_src_array[0];
+      }
+    }
+    $image = $image_src !== null ? "<div class='image'><img src='" . $image_src . "' alt='' /></div>" : null;
+    
 
     $output = <<<BLURBS
       <div class='blurb'>
-        <div class='blurb-header'>
-          <span class='icon'>{$icon}</span>
-          <h3>{$title}</h3>
-          <p class='sub-title'>{$sub_title}</p>
+        <div class='decoration'>
+          {$icon}
+          {$image}
         </div>
         <div class='blurb-body'>
-          <div class='prose'>{$prose}</div>
-          <div class='image'>{$image}</div>
+          {$text}
+          {$ctas}
         </div>
       </div>
     BLURBS;
 
-    echo $output;
+    return $output;
   }
 
   /**
@@ -149,7 +161,7 @@ function render_cta_component($cta)
       <a class='cta {$button_class}' href='{$url}' {$external_attributes}>{$label}{$hint}</a>
     CTA;
 
-    echo $output;
+    return $output;
 
 }
 
@@ -179,7 +191,7 @@ function render_cta_component($cta)
       ICONLINK;
     }
     $output .= "</ul>";
-    echo $output;
+    return $output;
   }
 
   
@@ -206,7 +218,7 @@ function render_cta_component($cta)
         </audio>
       AUDIO;
 
-      echo $output;
+      return $output;
   }
 
   function get_icon($icon) {
@@ -221,7 +233,7 @@ function render_cta_component($cta)
     if (!isset($icon['icon'])) {
       return;
     }
-    echo get_icon($icon['icon']);
+    return get_icon($icon['icon']);
   }
 
   /**
@@ -234,7 +246,7 @@ function render_cta_component($cta)
       return;
     }
 
-    echo wp_get_attachment_image($image_id, 'large', false, ['alt' => $image['alt_text']]);
+    return wp_get_attachment_image($image_id, 'large', false, ['alt' => $image['alt_text']]);
   }
 
   /**
@@ -251,7 +263,7 @@ function render_cta_component($cta)
       <lottie-player class='js-lottie' src='{$source}' background='transparent' speed='1' autoplay=true loop=true></lottie-player>
     LOTTIEPLAYER;
 
-    echo $output;
+    return $output;
   }
 
 
@@ -285,7 +297,7 @@ function render_cta_component($cta)
         </button>
       EOT;
     }
-    echo $output;
+    return $output;
   }
 
   /**
@@ -320,7 +332,7 @@ function render_video_via_api_component($video)
         </button>
       EOT;
     }
-    echo $output;
+    return $output;
 }
 
 
@@ -357,7 +369,7 @@ function render_video_via_api_component($video)
         </li>";
       }
       $output .= "</ul>";
-      echo $output;
+      return $output;
     }
   }
 
@@ -395,7 +407,7 @@ function render_logos_list_component($resources) {
         </li>";
         }
         $output .= "</ul>";
-        echo $output;
+        return $output;
     }
 }
 
@@ -439,7 +451,7 @@ function render_flip_card_component($card) {
     </div>
   </li>";
 
-  echo $output;
+  return $output;
 }
 
 /**
@@ -500,7 +512,7 @@ function render_manual_card_component($card) {
 
   $output .= "</div></li>";
 
-  echo $output;
+  return $output;
 }
 
 /**
@@ -540,7 +552,7 @@ function render_testimonials_component($testimonial) {
 </blockquote>
 HTML;
 
-  echo $output;
+  return $output;
 }
 ?>
  

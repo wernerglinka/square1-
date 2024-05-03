@@ -16,6 +16,6 @@
 
   <div class="images">
     <?php foreach ($images as $image): ?>
-      <?php render_image_component($image); ?>
+      <?php echo render_image_component($image); ?>
     <?php endforeach;?>
   </div>

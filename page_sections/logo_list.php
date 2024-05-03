@@ -27,11 +27,11 @@ if ($all) {
 }
 ?>
 
-<?php render_text_component($text);?>
-<?php render_logos_list_component($items);?>
+<?php echo render_text_component($text);?>
+<?php echo render_logos_list_component($items);?>
 <?php if ($cta): ?>
   <div class="ctas-container">
-  <?php render_cta_component($cta);?>
+  <?php echo render_cta_component($cta);?>
   </div>
 <?php endif;?>
 

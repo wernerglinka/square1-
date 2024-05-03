@@ -31,11 +31,11 @@
 
     // render the opening tag for the section.
     // This may be a section, an article, a div or an aside
-    render_open_tag($section);
+    echo render_open_tag($section);
 
     // Get the template part for the current layout and pass the props to it
     get_template_part( 'page_sections/' . $section, null, array('props' => $props));
 
     // Close the wrapper element
-    render_close_tag($section);
+    echo render_close_tag($section);
   }

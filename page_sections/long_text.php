@@ -15,6 +15,6 @@
 ?>
 
 <div class="text">
-  <?php render_text_component($text); ?>
+  <?php echo render_text_component($text); ?>
 </div>
 

@@ -13,9 +13,9 @@ include_once get_template_directory() . '/page_sections/inc/section_components.p
 
 <div class="audio">
   <?php if ($args['thumbnail']): ?>
-    <?php render_image_component($args['thumbnail']);?>
+    <?php echo render_image_component($args['thumbnail']);?>
   <?php endif;?>
 
-  <?php render_audio_component($args);?>
+  <?php echo render_audio_component($args);?>
 </div>
 

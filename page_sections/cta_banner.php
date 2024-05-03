@@ -17,11 +17,11 @@ $hasCTAs = count($ctas) > 0;
 
 <div class="container">
   <div class="text">
-    <?php render_text_component($text);?>
+    <?php echo render_text_component($text);?>
     <?php if ($hasCTAs): ?>
       <div class="ctas-container">
       <?php foreach ($ctas as $cta): ?>
-        <?php render_cta_component($cta);?>
+        <?php echo render_cta_component($cta);?>
       <?php endforeach;?>
       </div>
     <?php endif;?>

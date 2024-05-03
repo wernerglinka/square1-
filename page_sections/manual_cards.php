@@ -19,13 +19,13 @@
     
     <div class="section-text">
       <div class="section-header">
-        <?php render_text_component($text); ?>
+        <?php echo render_text_component($text); ?>
       </div>
 
       <?php if ($hasCTAs): ?>
         <div class="ctas-container">
         <?php foreach ($ctas as $cta): ?>
-          <?php render_cta_component($cta);?>
+          <?php echo render_cta_component($cta);?>
         <?php endforeach;?>
         </div>
       <?php endif;?>
@@ -34,7 +34,7 @@
     <?php $length = count($cards);?>
     <ul class="manual-cards-list items<?php echo $length ?>">
       <?php foreach ($cards as $card): ?>
-        <?php render_manual_card_component($card);?>
+        <?php echo render_manual_card_component($card);?>
       <?php endforeach;?>
     </ul>
     
@@ -42,20 +42,20 @@
   <?php else: ?>
     
     <div class="section-header">
-      <?php render_text_component($text); ?>
+      <?php echo render_text_component($text); ?>
     </div>
 
     <?php $length = count($cards);?>
     <ul class="manual-cards-list items<?php echo $length ?>">
       <?php foreach ($cards as $card): ?>
-        <?php render_manual_card_component($card); ?>
+        <?php echo render_manual_card_component($card); ?>
       <?php endforeach; ?>
     </ul>
 
     <?php if ($hasCTAs): ?>
       <div class="ctas-container">
       <?php foreach ($ctas as $cta): ?>
-        <?php render_cta_component($cta);?>
+        <?php echo render_cta_component($cta);?>
       <?php endforeach;?>
       </div>
     <?php endif;?>

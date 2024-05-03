@@ -616,8 +616,8 @@
                                                     "sub_fields": [
                                                         {
                                                             "key": "field_66341cb75643d",
-                                                            "label": "Blurb",
-                                                            "name": "blurb",
+                                                            "label": "Blurbs",
+                                                            "name": "blurbs",
                                                             "aria-label": "",
                                                             "type": "repeater",
                                                             "instructions": "",
@@ -3759,5 +3759,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714693286
+    "modified": 1714748063
 }

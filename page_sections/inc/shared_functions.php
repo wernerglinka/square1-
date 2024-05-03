@@ -11,7 +11,7 @@
       </$header_level>
     EOT;
 
-    echo $output;
+    return $output;
   }
 ?>
 

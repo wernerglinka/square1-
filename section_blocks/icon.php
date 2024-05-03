@@ -12,6 +12,6 @@
 ?>
   
 <div class="icon">
-  <?php render_icon_component($args); ?>
+  <?php echo render_icon_component($args); ?>
 </div>
 

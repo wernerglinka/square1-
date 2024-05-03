@@ -27,17 +27,17 @@
 
 
   <div class="text">
-    <?php render_text_component($text); ?>
-    <?php render_cta_component($cta); ?>
+    <?php echo render_text_component($text); ?>
+    <?php echo render_cta_component($cta); ?>
   </div>
 
   <?php if ($media_type == "audio") : ?>
     <div class="media audio">
       <?php if ($audio['thumbnail']) : ?>
-        <?php render_image_component($audio['thumbnail']); ?>
+        <?php echo render_image_component($audio['thumbnail']); ?>
       <?php endif; ?>
         
-      <?php render_audio_component($audio); ?>
+      <?php echo render_audio_component($audio); ?>
     </div>
   <?php endif; ?>
 
@@ -50,27 +50,27 @@
       echo "</pre>";
 
     ?>
-      <?php render_lottie_component($lottie); ?>
+      <?php echo render_lottie_component($lottie); ?>
     </div>
   <?php endif; ?>
 
   <?php if ($media_type == "image") : ?>
     <div class="media image">
-      <?php render_image_component($image); ?>
+      <?php echo render_image_component($image); ?>
     </div>
   <?php endif; ?>
 
   <?php if ($media_type == "icon") : ?>
     <div class="media icon">
       <div class="icon-wrapper <?php echo $icon['icon_classes']; ?>">
-        <?php render_icon_component($icon); ?>
+        <?php echo render_icon_component($icon); ?>
       </div> 
     </div>
   <?php endif; ?>
 
   <?php if ($media_type == "video") : ?>
     <div class="media video">
-      <?php render_video_component($video); ?>
+      <?php echo render_video_component($video); ?>
     </div>
   <?php endif; ?>
 

@@ -1,0 +1,48 @@
+.blurb {
+  max-width: 25rem;
+  display: flex;
+  margin: 1rem;
+  
+
+  .decoration {
+    max-width: 5rem;
+    padding: 0.5rem;
+  }
+  .blurb-body {
+    position: relative;
+    padding: 0 1rem 4rem 0;
+    
+
+    * {
+      margin: 0;
+    }
+
+    .text-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .text-subtitle {
+      font-size: 1.6rem;
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+    .text-prose {
+      p {
+        font-size: 1.6rem;
+      }
+    }
+    .ctas-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      font-size: 1.4rem;
+    }
+  }
+
+}

@@ -7,7 +7,7 @@
             "label": "Text",
             "name": "text",
             "aria-label": "",
-            "type": "clone",
+            "type": "group",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -16,13 +16,31 @@
                 "class": "",
                 "id": ""
             },
-            "clone": [
-                "group_64385730e00de"
-            ],
-            "display": "seamless",
             "layout": "block",
-            "prefix_label": 0,
-            "prefix_name": 0
+            "sub_fields": [
+                {
+                    "key": "field_66353b966a4fa",
+                    "label": "Text",
+                    "name": "text",
+                    "aria-label": "",
+                    "type": "clone",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "clone": [
+                        "group_64385730e00de"
+                    ],
+                    "display": "seamless",
+                    "layout": "block",
+                    "prefix_label": 0,
+                    "prefix_name": 0
+                }
+            ]
         },
         {
             "key": "field_66341b84a6ced",
@@ -98,7 +116,7 @@
             "label": "Image",
             "name": "image",
             "aria-label": "",
-            "type": "clone",
+            "type": "group",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -107,13 +125,31 @@
                 "class": "",
                 "id": ""
             },
-            "clone": [
-                "group_6438592227af1"
-            ],
-            "display": "seamless",
             "layout": "block",
-            "prefix_label": 0,
-            "prefix_name": 0
+            "sub_fields": [
+                {
+                    "key": "field_6634fd2e3b217",
+                    "label": "Image",
+                    "name": "image",
+                    "aria-label": "",
+                    "type": "clone",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "clone": [
+                        "group_6438592227af1"
+                    ],
+                    "display": "seamless",
+                    "layout": "block",
+                    "prefix_label": 0,
+                    "prefix_name": 0
+                }
+            ]
         }
     ],
     "location": [
@@ -134,5 +170,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714691127
+    "modified": 1714764715
 }

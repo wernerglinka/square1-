@@ -12,6 +12,6 @@
 
   $allLinks = $args['links'];
 
-  render_icon_link_list_component($allLinks);
+  echo render_icon_link_list_component($allLinks);
 ?>
 

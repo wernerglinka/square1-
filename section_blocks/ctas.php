@@ -13,14 +13,14 @@ include_once get_template_directory() . '/page_sections/inc/section_components.p
 $ctas = isset($args['ctas']) && is_array($args['ctas']) ? $args['ctas'] : [];
 
 // Exit if $ctas length is 1 and $ctas[0]['link'] is empty or not set
-if (count($ctas) === 1 && (empty($ctas[0]['link']) || !isset($ctas[0]['link']))) {
-    return;
-}
+//if (count($ctas) === 1 && (empty($ctas[0]['link']) || !isset($ctas[0]['link']))) {
+//    return;
+//}
 
 if (!empty($ctas)): ?>
   <div class="ctas">
     <?php foreach ($ctas as $cta) {
-      render_cta_component($cta);
+      echo render_cta_component($cta);
     } ?>
   </div>
 <?php endif; ?>

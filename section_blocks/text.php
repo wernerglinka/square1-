@@ -11,7 +11,7 @@
 include_once get_template_directory() . '/page_sections/inc/section_components.php';
 ?>
 <div class="text">
-  <?php render_text_component($args); ?>
+  <?php echo render_text_component($args); ?>
 </div>
 
 

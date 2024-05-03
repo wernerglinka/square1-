@@ -27,17 +27,17 @@
 
           <div>
             <div class="media">
-              <?php render_image_component($tab['tab_content']['image']);?>
+              <?php echo render_image_component($tab['tab_content']['image']);?>
             </div>    <!-- .media -->
             <div class="text">
-              <?php render_text_component($tab['tab_content']['text']);?>
+              <?php echo render_text_component($tab['tab_content']['text']);?>
 
               <?php $ctas = isset($tab['tab_content']['ctas']) && is_array($tab['tab_content']['ctas']) ? $tab['tab_content']['ctas'] : [];?>
               <?php $hasCTAs = count($ctas) > 0;?>
               <?php if ($hasCTAs): ?>
                 <div class="ctas-container">
                   <?php foreach ($ctas as $cta): ?>
-                  <?php render_cta_component($cta);?>
+                  <?php echo render_cta_component($cta);?>
                   <?php endforeach;?>
                 </div>
               <?php endif;?>
@@ -63,7 +63,7 @@
       <?php foreach ($tabs as $index => $tab): ?>
         <div class="tab-content <?php if ($index == 0) { echo 'active'; } ?>">
           <div class="text">
-            <?php render_text_component($tab['tab_content']['text']);?>
+            <?php echo render_text_component($tab['tab_content']['text']);?>
 
             <?php $ctas = isset($tab['tab_content']['ctas']) && is_array($tab['tab_content']['ctas']) ? $tab['tab_content']['ctas'] : [];?>
             <?php $hasCTAs = count($ctas) > 0;?>
@@ -75,14 +75,14 @@
               ?>
               <div class="ctas-container">
                 <?php foreach ($ctas as $cta): ?>
-                <?php render_cta_component($cta);?>
+                <?php echo render_cta_component($cta);?>
                 <?php endforeach;?>
               </div>
             <?php endif;?>
           </div><!-- .text -->
 
           <div class="media">
-            <?php render_image_component($tab['tab_content']['image']);?>
+            <?php echo render_image_component($tab['tab_content']['image']);?>
           </div><!-- .media -->
 
         </div><!-- .tab-content -->

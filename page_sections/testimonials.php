@@ -21,7 +21,7 @@
   <?php $testimonial = $testimonials[0]; ?>
   
   <div class="testimonial-single">
-    <?php render_testimonials_component($testimonial); ?>
+    <?php echo render_testimonials_component($testimonial); ?>
   </div>   
 
   <?php else: ?>
@@ -29,7 +29,7 @@
   <ul class="testimonials-list">
     <?php foreach ($testimonials as $testimonial): ?>
       <li class="testimonial">
-        <?php render_testimonials_component($testimonial); ?>
+        <?php echo render_testimonials_component($testimonial); ?>
       </li>
     <?php endforeach;?>
   </ul> 
@@ -37,7 +37,7 @@
   <?php if ($hasCTAs): ?>
     <div class="ctas-container">
     <?php foreach ($ctas as $cta): ?>
-      <?php render_cta_component($cta);?>
+      <?php echo render_cta_component($cta);?>
     <?php endforeach;?>
     </div>
   <?php endif;?>

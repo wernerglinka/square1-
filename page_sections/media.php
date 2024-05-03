@@ -19,11 +19,11 @@
 ?>
 
   <div class="text">
-    <?php render_text_component($text);?>
+    <?php echo render_text_component($text);?>
     <?php if ($hasCTAs): ?>
       <div class="ctas-container">
       <?php foreach ($ctas as $cta): ?>
-        <?php render_cta_component($cta);?>
+        <?php echo render_cta_component($cta);?>
       <?php endforeach;?>
       </div>
     <?php endif;?>
@@ -31,6 +31,6 @@
 
   <?php if ($has_image): ?>
     <div class="image">
-      <?php render_image_component($image);?>
+      <?php echo render_image_component($image);?>
     </div><!-- .image -->
   <?php endif;?>

@@ -1,0 +1,10 @@
+.flex-section.blurbs {
+  .columns.count2 .column:first-child {
+    max-width: 40%;
+  }
+}
+.blurbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}

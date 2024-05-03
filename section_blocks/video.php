@@ -20,5 +20,5 @@ $is_inline = $args['inline'];
 ?>
 
 <div class="video <?php echo $is_inline ? 'inline' : ''; ?>">
-  <?php render_video_via_api_component($args); ?>
+  <?php echo render_video_via_api_component($args); ?>
 </div>

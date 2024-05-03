@@ -27,11 +27,11 @@
 ?>
 
   <div class="text">
-    <?php render_text_component($text); ?>
+    <?php echo render_text_component($text); ?>
     <?php if ($hasCTAs): ?>
       <div class="ctas-container">
       <?php foreach ($ctas as $cta): ?>
-        <?php render_cta_component($cta);?>
+        <?php echo render_cta_component($cta);?>
       <?php endforeach;?>
       </div>
     <?php endif;?>
@@ -40,29 +40,29 @@
   <?php if ($media_type == "audio") : ?>
     <div class="media audio">
       <?php if ($audio['thumbnail']) : ?>
-        <?php render_image_component($audio['thumbnail']); ?>
+        <?php echo render_image_component($audio['thumbnail']); ?>
       <?php endif; ?>
         
-      <?php render_audio_component($audio); ?>
+      <?php echo render_audio_component($audio); ?>
     </div>
   <?php endif; ?>
 
   <?php if ($media_type == "image"): ?>
     <div class="media image">
-      <?php render_image_component($image);?>
+      <?php echo render_image_component($image);?>
     </div>
   <?php endif;?>
 
   <?php if ($media_type == "icon"): ?>
     <div class="media icon">
       <div class="icon-wrapper">
-        <?php render_icon_component($icon);?>
+        <?php echo render_icon_component($icon);?>
       </div>
     </div>
   <?php endif;?>
 
   <?php if ($media_type == "lottie"): ?>
     <div class="media image">
-      <?php render_lottie_component($lottie);?>
+      <?php echo render_lottie_component($lottie);?>
     </div>
   <?php endif;?>
