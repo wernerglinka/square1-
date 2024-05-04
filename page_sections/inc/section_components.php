@@ -139,7 +139,7 @@
     return $output;
   }
 
-  /**
+/**
  * Render a CTA component.
  * The link may rendered as a button or text link.
  * External links will be rendered with target="_blank" and rel="noopener noreferrer"
@@ -534,25 +534,59 @@ function render_testimonials_component($testimonial) {
   $post_thumbnail = get_the_post_thumbnail($testimonial->ID);
 
   $output = <<<HTML
-<div class="testimonial-image">
-  {$post_thumbnail}
-</div>
-<blockquote>
-  {$testimonial->post_content}
-  <footer>
-    <div class="attribution">
-      {$logo_output}
-      <div class="quotee">
-        <p class="name">{$name}</p>
-        <p class="position">{$position}</p>
-        <p class="organization">{$organization}</p>
-      </div>
+    <div class="testimonial-image">
+      {$post_thumbnail}
     </div>
-  </footer>
-</blockquote>
-HTML;
+    <blockquote>
+      {$testimonial->post_content}
+      <footer>
+        <div class="attribution">
+          {$logo_output}
+          <div class="quotee">
+            <p class="name">{$name}</p>
+            <p class="position">{$position}</p>
+            <p class="organization">{$organization}</p>
+          </div>
+        </div>
+      </footer>
+    </blockquote>
+  HTML;
 
   return $output;
 }
-?>
+
  
+/**
+ * Render an images gallery filter
+ */
+function render_images_gallery_filter($filter_terms) {
+  $output = "<ul class='filter js-filter'>";
+  $output .= "<li><a href='#' class='button inverted active' data-filter='all'>All</a></li>";
+  foreach ($filter_terms as $term) {
+    $output .= "<li><a href='#' class='button inverted' data-filter='{$term["value"]}'>{$term["label"]}</a></li>";
+  }
+  $output .= "</ul>";
+  return $output;
+}
+
+/**
+ * Render an images gallery component
+ */
+function render_images_gallery($images_gallery) {
+  $output = "<div class='images-gallery js-images-gallery'>";
+  foreach ($images_gallery as $image) {
+    $image_src = wp_get_attachment_image_src($image['image']['id'], 'large');
+    $image_src = $image_src[0];
+    // image may have multiple filter terms
+    $filter = '';
+    foreach ($image['filter_term'] as $term) {
+      $filter .= $term['value'] . ' ';
+    }
+    $output .= "<div class='image js-image' filter-term='{$filter}'><img src='{$image_src}' alt='{$image['image']['alt_text']}' /></div>";
+  }
+  $output .= "</div>";
+  return $output;
+}
+  
+  
+?>

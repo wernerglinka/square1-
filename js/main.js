@@ -6,6 +6,7 @@ import tabs from './modules/tabs';
 import lottieAnimations from './modules/lottieAnimation';
 import modalVideo from './modules/modal-video';
 import inlineVideo from './modules/inline-video';
+import imagesGallery from './modules/images-gallery';
 
 function initPage() {
   navigation.init();
@@ -35,6 +36,10 @@ function initPage() {
 
   if ( document.querySelector( '.js-inline-video' ) ) {
     inlineVideo.init();
+  }
+
+  if ( document.querySelector( '.js-images-gallery-container' ) ) {
+    imagesGallery.init();
   }
 }
 
