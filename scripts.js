@@ -559,13 +559,12 @@
         return;
       }
       const galleryContainer = document.querySelector(".js-images-gallery-container");
-      const allFilterItems = galleryContainer.querySelectorAll(".js-filter a");
-      const allImages = galleryContainer.querySelector(".images-gallery");
+      const allFilterItems = galleryContainer.querySelectorAll(".js-filter button");
+      const allImages = galleryContainer.querySelector(".js-images-gallery");
       allFilterItems.forEach((filterItem) => {
         filterItem.addEventListener("click", (e) => {
-          e.preventDefault();
-          const filterValue = filterItem.getAttribute("data-filter");
-          const galleryItems = allImages.querySelectorAll(".image");
+          const filterValue = filterItem.getAttribute("filter-item");
+          const galleryItems = allImages.querySelectorAll(".js-image");
           allFilterItems.forEach((item) => {
             item.classList.remove("active");
           });
@@ -573,7 +572,7 @@
           allImages.classList.add("fade-out");
           allImages.addEventListener("transitionend", () => {
             galleryItems.forEach((galleryItem) => {
-              const galleryItemTerms = galleryItem.getAttribute("filter-term");
+              const galleryItemTerms = galleryItem.getAttribute("filter-item");
               if (galleryItemTerms.includes(filterValue) || filterValue === "all") {
                 galleryItem.classList.remove("hidden");
               } else {
@@ -588,6 +587,76 @@
     return { init };
   }();
   var images_gallery_default = imagesGallery;
+
+  // js/modules/helpers/load-vendor-object.js
+  function loadVendorObject(url, globalObjectName, timeout = 5e3) {
+    return new Promise((resolve, reject) => {
+      if (window[globalObjectName]) {
+        resolve();
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = url;
+      script.async = true;
+      const timeoutId = setTimeout(() => {
+        reject(new Error(`Timed out after ${timeout}ms while loading script: ${url}`));
+      }, timeout);
+      script.onload = () => {
+        clearTimeout(timeoutId);
+        const checkGlobalObject = () => {
+          if (window[globalObjectName]) {
+            resolve();
+          } else {
+            setTimeout(checkGlobalObject, 100);
+          }
+        };
+        checkGlobalObject();
+      };
+      script.onerror = () => {
+        clearTimeout(timeoutId);
+        reject(new Error(`Failed to load script: ${url}`));
+      };
+      document.head.appendChild(script);
+    });
+  }
+  var load_vendor_object_default = loadVendorObject;
+
+  // js/modules/filterizr-gallery.js
+  load_vendor_object_default(filterizr_script.src, "Filterizr");
+  var filterizrGallery = /* @__PURE__ */ function() {
+    function init() {
+      load_vendor_object_default(filterizr_script.src, "Filterizr").then(() => {
+        const options = {
+          layout: "sameWidth",
+          callbacks: {
+            onInit() {
+              const galleryContainer2 = document.querySelector(".js-filterizr-gallery-container");
+              const galleryContainerHeight = galleryContainer2.offsetHeight;
+              galleryContainer2.style.height = `${galleryContainerHeight}px`;
+              console.log("init");
+            }
+          }
+        };
+        setTimeout(() => {
+          const filterizr = new Filterizr(".filtr-container", options);
+        }, 100);
+      }).catch((error) => {
+        console.error(`Error loading script: ${error}`);
+      });
+      const galleryContainer = document.querySelector(".js-filterizr-gallery-container");
+      const allFilterItems = galleryContainer.querySelectorAll(".js-filterizr button");
+      allFilterItems.forEach((filterItem) => {
+        filterItem.addEventListener("click", (e) => {
+          allFilterItems.forEach((item) => {
+            item.classList.remove("active");
+          });
+          filterItem.classList.add("active");
+        });
+      });
+    }
+    return { init };
+  }();
+  var filterizr_gallery_default = filterizrGallery;
 
   // js/main.js
   function initPage() {
@@ -615,6 +684,9 @@
     }
     if (document.querySelector(".js-images-gallery-container")) {
       images_gallery_default.init();
+    }
+    if (document.querySelector(".js-filterizr-gallery-container")) {
+      filterizr_gallery_default.init();
     }
   }
   window.addEventListener("load", function() {

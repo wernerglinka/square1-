@@ -823,6 +823,26 @@
                                                     "display": "block",
                                                     "sub_fields": [
                                                         {
+                                                            "key": "field_6637dea1a5816",
+                                                            "label": "Use Filterize",
+                                                            "name": "use_filterize",
+                                                            "aria-label": "",
+                                                            "type": "true_false",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "message": "",
+                                                            "default_value": 0,
+                                                            "ui_on_text": "",
+                                                            "ui_off_text": "",
+                                                            "ui": 1
+                                                        },
+                                                        {
                                                             "key": "field_6636798152c14",
                                                             "label": "Images Gallery",
                                                             "name": "images_gallery",
@@ -3815,5 +3835,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714846887
+    "modified": 1714937538
 }

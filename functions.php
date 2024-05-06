@@ -169,3 +169,16 @@ function square1_enqueue_admin_js() {
 	}
 }
 add_action('admin_enqueue_scripts', 'square1_enqueue_admin_js');
+
+/**
+ * localize the filterizr script
+ * This script is located in the js/vendors folder. We will load this script 
+ * dynamically withn javascript only when the filterizr gallery is used.
+ */
+function localize_filterizr_script()
+{
+    wp_localize_script('square1-scripts', 'filterizr_script', array(
+        'src' => get_template_directory_uri() . '/js/vendors/filterizr.min.js',
+    ));
+}
+add_action('wp_enqueue_scripts', 'localize_filterizr_script');

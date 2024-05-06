@@ -48,3 +48,13 @@
     }
   }
 }
+
+.images-gallery-container.has-filterizr {
+  .images-gallery {
+    column-count: 1;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    height: 500px;
+  }
+}

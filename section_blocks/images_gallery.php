@@ -15,6 +15,7 @@ include_once get_template_directory() . '/page_sections/inc/section_components.p
 //echo '</pre>';
 
 $images_gallery = $args['images_gallery'];
+$use_filterize = $args['use_filterize'] ?? false;
 // create array from filter terms
 $filter_terms = [];
 // loop over images_gallery and get the filter terms. Each image may have multiple filter terms
@@ -31,11 +32,22 @@ foreach ($images_gallery as $image) {
 // order the filter terms by value
 sort($filter_terms);
 
-echo "<div class='images-gallery-container js-images-gallery-container'>";
-  // render the images gallery filter
-  echo render_images_gallery_filter($filter_terms);
+if ($use_filterize) {
+  echo "<div class='images-gallery-container has-filterizr js-filterizr-gallery-container'>";
+    // render the images gallery filter
+    echo render_filterizr_gallery_filter($filter_terms);
+    // render the images galley
+    echo render_filterizr_gallery($images_gallery);
+  echo "</div>";
 
-  // render the images galley
-  echo render_images_gallery($images_gallery);
-echo "</div>";
+} else {
+  echo "<div class='images-gallery-container js-images-gallery-container'>";
+    // render the images gallery filter
+    echo render_images_gallery_filter($filter_terms);
+    // render the images galley
+    echo render_images_gallery($images_gallery);
+  echo "</div>";
+}
+
+
 ?>

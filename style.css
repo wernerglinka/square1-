@@ -2807,6 +2807,31 @@ button.inverted, .button.inverted {
   width: 100%;
 }
 
+.images-gallery-container.has-filterizr .images-gallery {
+  column-count: 1;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  height: 500px;
+}
+
+.images-gallery-container.has-filterizr .filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 5rem;
+}
+.images-gallery-container.has-filterizr .filter .active {
+  background-color: #3f2787;
+  color: white;
+}
+.images-gallery-container.has-filterizr .filtr-item {
+  width: 33%;
+  padding: 1rem;
+}
+
 .flex-section.text-audio .ctas {
   justify-content: flex-start;
 }

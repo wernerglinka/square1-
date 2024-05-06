@@ -7,14 +7,13 @@ const imagesGallery = ( function () {
     }
 
     const galleryContainer = document.querySelector( '.js-images-gallery-container' );
-    const allFilterItems = galleryContainer.querySelectorAll( '.js-filter a' );
-    const allImages = galleryContainer.querySelector( '.images-gallery' );
+    const allFilterItems = galleryContainer.querySelectorAll( '.js-filter button' );
+    const allImages = galleryContainer.querySelector( '.js-images-gallery' );
 
     allFilterItems.forEach( ( filterItem ) => {
       filterItem.addEventListener( 'click', ( e ) => {
-        e.preventDefault();
-        const filterValue = filterItem.getAttribute( 'data-filter' );
-        const galleryItems = allImages.querySelectorAll( '.image' );
+        const filterValue = filterItem.getAttribute( 'filter-item' );
+        const galleryItems = allImages.querySelectorAll( '.js-image' );
 
         allFilterItems.forEach( ( item ) => {
           item.classList.remove( 'active' );
@@ -25,7 +24,7 @@ const imagesGallery = ( function () {
 
         allImages.addEventListener( 'transitionend', () => {
           galleryItems.forEach( ( galleryItem ) => {
-            const galleryItemTerms = galleryItem.getAttribute( 'filter-term' );
+            const galleryItemTerms = galleryItem.getAttribute( 'filter-item' );
 
             if ( galleryItemTerms.includes( filterValue ) || filterValue === 'all' ) {
               galleryItem.classList.remove( 'hidden' );

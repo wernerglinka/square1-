@@ -1,0 +1,21 @@
+.images-gallery-container.has-filterizr {
+  .filter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 5rem;
+
+    .active {
+      background-color: $color__brand_dark;
+      color: white;
+    }
+  }
+
+
+  .filtr-item {
+    width: 33%;
+    padding: 1rem;
+  }
+}
