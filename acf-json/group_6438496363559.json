@@ -824,8 +824,28 @@
                                                     "sub_fields": [
                                                         {
                                                             "key": "field_6637dea1a5816",
-                                                            "label": "Use Filterize",
-                                                            "name": "use_filterize",
+                                                            "label": "Use Filterizr",
+                                                            "name": "use_filterizr",
+                                                            "aria-label": "",
+                                                            "type": "true_false",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "message": "",
+                                                            "default_value": 0,
+                                                            "ui_on_text": "",
+                                                            "ui_off_text": "",
+                                                            "ui": 1
+                                                        },
+                                                        {
+                                                            "key": "field_663a6bb5f469d",
+                                                            "label": "Use Isotope",
+                                                            "name": "use_isotope",
                                                             "aria-label": "",
                                                             "type": "true_false",
                                                             "instructions": "",
@@ -3835,5 +3855,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714937538
+    "modified": 1715106705
 }

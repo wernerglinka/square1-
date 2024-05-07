@@ -2815,7 +2815,7 @@ button.inverted, .button.inverted {
   height: 500px;
 }
 
-.images-gallery-container.has-filterizr .filter {
+.filterizr-gallery-container .filter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -2823,13 +2823,50 @@ button.inverted, .button.inverted {
   gap: 1rem;
   margin-bottom: 5rem;
 }
-.images-gallery-container.has-filterizr .filter .active {
+.filterizr-gallery-container .filter .active {
   background-color: #3f2787;
   color: white;
 }
-.images-gallery-container.has-filterizr .filtr-item {
-  width: 33%;
+.filterizr-gallery-container .filtr-item {
+  position: relative;
+  width: 25%;
   padding: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.js-filterizr-gallery-container {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.js-filterizr-gallery-container.loaded {
+  opacity: 1;
+}
+
+.isotope-gallery-container .filter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 5rem;
+}
+.isotope-gallery-container .filter .active {
+  background-color: #3f2787;
+  color: white;
+}
+.isotope-gallery-container .filtr-item {
+  position: relative;
+  width: 25%;
+  padding: 1rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.js-filterizr-gallery-container {
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+.js-filterizr-gallery-container.loaded {
+  opacity: 1;
 }
 
 .flex-section.text-audio .ctas {

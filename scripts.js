@@ -551,42 +551,39 @@
   })();
   var inline_video_default = inlineVideos;
 
-  // js/modules/images-gallery.js
+  // js/modules/galleries/images.js
   var imagesGallery = function() {
     "use strict";
     const init = () => {
-      if (!document.querySelector(".js-images-gallery-container")) {
+      const galleryContainer = document.querySelector(".js-images-gallery-container");
+      if (!galleryContainer) {
         return;
       }
-      const galleryContainer = document.querySelector(".js-images-gallery-container");
       const allFilterItems = galleryContainer.querySelectorAll(".js-filter button");
       const allImages = galleryContainer.querySelector(".js-images-gallery");
-      allFilterItems.forEach((filterItem) => {
-        filterItem.addEventListener("click", (e) => {
-          const filterValue = filterItem.getAttribute("filter-item");
-          const galleryItems = allImages.querySelectorAll(".js-image");
-          allFilterItems.forEach((item) => {
-            item.classList.remove("active");
+      const galleryItems = allImages.querySelectorAll(".js-image");
+      const filterImages = (filterValue) => {
+        allImages.classList.add("fade-out");
+        allImages.addEventListener("transitionend", () => {
+          galleryItems.forEach((galleryItem) => {
+            const galleryItemTerms = galleryItem.getAttribute("filter-item");
+            galleryItem.classList.toggle("hidden", !galleryItemTerms.includes(filterValue) && filterValue !== "all");
           });
+          allImages.classList.remove("fade-out");
+        }, { once: true });
+      };
+      allFilterItems.forEach((filterItem) => {
+        filterItem.addEventListener("click", () => {
+          const filterValue = filterItem.getAttribute("filter-item");
+          allFilterItems.forEach((item) => item.classList.remove("active"));
           filterItem.classList.add("active");
-          allImages.classList.add("fade-out");
-          allImages.addEventListener("transitionend", () => {
-            galleryItems.forEach((galleryItem) => {
-              const galleryItemTerms = galleryItem.getAttribute("filter-item");
-              if (galleryItemTerms.includes(filterValue) || filterValue === "all") {
-                galleryItem.classList.remove("hidden");
-              } else {
-                galleryItem.classList.add("hidden");
-              }
-            });
-            allImages.classList.remove("fade-out");
-          }, { once: true });
+          filterImages(filterValue);
         });
       });
     };
     return { init };
   }();
-  var images_gallery_default = imagesGallery;
+  var images_default = imagesGallery;
 
   // js/modules/helpers/load-vendor-object.js
   function loadVendorObject(url, globalObjectName, timeout = 5e3) {
@@ -621,30 +618,29 @@
   }
   var load_vendor_object_default = loadVendorObject;
 
-  // js/modules/filterizr-gallery.js
-  load_vendor_object_default(filterizr_script.src, "Filterizr");
+  // js/modules/galleries/filterizr.js
   var filterizrGallery = /* @__PURE__ */ function() {
-    function init() {
+    function initFilterizr() {
       load_vendor_object_default(filterizr_script.src, "Filterizr").then(() => {
         const options = {
           layout: "sameWidth",
           callbacks: {
             onInit() {
-              const galleryContainer2 = document.querySelector(".js-filterizr-gallery-container");
-              const galleryContainerHeight = galleryContainer2.offsetHeight;
-              galleryContainer2.style.height = `${galleryContainerHeight}px`;
-              console.log("init");
+              const galleryContainer = document.querySelector(".js-filterizr-gallery-container");
+              const galleryContainerHeight = galleryContainer.offsetHeight;
+              galleryContainer.style.height = `${galleryContainerHeight}px`;
+              galleryContainer.classList.add("loaded");
             }
           }
         };
-        setTimeout(() => {
-          const filterizr = new Filterizr(".filtr-container", options);
-        }, 100);
+        new Filterizr(".filtr-container", options);
       }).catch((error) => {
         console.error(`Error loading script: ${error}`);
       });
+    }
+    function initFilterItems() {
       const galleryContainer = document.querySelector(".js-filterizr-gallery-container");
-      const allFilterItems = galleryContainer.querySelectorAll(".js-filterizr button");
+      const allFilterItems = galleryContainer.querySelectorAll(".js-filterizr-filter button");
       allFilterItems.forEach((filterItem) => {
         filterItem.addEventListener("click", (e) => {
           allFilterItems.forEach((item) => {
@@ -654,9 +650,64 @@
         });
       });
     }
+    function init() {
+      const galleryContainer = document.querySelector(".filtr-container");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            initFilterizr();
+            initFilterItems();
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+      observer.observe(galleryContainer);
+    }
     return { init };
   }();
-  var filterizr_gallery_default = filterizrGallery;
+  var filterizr_default = filterizrGallery;
+
+  // js/modules/galleries/isotope.js
+  var isotopeGallery = /* @__PURE__ */ function() {
+    function initIsotope() {
+      load_vendor_object_default("https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js", "Isotope").then(() => {
+        const elem = document.querySelector(".isotope-grid");
+        const iso = new Isotope(elem, {
+          itemSelector: ".isotope-grid-item",
+          layoutMode: "fitRows"
+        });
+      }).catch((error) => {
+        console.error(`Error loading Isotope script: ${error}`);
+      });
+    }
+    function initFilterItems() {
+      const galleryContainer = document.querySelector(".js-isotope-gallery-container");
+      const allFilterItems = galleryContainer.querySelectorAll(".js-isotope-filter button");
+      allFilterItems.forEach((filterItem) => {
+        filterItem.addEventListener("click", (e) => {
+          allFilterItems.forEach((item) => {
+            item.classList.remove("active");
+          });
+          filterItem.classList.add("active");
+        });
+      });
+    }
+    function init() {
+      const galleryContainer = document.querySelector(".isotope-grid");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            initIsotope();
+            initFilterItems();
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+      observer.observe(galleryContainer);
+    }
+    return { init };
+  }();
+  var isotope_default = isotopeGallery;
 
   // js/main.js
   function initPage() {
@@ -683,10 +734,13 @@
       inline_video_default.init();
     }
     if (document.querySelector(".js-images-gallery-container")) {
-      images_gallery_default.init();
+      images_default.init();
     }
     if (document.querySelector(".js-filterizr-gallery-container")) {
-      filterizr_gallery_default.init();
+      filterizr_default.init();
+    }
+    if (document.querySelector(".js-isotope-gallery-container")) {
+      isotope_default.init();
     }
   }
   window.addEventListener("load", function() {

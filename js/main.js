@@ -6,8 +6,9 @@ import tabs from './modules/tabs';
 import lottieAnimations from './modules/lottieAnimation';
 import modalVideo from './modules/modal-video';
 import inlineVideo from './modules/inline-video';
-import imagesGallery from './modules/images-gallery';
-import filterizrGallery from './modules/filterizr-gallery';
+import imagesGallery from './modules/galleries/images';
+import filterizrGallery from './modules/galleries/filterizr';
+import isotopeGallery from './modules/galleries/isotope';
 
 function initPage() {
   navigation.init();
@@ -45,6 +46,10 @@ function initPage() {
 
   if ( document.querySelector( '.js-filterizr-gallery-container' ) ) {
     filterizrGallery.init();
+  }
+
+  if ( document.querySelector( '.js-isotope-gallery-container' ) ) {
+    isotopeGallery.init();
   }
 }
 

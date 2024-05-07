@@ -1,12 +1,9 @@
 /* eslint-disable space-before-function-paren */
 /* global filterizr_script Filterizr */
-
-import loadScript from './helpers/load-script';
-import loadVendorObject from './helpers/load-vendor-object';
-loadVendorObject( filterizr_script.src, 'Filterizr' );
+import loadVendorObject from '../helpers/load-vendor-object';
 
 const filterizrGallery = ( function () {
-  function init() {
+  function initFilterizr() {
     loadVendorObject( filterizr_script.src, 'Filterizr' )
       .then( () => {
         // Configure your options
@@ -18,25 +15,21 @@ const filterizrGallery = ( function () {
               const galleryContainer = document.querySelector( '.js-filterizr-gallery-container' );
               const galleryContainerHeight = galleryContainer.offsetHeight;
               galleryContainer.style.height = `${ galleryContainerHeight }px`;
-
-              console.log( 'init' );
+              galleryContainer.classList.add( 'loaded' );
             }
           }
         };
 
-        // looks like we need to wait a bit otherwise the rendered images are not
-        // consistently displayed correctly
-        setTimeout( () => {
-          const filterizr = new Filterizr( '.filtr-container', options );
-        }, 100 );
+        new Filterizr( '.filtr-container', options );
       } )
-
       .catch( ( error ) => {
         console.error( `Error loading script: ${ error }` );
       } );
+  }
 
+  function initFilterItems() {
     const galleryContainer = document.querySelector( '.js-filterizr-gallery-container' );
-    const allFilterItems = galleryContainer.querySelectorAll( '.js-filterizr button' );
+    const allFilterItems = galleryContainer.querySelectorAll( '.js-filterizr-filter button' );
 
     allFilterItems.forEach( ( filterItem ) => {
       filterItem.addEventListener( 'click', ( e ) => {
@@ -48,6 +41,23 @@ const filterizrGallery = ( function () {
     } );
   }
 
+  function init() {
+    const galleryContainer = document.querySelector( '.filtr-container' );
+
+    const observer = new IntersectionObserver( ( entries ) => {
+      entries.forEach( ( entry ) => {
+        if ( entry.isIntersecting ) {
+          initFilterizr();
+          initFilterItems();
+          observer.unobserve( entry.target );
+        }
+      } );
+    } );
+
+    observer.observe( galleryContainer );
+  }
+
   return { init };
 }() );
+
 export default filterizrGallery;
