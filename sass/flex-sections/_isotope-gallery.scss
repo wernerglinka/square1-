@@ -13,19 +13,18 @@
     }
   }
 
-  .filtr-item {
-    position: relative;
-    width: 25%;
-    padding: 1rem;
-    transition: all 0.3s ease-in-out;
+  .isotope-grid {
+    width: 100%;
   }
-}
 
-.js-filterizr-gallery-container {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+  .isotope-grid-item {
+    float: left;
+    width: 28rem;
+    padding: 1rem;
 
-  &.loaded {
-    opacity: 1;
+  }
+
+  .grid-sizer {
+    width: 20%;
   }
 }

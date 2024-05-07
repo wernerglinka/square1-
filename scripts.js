@@ -669,22 +669,33 @@
 
   // js/modules/galleries/isotope.js
   var isotopeGallery = /* @__PURE__ */ function() {
-    function initIsotope() {
+    function initIsotope(grid) {
+      let isotope;
       load_vendor_object_default("https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js", "Isotope").then(() => {
-        const elem = document.querySelector(".isotope-grid");
-        const iso = new Isotope(elem, {
+        new Isotope(grid, {
           itemSelector: ".isotope-grid-item",
-          layoutMode: "fitRows"
+          percentPosition: true,
+          layoutMode: "masonry"
+        });
+        grid.isotope({ filter: "*" });
+        const galleryContainer = document.querySelector(".js-isotope-gallery-container");
+        const filterButtonGroup = galleryContainer.querySelector(".js-isotope-filter");
+        filterButtonGroup.addEventListener("click", function(event) {
+          if (event.target.tagName === "BUTTON") {
+            const filterValue = event.target.getAttribute("data-filter");
+            grid.isotope({ filter: filterValue });
+          }
         });
       }).catch((error) => {
         console.error(`Error loading Isotope script: ${error}`);
       });
     }
-    function initFilterItems() {
+    function initFilterItems(grid) {
       const galleryContainer = document.querySelector(".js-isotope-gallery-container");
       const allFilterItems = galleryContainer.querySelectorAll(".js-isotope-filter button");
+      const filterButtonGroup = galleryContainer.querySelector(".js-isotope-filter");
       allFilterItems.forEach((filterItem) => {
-        filterItem.addEventListener("click", (e) => {
+        filterItem.addEventListener("click", () => {
           allFilterItems.forEach((item) => {
             item.classList.remove("active");
           });
@@ -697,8 +708,15 @@
       const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            initIsotope();
-            initFilterItems();
+            load_vendor_object_default("https://unpkg.com/imagesloaded@5.0.0/imagesloaded.pkgd.min.js", "imagesLoaded").then(() => {
+              const images = galleryContainer.querySelectorAll("img");
+              imagesLoaded(images, () => {
+                initFilterItems(galleryContainer);
+                initIsotope(galleryContainer);
+              });
+            }).catch((error) => {
+              console.error(`Error loading imagesLoaded script: ${error}`);
+            });
             observer.unobserve(entry.target);
           }
         });

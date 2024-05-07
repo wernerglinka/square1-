@@ -34,6 +34,7 @@ foreach ($images_gallery as $image) {
 // order the filter terms by value
 sort($filter_terms);
 
+/*
 if ($use_filterizr) {
   echo "<div class='filterizr-gallery-container js-filterizr-gallery-container'>";
     // render the images gallery filter
@@ -43,7 +44,7 @@ if ($use_filterizr) {
   echo "</div>";
 
 } 
-
+*/
 if ($use_isotope) {
   echo "<div class='isotope-gallery-container js-isotope-gallery-container'>";
     // render the images gallery filter

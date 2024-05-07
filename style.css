@@ -2854,19 +2854,16 @@ button.inverted, .button.inverted {
   background-color: #3f2787;
   color: white;
 }
-.isotope-gallery-container .filtr-item {
-  position: relative;
-  width: 25%;
+.isotope-gallery-container .isotope-grid {
+  width: 100%;
+}
+.isotope-gallery-container .isotope-grid-item {
+  float: left;
+  width: 28rem;
   padding: 1rem;
-  transition: all 0.3s ease-in-out;
 }
-
-.js-filterizr-gallery-container {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
-}
-.js-filterizr-gallery-container.loaded {
-  opacity: 1;
+.isotope-gallery-container .grid-sizer {
+  width: 20%;
 }
 
 .flex-section.text-audio .ctas {
