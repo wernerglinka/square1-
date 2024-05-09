@@ -3019,4 +3019,110 @@ button.inverted, .button.inverted {
   gap: 1rem;
 }
 
+.flex-section.images-marquee {
+  /* Pause animation when reduced-motion is set */
+  /* Enable animation */
+  /* Reverse animation */
+  /* Pause on hover */
+  /* Attempt to size parent based on content. Keep in mind that the parent width is equal to both content containers that stretch to fill the parent. */
+  /* A fit-content sizing fix: Absolute position the duplicate container. This will set the size of the parent wrapper to a single child container. Shout out to Olavi's article that had this solution 👏 @link: https://olavihaapala.fi/2021/02/23/modern-marquee.html  */
+  /* Enable position absolute animation on the duplicate content (last-child) */
+  /* Other page demo styles */
+}
+.flex-section.images-marquee .marquee {
+  --gap: 1rem;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  gap: var(--gap);
+}
+.flex-section.images-marquee .marquee-content {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+  gap: var(--gap);
+  min-width: 100%;
+}
+.flex-section.images-marquee .marquee-content li img {
+  width: auto;
+  height: 10rem;
+}
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flex-section.images-marquee .marquee-content {
+    animation-play-state: paused !important;
+  }
+}
+.flex-section.images-marquee .enable-animation .marquee-content {
+  animation: scroll 10s linear infinite;
+}
+.flex-section.images-marquee .marquee--reverse .marquee-content {
+  animation-direction: reverse;
+}
+.flex-section.images-marquee .marquee--hover-pause:hover .marquee-content {
+  animation-play-state: paused;
+}
+.flex-section.images-marquee .marquee--fit-content {
+  max-width: fit-content;
+}
+.flex-section.images-marquee .marquee--pos-absolute .marquee-content:last-child {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.flex-section.images-marquee .enable-animation .marquee--pos-absolute .marquee-content:last-child {
+  animation-name: scroll-abs;
+}
+@keyframes scroll-abs {
+  from {
+    transform: translateX(calc(100% + var(--gap)));
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+.flex-section.images-marquee .marquee-content > * {
+  flex: 0 0 auto;
+  color: white;
+  margin: 2px;
+  padding: 1rem 2rem;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+.flex-section.images-marquee * {
+  box-sizing: border-box;
+}
+.flex-section.images-marquee body {
+  padding: 2rem;
+  width: 100%;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.flex-section.images-marquee h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-block: 2rem 1rem;
+}
+.flex-section.images-marquee h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.flex-section.images-marquee section {
+  margin-block: 3rem;
+}
+.flex-section.images-marquee section > * + * {
+  margin-block-start: 0.5rem;
+}
+
 /*# sourceMappingURL=style.css.map */

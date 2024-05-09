@@ -72,6 +72,7 @@
                 "image-slider": "Image Slider",
                 "images": "Images",
                 "images-grid": "Images Grid",
+                "images-marquee": "Images Marquee",
                 "text": "Text",
                 "text-audio": "Text with Audio",
                 "text-icon": "Text with Icon",
@@ -220,5 +221,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1715207091
+    "modified": 1715290414
 }
