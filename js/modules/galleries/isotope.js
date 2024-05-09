@@ -1,31 +1,25 @@
 /* eslint-disable space-before-function-paren */
 /* global Isotope, imagesLoaded */
+/* reference:
+      isotope: https://isotope.metafizzy.co/
+      imagesLoaded: https://imagesloaded.desandro.com/
+*/
+
 import loadVendorObject from '../helpers/load-vendor-object';
 
 const isotopeGallery = ( function () {
+  let isotope;
+
   function initIsotope( grid ) {
-    let isotope;
     loadVendorObject( 'https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js', 'Isotope' )
       .then( () => {
-        new Isotope( grid, {
+        isotope = new Isotope( grid, {
           itemSelector: '.isotope-grid-item',
           percentPosition: true,
           layoutMode: 'masonry'
         } );
 
-        grid.isotope( { filter: '*' } );
-
-        const galleryContainer = document.querySelector( '.js-isotope-gallery-container' );
-        const filterButtonGroup = galleryContainer.querySelector( '.js-isotope-filter' );
-        filterButtonGroup.addEventListener( 'click', function ( event ) {
-          // Check if the clicked target is a button
-          if ( event.target.tagName === 'BUTTON' ) {
-            const filterValue = event.target.getAttribute( 'data-filter' );
-
-            // Initialize Isotope with the selected filter value
-            grid.isotope( { filter: filterValue } );
-          }
-        } );
+        isotope.arrange( { filter: '*' } );
       } )
       .catch( ( error ) => {
         console.error( `Error loading Isotope script: ${ error }` );
@@ -37,13 +31,18 @@ const isotopeGallery = ( function () {
     const allFilterItems = galleryContainer.querySelectorAll( '.js-isotope-filter button' );
     const filterButtonGroup = galleryContainer.querySelector( '.js-isotope-filter' );
 
-    allFilterItems.forEach( ( filterItem ) => {
-      filterItem.addEventListener( 'click', () => {
+    filterButtonGroup.addEventListener( 'click', function ( event ) {
+      // Check if the clicked target is a button
+      if ( event.target.tagName === 'BUTTON' ) {
+        const filterValue = event.target.getAttribute( 'data-filter' );
+        // Filter items with Isotope
+        isotope.arrange( { filter: filterValue } );
+
         allFilterItems.forEach( ( item ) => {
           item.classList.remove( 'active' );
         } );
-        filterItem.classList.add( 'active' );
-      } );
+        event.target.classList.add( 'active' );
+      }
     } );
   }
 
@@ -57,21 +56,18 @@ const isotopeGallery = ( function () {
             .then( () => {
               // check if all images have loaded
               const images = galleryContainer.querySelectorAll( 'img' );
-
               imagesLoaded( images, () => {
-                initFilterItems( galleryContainer );
                 initIsotope( galleryContainer );
+                initFilterItems( galleryContainer );
               } );
             } )
             .catch( ( error ) => {
               console.error( `Error loading imagesLoaded script: ${ error }` );
             } );
-
           observer.unobserve( entry.target );
         }
       } );
     } );
-
     observer.observe( galleryContainer );
   }
 

@@ -9,6 +9,7 @@ import inlineVideo from './modules/inline-video';
 import imagesGallery from './modules/galleries/images';
 import filterizrGallery from './modules/galleries/filterizr';
 import isotopeGallery from './modules/galleries/isotope';
+import imageSlider from './modules/image-slider';
 
 function initPage() {
   navigation.init();
@@ -50,6 +51,10 @@ function initPage() {
 
   if ( document.querySelector( '.js-isotope-gallery-container' ) ) {
     isotopeGallery.init();
+  }
+
+  if ( document.querySelector( '.js-image-slider' ) ) {
+    imageSlider.init();
   }
 }
 

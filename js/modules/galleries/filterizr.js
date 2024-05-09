@@ -1,5 +1,9 @@
 /* eslint-disable space-before-function-paren */
 /* global filterizr_script Filterizr */
+/* reference:
+      filterizr: https://yiotis.net/filterizr/
+*/
+
 import loadVendorObject from '../helpers/load-vendor-object';
 
 const filterizrGallery = ( function () {

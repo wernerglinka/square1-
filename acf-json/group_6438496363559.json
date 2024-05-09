@@ -816,6 +816,107 @@
                                                     "min": "",
                                                     "max": ""
                                                 },
+                                                "layout_663bfa18e8034": {
+                                                    "key": "layout_663bfa18e8034",
+                                                    "name": "image_slider",
+                                                    "label": "Image Slider",
+                                                    "display": "block",
+                                                    "sub_fields": [
+                                                        {
+                                                            "key": "field_663cea3af932b",
+                                                            "label": "Structure",
+                                                            "name": "structure",
+                                                            "aria-label": "",
+                                                            "type": "checkbox",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "choices": {
+                                                                "show_pagination": "Show Pagination",
+                                                                "show_prev-next": "Show Prev\/Next Buttons",
+                                                                "show_scrollbar": "Show Scrollbar"
+                                                            },
+                                                            "default_value": [],
+                                                            "return_format": "value",
+                                                            "allow_custom": 0,
+                                                            "layout": "vertical",
+                                                            "toggle": 0,
+                                                            "save_custom": 0,
+                                                            "custom_choice_button_text": "Add new choice"
+                                                        },
+                                                        {
+                                                            "key": "field_663bfa18e8038",
+                                                            "label": "Images",
+                                                            "name": "images",
+                                                            "aria-label": "",
+                                                            "type": "repeater",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "layout": "table",
+                                                            "min": 0,
+                                                            "max": 0,
+                                                            "collapsed": "",
+                                                            "button_label": "Add Image",
+                                                            "rows_per_page": 20,
+                                                            "sub_fields": [
+                                                                {
+                                                                    "key": "field_663bfa18e8039",
+                                                                    "label": "Image",
+                                                                    "name": "image",
+                                                                    "aria-label": "",
+                                                                    "type": "group",
+                                                                    "instructions": "",
+                                                                    "required": 0,
+                                                                    "conditional_logic": 0,
+                                                                    "wrapper": {
+                                                                        "width": "",
+                                                                        "class": "",
+                                                                        "id": ""
+                                                                    },
+                                                                    "layout": "block",
+                                                                    "sub_fields": [
+                                                                        {
+                                                                            "key": "field_663bfa62e803a",
+                                                                            "label": "Image",
+                                                                            "name": "image",
+                                                                            "aria-label": "",
+                                                                            "type": "clone",
+                                                                            "instructions": "",
+                                                                            "required": 0,
+                                                                            "conditional_logic": 0,
+                                                                            "wrapper": {
+                                                                                "width": "",
+                                                                                "class": "",
+                                                                                "id": ""
+                                                                            },
+                                                                            "clone": [
+                                                                                "group_6438592227af1"
+                                                                            ],
+                                                                            "display": "seamless",
+                                                                            "layout": "block",
+                                                                            "prefix_label": 0,
+                                                                            "prefix_name": 0
+                                                                        }
+                                                                    ],
+                                                                    "parent_repeater": "field_663bfa18e8038"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "min": "",
+                                                    "max": ""
+                                                },
                                                 "layout_6636796c52c11": {
                                                     "key": "layout_6636796c52c11",
                                                     "name": "images_gallery",
@@ -3855,5 +3956,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1715106705
+    "modified": 1715268265
 }

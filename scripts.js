@@ -669,23 +669,15 @@
 
   // js/modules/galleries/isotope.js
   var isotopeGallery = /* @__PURE__ */ function() {
+    let isotope;
     function initIsotope(grid) {
-      let isotope;
       load_vendor_object_default("https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js", "Isotope").then(() => {
-        new Isotope(grid, {
+        isotope = new Isotope(grid, {
           itemSelector: ".isotope-grid-item",
           percentPosition: true,
           layoutMode: "masonry"
         });
-        grid.isotope({ filter: "*" });
-        const galleryContainer = document.querySelector(".js-isotope-gallery-container");
-        const filterButtonGroup = galleryContainer.querySelector(".js-isotope-filter");
-        filterButtonGroup.addEventListener("click", function(event) {
-          if (event.target.tagName === "BUTTON") {
-            const filterValue = event.target.getAttribute("data-filter");
-            grid.isotope({ filter: filterValue });
-          }
-        });
+        isotope.arrange({ filter: "*" });
       }).catch((error) => {
         console.error(`Error loading Isotope script: ${error}`);
       });
@@ -694,13 +686,15 @@
       const galleryContainer = document.querySelector(".js-isotope-gallery-container");
       const allFilterItems = galleryContainer.querySelectorAll(".js-isotope-filter button");
       const filterButtonGroup = galleryContainer.querySelector(".js-isotope-filter");
-      allFilterItems.forEach((filterItem) => {
-        filterItem.addEventListener("click", () => {
+      filterButtonGroup.addEventListener("click", function(event) {
+        if (event.target.tagName === "BUTTON") {
+          const filterValue = event.target.getAttribute("data-filter");
+          isotope.arrange({ filter: filterValue });
           allFilterItems.forEach((item) => {
             item.classList.remove("active");
           });
-          filterItem.classList.add("active");
-        });
+          event.target.classList.add("active");
+        }
       });
     }
     function init() {
@@ -711,8 +705,8 @@
             load_vendor_object_default("https://unpkg.com/imagesloaded@5.0.0/imagesloaded.pkgd.min.js", "imagesLoaded").then(() => {
               const images = galleryContainer.querySelectorAll("img");
               imagesLoaded(images, () => {
-                initFilterItems(galleryContainer);
                 initIsotope(galleryContainer);
+                initFilterItems(galleryContainer);
               });
             }).catch((error) => {
               console.error(`Error loading imagesLoaded script: ${error}`);
@@ -726,6 +720,60 @@
     return { init };
   }();
   var isotope_default = isotopeGallery;
+
+  // js/modules/image-slider.js
+  var imageSlider = /* @__PURE__ */ function() {
+    function initSwiper() {
+      load_styles_default("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css");
+      load_vendor_object_default("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js", "Swiper").then(() => {
+        const swiper = new Swiper(".swiper", {
+          // Optional parameters
+          direction: "horizontal",
+          loop: true,
+          autoplay: {
+            delay: 2e3,
+            pauseOnMouseEnter: true
+          },
+          // If we need pagination
+          pagination: {
+            el: ".swiper-pagination"
+          },
+          // Navigation arrows
+          navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev"
+          },
+          // And if we need scrollbar
+          scrollbar: {
+            el: ".swiper-scrollbar"
+          }
+        });
+      }).catch((error) => {
+        console.error(`Error loading Isotope script: ${error}`);
+      });
+    }
+    function init() {
+      const imageSliderContainer = document.querySelector(".js-image-slider");
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            load_vendor_object_default("https://unpkg.com/imagesloaded@5.0.0/imagesloaded.pkgd.min.js", "imagesLoaded").then(() => {
+              const images = imageSliderContainer.querySelectorAll("img");
+              imagesLoaded(images, () => {
+                initSwiper();
+              });
+            }).catch((error) => {
+              console.error(`Error loading imagesLoaded script: ${error}`);
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      });
+      observer.observe(imageSliderContainer);
+    }
+    return { init };
+  }();
+  var image_slider_default = imageSlider;
 
   // js/main.js
   function initPage() {
@@ -759,6 +807,9 @@
     }
     if (document.querySelector(".js-isotope-gallery-container")) {
       isotope_default.init();
+    }
+    if (document.querySelector(".js-image-slider")) {
+      image_slider_default.init();
     }
   }
   window.addEventListener("load", function() {

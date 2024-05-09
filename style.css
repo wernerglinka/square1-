@@ -2737,6 +2737,15 @@ button.inverted, .button.inverted {
   text-align: center;
 }
 
+.swiper {
+  width: 100%;
+  max-width: 100rem;
+  aspect-ratio: 16/9;
+}
+.swiper .swiper-slide {
+  width: 100% !important;
+}
+
 .flex-section.images.variant-a .column {
   max-width: 50rem;
 }
