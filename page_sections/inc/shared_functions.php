@@ -83,6 +83,7 @@
       'no_top_margin' => 'no-top-margin',
       'no_bottom_margin' => 'no-bottom-margin',
       'narrow_width' => 'narrow-width',
+      'wide_width' => 'wide-width',
     ];
 
     foreach ($settingsClasses as $setting => $class) {

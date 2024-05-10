@@ -109,7 +109,8 @@
                 "in_container": "In Container",
                 "no_top_margin": "No Top Margin",
                 "no_bottom_margin": "No Bottom Margin",
-                "narrow_width": "Narrow Content Width"
+                "narrow_width": "Narrow Content",
+                "wide_width": "Wide Content"
             },
             "default_value": [],
             "return_format": "value",
@@ -221,5 +222,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1715290414
+    "modified": 1715364695
 }

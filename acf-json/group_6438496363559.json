@@ -1020,6 +1020,32 @@
                                                     "display": "block",
                                                     "sub_fields": [
                                                         {
+                                                            "key": "field_663e571776f44",
+                                                            "label": "Behavior",
+                                                            "name": "behavior",
+                                                            "aria-label": "",
+                                                            "type": "checkbox",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "choices": {
+                                                                "stop_hover": "Stop on Hover",
+                                                                "disable_animation": "Disable Animation"
+                                                            },
+                                                            "default_value": [],
+                                                            "return_format": "value",
+                                                            "allow_custom": 0,
+                                                            "layout": "vertical",
+                                                            "toggle": 0,
+                                                            "save_custom": 0,
+                                                            "custom_choice_button_text": "Add new choice"
+                                                        },
+                                                        {
                                                             "key": "field_663d3ce0a4cd1",
                                                             "label": "Images Marquee",
                                                             "name": "images_marquee",
@@ -4012,5 +4038,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1715289948
+    "modified": 1715361859
 }
