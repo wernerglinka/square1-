@@ -9,10 +9,6 @@
  * @package square1
  */
 
- 
- include_once(get_template_directory() . '/page_sections/inc/shared_functions.php');
- include_once(get_template_directory() . '/page_sections/inc/section_components.php');
-
   get_header();
 ?>
 		<main id="primary" class="site-main">
@@ -26,7 +22,7 @@
         
         // loop through the selected ACF layouts and display the matching section
         while ( have_rows( 'sections', $id ) ) : the_row();
-          include(get_template_directory() . '/page_sections/inc/render_layout.php');
+          include(get_template_directory() . '/inc/render_layout.php');
         endwhile;
       elseif ( get_the_content() ) :
         echo "No sections found.";

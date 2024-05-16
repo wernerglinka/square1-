@@ -8,7 +8,6 @@
  *
  * @package square1
  */
-include_once get_template_directory() . '/page_sections/inc/section_components.php';
 ?>
 
 <div class="audio">

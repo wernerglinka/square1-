@@ -6,14 +6,19 @@
   }
 
   .container {
-    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    padding: $small-padding;
+  }
+
+  p {
+    margin: 0;
+    text-align: center;
   }
 
   a {
     text-decoration: none;
     color: inherit;
-    display: block;
-    text-align: center;
-    font-weight: bold;
+    display: inline-block;
   }
 }

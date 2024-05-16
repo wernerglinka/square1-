@@ -8,11 +8,6 @@
  *
  * @package square1
  */
-include_once get_template_directory() . '/page_sections/inc/section_components.php';
-
-//echo '<pre>';
-//print_r($args);
-//echo '</pre>';
 
 $images_gallery = $args['images_gallery'];
 $use_filterizr = $args['use_filterizr'] ?? false;
@@ -57,9 +52,9 @@ if ($use_isotope) {
 if (!$use_filterizr && !$use_isotope) {
   echo "<div class='images-gallery-container js-images-gallery-container'>";
     // render the images gallery filter
-    echo render_images_gallery_filter($filter_terms);
+    echo render_image_gallery_filter($filter_terms);
     // render the images galley
-    echo render_images_gallery($images_gallery);
+    echo render_image_gallery($images_gallery);
   echo "</div>";
 }
 

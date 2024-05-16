@@ -131,17 +131,6 @@ function my_custom_login_stylesheet()
 //This loads the function above on the login page
 add_action('login_enqueue_scripts', 'my_custom_login_stylesheet');
 
-
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Functions which enhance the theme by hooking into WordPress.
- */
-require get_template_directory() . '/inc/template-functions.php';
-
 /** 
  * Modifications start here
  */

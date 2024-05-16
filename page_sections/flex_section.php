@@ -1,6 +1,9 @@
 <?php
 /**
- * Inner part of a any-block section
+ * Inner part of a flex section
+ * A flex section may be used to compose various sections with different layouts.
+ * A flex section can have multiple columns, each column can have multiple components.
+ * 
  *
  * @package square1
  */
@@ -21,7 +24,7 @@ $number_of_columns = count($columns);
       } else {
         foreach ($components as $component) :
           $component_name = $component['acf_fc_layout'];
-          get_template_part('section_blocks/' . $component_name, null, $component);
+          get_template_part('page_sections/blocks/' . $component_name, null, $component);
         endforeach; 
       }
       ?>

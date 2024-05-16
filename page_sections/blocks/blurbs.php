@@ -8,9 +8,8 @@
  *
  * @package square1
  */
-include_once get_template_directory() . '/page_sections/inc/section_components.php';
 
-$blurbs = isset($args['blurbs']) && is_array($args['blurbs']) ? $args['blurbs'] : [];
+ $blurbs = isset($args['blurbs']) && is_array($args['blurbs']) ? $args['blurbs'] : [];
 
 if (!empty($blurbs)): ?>
   <div class="blurbs">

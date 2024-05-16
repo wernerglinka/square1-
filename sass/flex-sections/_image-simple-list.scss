@@ -1,0 +1,28 @@
+.flex-section.text-image-list {
+  .columns {
+    @media (max-width: $tablet-width-portrait) {
+      flex-direction: column;
+    }
+  }
+}
+
+$min-image-width: 20rem;
+
+.image-simple-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  li {
+    flex: 1 1 50%;
+    padding: $default-padding;
+
+    @media (max-width: $tablet-width-portrait) {
+      flex: 0 0 $min-image-width;
+    }
+    
+    img {
+      width: 100%;
+    }
+  }
+}

@@ -615,6 +615,13 @@ a:focus {
 a:hover, a:active {
   outline: 0;
 }
+a .is-external {
+  vertical-align: middle;
+}
+a .is-external svg {
+  width: 2rem;
+  height: 2rem;
+}
 
 input[type=text],
 input[type=email],
@@ -1137,6 +1144,27 @@ textarea {
 }
 .page-section .prose p:last-child {
   margin-bottom: 0;
+}
+
+.page-section.alert-bar {
+  color: #00080f;
+}
+.page-section.alert-bar.is-dark {
+  color: #fff;
+}
+.page-section.alert-bar .container {
+  display: flex;
+  justify-content: center;
+  padding: clamp(1rem, -0.0909rem + 3.4091vw, 4rem);
+}
+.page-section.alert-bar p {
+  margin: 0;
+  text-align: center;
+}
+.page-section.alert-bar a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
 }
 
 .page-section.cta-banner {
@@ -2733,6 +2761,30 @@ button.inverted, .button.inverted {
 }
 .flex-section.cta-banner * {
   text-align: center;
+}
+
+@media (max-width: 767px) {
+  .flex-section.text-image-list .columns {
+    flex-direction: column;
+  }
+}
+
+.image-simple-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.image-simple-list li {
+  flex: 1 1 50%;
+  padding: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+}
+@media (max-width: 767px) {
+  .image-simple-list li {
+    flex: 0 0 20rem;
+  }
+}
+.image-simple-list li img {
+  width: 100%;
 }
 
 .swiper {

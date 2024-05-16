@@ -19,4 +19,12 @@ a {
 	&:active {
 		outline: 0;
 	}
+
+	.is-external {
+		vertical-align: middle;
+		svg {
+			width: 2rem;
+			height: 2rem;
+		}
+	}
 }

@@ -8,8 +8,6 @@
    *
    * @package square1
    */
-  include_once get_template_directory() . '/page_sections/inc/section_components.php';
-
   $allLinks = $args['links'];
 
   echo render_icon_link_list_component($allLinks);

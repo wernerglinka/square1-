@@ -78,6 +78,7 @@
                 "text-icon": "Text with Icon",
                 "text-icon-link-list": "Text with Icon Link List",
                 "text-image": "Text with Image",
+                "text-image-list": "Text with Simple Image list",
                 "text-lottie": "Text with Lottie Animation",
                 "text-video": "Text with Video",
                 "videos": "Videos"
@@ -222,5 +223,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1715364695
+    "modified": 1715898261
 }
