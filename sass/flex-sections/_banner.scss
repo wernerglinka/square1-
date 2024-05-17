@@ -67,9 +67,11 @@
 
 /* Variant B */
 .flex-section.banner.variant-b {
+  .columns {
+    justify-content: flex-start;
+  }
   .text {
     padding: $default-padding;
-    max-width: 50%;
     @include glass($color__brand_very-light);
     margin: 8rem 0 -8rem;
 

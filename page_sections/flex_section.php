@@ -15,8 +15,10 @@ $number_of_columns = count($columns);
 ?>
 
 <div class="columns container count<?php echo $number_of_columns; ?>">
-  <?php foreach ($columns as $column) : ?>
-    <div class="column">
+  <?php foreach ($columns as $column) : 
+    $column_width = $column['column_width'] ?? 'w50'; ?>
+
+    <div class="column <?php echo $column_width; ?>">
       <?php 
       $components = $column['components'];
       if (empty($components)) {

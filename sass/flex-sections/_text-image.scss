@@ -2,4 +2,13 @@
   .ctas {
     justify-content: flex-start;
   }
+  .image  {
+    height: 100%;
+    
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
 }

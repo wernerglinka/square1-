@@ -2707,9 +2707,11 @@ button.inverted, .button.inverted {
 }
 
 /* Variant B */
+.flex-section.banner.variant-b .columns {
+  justify-content: flex-start;
+}
 .flex-section.banner.variant-b .text {
   padding: clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
-  max-width: 50%;
   background: rgba(241, 238, 250, 0.5);
   box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(5px);
@@ -2729,30 +2731,73 @@ button.inverted, .button.inverted {
 
 .flex-section .columns {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: stretch;
   gap: 2rem;
   height: 100%;
+  /*
+  &.count1 {
+    .column {
+      flex: 0 0 100%;
+    }
+  }
+  &.count2 {
+    .column {
+      flex: 0 0 50%;
+    }
+  }
+  &.count3 {
+    .column {
+      flex: 0 0 33.3333%;
+    }
+  }
+  &.count4 {
+    .column {
+      flex: 0 0 25%;
+    }
+  }
+  */
+}
+@media (max-width: 48rem) {
+  .flex-section .columns {
+    flex-direction: column;
+  }
 }
 .flex-section .columns .column {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
-.flex-section .columns.count1 .column {
-  flex: 0 0 100%;
+.flex-section .columns .column.w25 {
+  flex: 0 0 25%;
 }
-.flex-section .columns.count2 .column {
-  flex: 0 0 50%;
-}
-.flex-section .columns.count3 .column {
+.flex-section .columns .column.w33 {
   flex: 0 0 33.3333%;
 }
-.flex-section .columns.count4 .column {
-  flex: 0 0 25%;
+.flex-section .columns .column.w50 {
+  flex: 0 0 50%;
+}
+.flex-section .columns .column.w66 {
+  flex: 0 0 66.6666%;
+}
+.flex-section .columns .column.w75 {
+  flex: 0 0 75%;
+}
+.flex-section .columns .column.w100 {
+  flex: 0 0 100%;
+}
+@media (max-width: 48rem) {
+  :is(.flex-section .columns .column.w25, .flex-section .columns .column.w33, .flex-section .columns .column.w50, .flex-section .columns .column.w66, .flex-section .columns .column.w75) {
+    flex: 0 0 100%;
+  }
 }
 .flex-section.is-reversed .columns {
   flex-direction: row-reverse;
+}
+@media (max-width: 48rem) {
+  .flex-section.is-reversed .columns {
+    flex-direction: column;
+  }
 }
 
 .flex-section.cta-banner .container {
@@ -2931,6 +2976,14 @@ button.inverted, .button.inverted {
 
 .flex-section.text-image .ctas {
   justify-content: flex-start;
+}
+.flex-section.text-image .image {
+  height: 100%;
+}
+.flex-section.text-image .image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }
 
 .flex-section.text-icon-link-list .column:nth-child(2) {

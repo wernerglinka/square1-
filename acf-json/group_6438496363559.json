@@ -513,7 +513,7 @@
                                         "class": "",
                                         "id": ""
                                     },
-                                    "layout": "table",
+                                    "layout": "block",
                                     "pagination": 0,
                                     "min": 0,
                                     "max": 0,
@@ -521,6 +521,35 @@
                                     "button_label": "Add Column",
                                     "rows_per_page": 20,
                                     "sub_fields": [
+                                        {
+                                            "key": "field_6647cb28625ad",
+                                            "label": "Column Width",
+                                            "name": "column_width",
+                                            "aria-label": "",
+                                            "type": "select",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "choices": {
+                                                "w25": "25%",
+                                                "w50": "50%",
+                                                "w75": "75%",
+                                                "w100": "100%"
+                                            },
+                                            "default_value": "w50",
+                                            "return_format": "value",
+                                            "multiple": 0,
+                                            "allow_null": 0,
+                                            "ui": 0,
+                                            "ajax": 0,
+                                            "placeholder": "",
+                                            "parent_repeater": "field_6627ce217e7e3"
+                                        },
                                         {
                                             "key": "field_6627ce3b7e7e4",
                                             "label": "Components",
@@ -4054,5 +4083,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1715896659
+    "modified": 1715981360
 }

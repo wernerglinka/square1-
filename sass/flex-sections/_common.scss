@@ -1,16 +1,45 @@
 .flex-section {
   .columns {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: stretch;
     gap: $gap-width;
     height: 100%;
+
+    @media (max-width: $hamburger-break) {
+      flex-direction: column;
+    }
 
     .column {
       display: flex;
       flex-direction: column;
       justify-content: center;
+
+      &.w25 {
+        flex: 0 0 25%;
+      }
+      &.w33 {
+        flex: 0 0 33.3333%;
+      }
+      &.w50 {
+        flex: 0 0 50%;
+      }
+      &.w66 {
+        flex: 0 0 66.6666%;
+      }
+      &.w75 {
+        flex: 0 0 75%;
+      }
+      &.w100 {
+        flex: 0 0 100%;
+      } 
+      @media (max-width: $hamburger-break) {
+        :is(&.w25, &.w33, &.w50, &.w66, &.w75) {
+          flex: 0 0 100%;
+        }
+      }
     }
+    /*
     &.count1 {
       .column {
         flex: 0 0 100%;
@@ -31,11 +60,16 @@
         flex: 0 0 25%;
       }
     }
+    */
   }
 
   &.is-reversed {
     .columns {
       flex-direction: row-reverse;
+
+      @media (max-width: $hamburger-break) {
+        flex-direction: column;
+      }
     }
   }
 }
