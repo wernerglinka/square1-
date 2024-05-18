@@ -10,6 +10,7 @@ import imagesGallery from './modules/galleries/images';
 import filterizrGallery from './modules/galleries/filterizr';
 import isotopeGallery from './modules/galleries/isotope';
 import imageSlider from './modules/image-slider';
+import faqs from './modules/faqs';
 
 function initPage() {
   navigation.init();
@@ -55,6 +56,10 @@ function initPage() {
 
   if ( document.querySelector( '.js-image-slider' ) ) {
     imageSlider.init();
+  }
+
+  if ( document.querySelector( '.js-faqs' ) ) {
+    faqs.init();
   }
 }
 

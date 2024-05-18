@@ -69,6 +69,7 @@
                 "banner": "Banner",
                 "blurbs": "Blurbs",
                 "cta-banner": "CTA Banner",
+                "faqs": "FAQs",
                 "image-slider": "Image Slider",
                 "images": "Images",
                 "images-grid": "Images Grid",
@@ -223,5 +224,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1715898261
+    "modified": 1716066182
 }

@@ -20,7 +20,8 @@
                 "none": "None",
                 "pattern1": "Pattern 1",
                 "pattern2": "Pattern 2",
-                "pattern3": "Pattern 3"
+                "pattern3": "Pattern 3",
+                "pattern4": "Pattern 4"
             },
             "default_value": "none",
             "return_format": "value",
@@ -49,5 +50,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1713723545
+    "modified": 1716065996
 }

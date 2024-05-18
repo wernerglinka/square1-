@@ -49,6 +49,18 @@
       color: $color__text-dark-background;
     }
   }
+  &.pattern3 {
+    @include css-background-p3();
+    * {
+      color: $color__text-dark-background;
+    }
+  }
+  &.pattern4 {
+    @include css-background-p4();
+    * {
+      color: $color__text-dark-background;
+    }
+  }
 
   /**
    * section "moving-up" animations.

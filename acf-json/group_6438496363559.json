@@ -597,6 +597,81 @@
                                                     "min": "",
                                                     "max": ""
                                                 },
+                                                "layout_664912498296e": {
+                                                    "key": "layout_664912498296e",
+                                                    "name": "faqs",
+                                                    "label": "FAQs",
+                                                    "display": "block",
+                                                    "sub_fields": [
+                                                        {
+                                                            "key": "field_6649124982970",
+                                                            "label": "FAQs",
+                                                            "name": "faqs",
+                                                            "aria-label": "",
+                                                            "type": "repeater",
+                                                            "instructions": "",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "layout": "block",
+                                                            "min": 0,
+                                                            "max": 0,
+                                                            "collapsed": "",
+                                                            "button_label": "Add Row",
+                                                            "rows_per_page": 20,
+                                                            "sub_fields": [
+                                                                {
+                                                                    "key": "field_6649126d82971",
+                                                                    "label": "Question",
+                                                                    "name": "question",
+                                                                    "aria-label": "",
+                                                                    "type": "text",
+                                                                    "instructions": "",
+                                                                    "required": 0,
+                                                                    "conditional_logic": 0,
+                                                                    "wrapper": {
+                                                                        "width": "",
+                                                                        "class": "",
+                                                                        "id": ""
+                                                                    },
+                                                                    "default_value": "",
+                                                                    "maxlength": "",
+                                                                    "placeholder": "",
+                                                                    "prepend": "",
+                                                                    "append": "",
+                                                                    "parent_repeater": "field_6649124982970"
+                                                                },
+                                                                {
+                                                                    "key": "field_6649129d82972",
+                                                                    "label": "Answer",
+                                                                    "name": "answer",
+                                                                    "aria-label": "",
+                                                                    "type": "wysiwyg",
+                                                                    "instructions": "",
+                                                                    "required": 0,
+                                                                    "conditional_logic": 0,
+                                                                    "wrapper": {
+                                                                        "width": "",
+                                                                        "class": "",
+                                                                        "id": ""
+                                                                    },
+                                                                    "default_value": "",
+                                                                    "tabs": "all",
+                                                                    "toolbar": "full",
+                                                                    "media_upload": 1,
+                                                                    "delay": 0,
+                                                                    "parent_repeater": "field_6649124982970"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "min": "",
+                                                    "max": ""
+                                                },
                                                 "layout_66341caf5643a": {
                                                     "key": "layout_66341caf5643a",
                                                     "name": "blurbs",
@@ -4083,5 +4158,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1715981360
+    "modified": 1716064948
 }

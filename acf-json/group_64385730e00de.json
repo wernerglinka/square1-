@@ -3,6 +3,26 @@
     "title": "Text Component",
     "fields": [
         {
+            "key": "field_66490fdd61026",
+            "label": "Tag Line",
+            "name": "tag_line",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_643857315416d",
             "label": "Title",
             "name": "title",
@@ -115,9 +135,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "show_in_graphql": 0,
-    "graphql_field_name": "textComponent",
-    "map_graphql_types_from_location_rules": 0,
-    "graphql_types": "",
-    "modified": 1682951037
+    "modified": 1716064240
 }

@@ -775,6 +775,27 @@
   }();
   var image_slider_default = imageSlider;
 
+  // js/modules/faqs.js
+  var faqs = /* @__PURE__ */ function() {
+    function init() {
+      const allFAQs = document.querySelectorAll(".js-faq");
+      allFAQs.forEach((faq) => {
+        const question = faq.querySelector(".question");
+        const answer = faq.querySelector(".answer");
+        answer.classList.add("hidden");
+        question.addEventListener("click", (e) => {
+          const target = e.target;
+          const parent = target.parentElement;
+          parent.querySelector(".answer").classList.toggle("hidden");
+        });
+      });
+    }
+    return {
+      init
+    };
+  }();
+  var faqs_default = faqs;
+
   // js/main.js
   function initPage() {
     navigation_default.init();
@@ -810,6 +831,9 @@
     }
     if (document.querySelector(".js-image-slider")) {
       image_slider_default.init();
+    }
+    if (document.querySelector(".js-faqs")) {
+      faqs_default.init();
     }
   }
   window.addEventListener("load", function() {

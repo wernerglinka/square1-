@@ -12,6 +12,11 @@
   function render_text_component($text) {
       $output = '';
 
+      $tag_line = $text['tag_line'] ?? null;
+      if ($tag_line) {
+          $output .= "<p class='text-tagline'>{$tag_line}</p>";
+      }
+
       $title = $text['title'] ?? null;
       if ($title) {
           $title = preg_replace('/^<[^>]+>|<\/[^>]+>$/', '', $title);
