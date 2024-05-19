@@ -9,11 +9,10 @@
  * @package square1
  */
 
-  //echo "<pre>";
-  //print_r($args);
-  //echo "</pre>";
+  $faqs = $args['faqs'];
+  $single_active = $args['single_active'];
 
-  echo render_faqs_component($args['faqs']);
+  echo render_faqs_component($faqs, $single_active);
 ?>
 
 

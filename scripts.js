@@ -776,18 +776,42 @@
   var image_slider_default = imageSlider;
 
   // js/modules/faqs.js
-  var faqs = /* @__PURE__ */ function() {
+  var frequentlyAskedQuestions = /* @__PURE__ */ function() {
     function init() {
-      const allFAQs = document.querySelectorAll(".js-faq");
-      allFAQs.forEach((faq) => {
-        const question = faq.querySelector(".question");
-        const answer = faq.querySelector(".answer");
-        answer.classList.add("hidden");
-        question.addEventListener("click", (e) => {
-          const target = e.target;
-          target.classList.toggle("open");
-          const parent = target.parentElement;
-          parent.querySelector(".answer").classList.toggle("hidden");
+      const allFAQs = document.querySelectorAll(".js-faqs");
+      allFAQs.forEach((thisFAQs) => {
+        const faqs = thisFAQs.querySelectorAll(".faq");
+        const singleActive = thisFAQs.classList.contains("js-single-active");
+        faqs.forEach((faq) => {
+          const question = faq.querySelector(".question");
+          const answer = faq.querySelector(".answer");
+          answer.classList.add("hidden");
+          question.addEventListener("click", (e) => {
+            const target = e.target;
+            const parent = target.parentElement;
+            if (singleActive) {
+              const openQuestion = thisFAQs.querySelector(".question.open");
+              if (openQuestion) {
+                const openAnswer = openQuestion.parentElement.querySelector(".answer");
+                openQuestion.classList.remove("open");
+                openAnswer.classList.add("hidden");
+                if (openQuestion === target) {
+                  return;
+                }
+                openAnswer.addEventListener("transitionend", function transitionEnd() {
+                  openAnswer.removeEventListener("transitionend", transitionEnd);
+                  target.classList.add("open");
+                  parent.querySelector(".answer").classList.remove("hidden");
+                });
+              } else {
+                target.classList.add("open");
+                parent.querySelector(".answer").classList.remove("hidden");
+              }
+            } else {
+              target.classList.toggle("open");
+              parent.querySelector(".answer").classList.toggle("hidden");
+            }
+          });
         });
       });
     }
@@ -795,7 +819,7 @@
       init
     };
   }();
-  var faqs_default = faqs;
+  var faqs_default = frequentlyAskedQuestions;
 
   // js/main.js
   function initPage() {

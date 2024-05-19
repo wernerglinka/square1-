@@ -7,14 +7,12 @@
 
   $props = $args['props'];
   $text = $props['text'];
-  //$background_image = $props['common_section_fields']['background_image'];
-  
-  //echo "<pre>";
-  //print_r($props);
-  //echo "</pre>";
-?>
 
-<div class="text">
-  <?php echo render_text_component($text); ?>
+?>
+<div class="container">
+  <div class="text">
+    <?php echo render_text_component($text); ?>
+  </div>
 </div>
+
 

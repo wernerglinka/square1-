@@ -2,10 +2,11 @@
   /**
    * Render a faqs component
    */
-  function render_faqs_component($faqs) {
+  function render_faqs_component($faqs, $single_active = false) {
+    $single_active_class = $single_active ? 'js-single-active' : '';
     if (!empty($faqs)) {
       $output = <<<HTML
-        <ul class='faqs js-faqs'>
+        <ul class='faqs js-faqs {$single_active_class}'>
       HTML;
       
       foreach ($faqs as $faq) {
