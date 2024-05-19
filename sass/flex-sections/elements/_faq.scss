@@ -1,5 +1,31 @@
 .faq {
-  .answer.hidden {
-    display: none;
+  .question {
+    position: relative;
+    cursor: pointer;
+    padding-right: 3rem;
+  
+    &::after {
+      content: '+';
+      position: absolute;
+      right: 1rem;
+      top: calc(50% - 1rem);
+      font-size: 2rem;
+      color: inherit;
+      vertical-align: middle;
+    }
+
+    &.open::after {
+      content: "-";
+    }
+  }
+  .answer {
+    overflow: hidden;
+    max-height: 50rem;
+    transition: max-height 0.7s ease-in-out, opacity 0.7s ease-in-out; // add opacity to the transition
+
+    &.hidden {
+      max-height: 0;
+      opacity: 0; // hidden when the 'hidden' class is added
+    }
   }
 }

@@ -785,6 +785,7 @@
         answer.classList.add("hidden");
         question.addEventListener("click", (e) => {
           const target = e.target;
+          target.classList.toggle("open");
           const parent = target.parentElement;
           parent.querySelector(".answer").classList.toggle("hidden");
         });
