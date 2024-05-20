@@ -2583,9 +2583,13 @@ button.inverted, .button.inverted {
   width: 80%;
 }
 
+.faq {
+  padding-bottom: 2rem;
+}
 .faq .question {
   position: relative;
   cursor: pointer;
+  margin: 0;
   padding-right: 3rem;
 }
 .faq .question::after {
@@ -2601,6 +2605,7 @@ button.inverted, .button.inverted {
   content: "-";
 }
 .faq .answer {
+  margin: 0;
   overflow: hidden;
   max-height: 50rem;
   transition: max-height 0.7s ease-in-out, opacity 0.7s ease-in-out;
@@ -2608,6 +2613,9 @@ button.inverted, .button.inverted {
 .faq .answer.hidden {
   max-height: 0;
   opacity: 0;
+}
+.faq .answer p:last-child {
+  margin-bottom: 0;
 }
 
 .blurb {
@@ -3236,6 +3244,26 @@ button.inverted, .button.inverted {
 }
 .flex-section.images-marquee.wide-width .container {
   max-width: 100%;
+}
+
+.faqs.faqs-image {
+  display: flex;
+  flex-direction: column;
+}
+.faqs.faqs-image .faqs {
+  padding-top: 2rem;
+}
+.faqs.faqs-image .image {
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-start;
+  overflow: hidden;
+}
+.faqs.faqs-image .image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: height 1s ease-in-out;
 }
 
 /*# sourceMappingURL=style.css.map */
