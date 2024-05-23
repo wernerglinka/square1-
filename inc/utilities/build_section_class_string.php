@@ -54,5 +54,11 @@
       $classes[] = $fields['screen']['dark_screen'] ? 'has-dark-screen' : 'has-light-screen';
     }
 
+    $autoplay = $params['autoplay'] ?? false;
+
+    if ($autoplay) {
+      $classes[] = 'is-autoplay';
+    }
+
     return implode(' ', $classes);
   }

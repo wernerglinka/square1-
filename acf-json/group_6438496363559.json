@@ -40,6 +40,23 @@
                             "layout": "block",
                             "sub_fields": [
                                 {
+                                    "key": "field_664e652a004c2",
+                                    "label": "Common Fields",
+                                    "name": "",
+                                    "aria-label": "",
+                                    "type": "tab",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "placement": "top",
+                                    "endpoint": 0
+                                },
+                                {
                                     "key": "field_65ca93ae3ec3a",
                                     "label": "Common Section Fields",
                                     "name": "common_section_fields",
@@ -78,6 +95,23 @@
                                             "prefix_name": 0
                                         }
                                     ]
+                                },
+                                {
+                                    "key": "field_664e660d0b426",
+                                    "label": "Alert Bar Content",
+                                    "name": "",
+                                    "aria-label": "",
+                                    "type": "tab",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "placement": "top",
+                                    "endpoint": 0
                                 },
                                 {
                                     "key": "field_65c83e6ca751d",
@@ -144,6 +178,23 @@
                             "layout": "block",
                             "sub_fields": [
                                 {
+                                    "key": "field_664e668b69b60",
+                                    "label": "Base Fields",
+                                    "name": "",
+                                    "aria-label": "",
+                                    "type": "tab",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "placement": "top",
+                                    "endpoint": 1
+                                },
+                                {
                                     "key": "field_6445a9f6b6f83",
                                     "label": "Common Section Fields",
                                     "name": "common_section_fields",
@@ -184,6 +235,23 @@
                                             "prefix_name": 0
                                         }
                                     ]
+                                },
+                                {
+                                    "key": "field_664e66b669b61",
+                                    "label": "Banner Content",
+                                    "name": "",
+                                    "aria-label": "",
+                                    "type": "tab",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "placement": "top",
+                                    "endpoint": 0
                                 },
                                 {
                                     "key": "field_6445a6dec4758",
@@ -1712,6 +1780,192 @@
                                             "layout": "block",
                                             "prefix_label": 0,
                                             "prefix_name": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_664d1a0e2620b": {
+                    "key": "layout_664d1a0e2620b",
+                    "name": "hero_slider",
+                    "label": "Hero Slider",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_664d1a0e2620e",
+                            "label": "Hero Slider",
+                            "name": "hero_slider",
+                            "aria-label": "",
+                            "type": "group",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "block",
+                            "sub_fields": [
+                                {
+                                    "key": "field_664e66fbffe5f",
+                                    "label": "Configuration",
+                                    "name": "",
+                                    "aria-label": "",
+                                    "type": "tab",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "placement": "top",
+                                    "endpoint": 0
+                                },
+                                {
+                                    "key": "field_664d1a0e2620f",
+                                    "label": "Common Section Fields",
+                                    "name": "common_section_fields",
+                                    "aria-label": "",
+                                    "type": "group",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "layout": "block",
+                                    "sub_fields": [
+                                        {
+                                            "key": "field_664d1a0e26210",
+                                            "label": "Common Section Fields",
+                                            "name": "common_section_fields",
+                                            "aria-label": "",
+                                            "type": "clone",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "clone": [
+                                                "group_64384a3269e6d"
+                                            ],
+                                            "display": "seamless",
+                                            "layout": "block",
+                                            "prefix_label": 0,
+                                            "prefix_name": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "key": "field_664e6726ffe60",
+                                    "label": "Slider Settings",
+                                    "name": "",
+                                    "aria-label": "",
+                                    "type": "tab",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "placement": "top",
+                                    "endpoint": 0
+                                },
+                                {
+                                    "key": "field_664d2555a3958",
+                                    "label": "Autoplay",
+                                    "name": "autoplay",
+                                    "aria-label": "",
+                                    "type": "true_false",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "message": "",
+                                    "default_value": 0,
+                                    "ui_on_text": "",
+                                    "ui_off_text": "",
+                                    "ui": 1
+                                },
+                                {
+                                    "key": "field_664e6745ffe61",
+                                    "label": "Slides",
+                                    "name": "",
+                                    "aria-label": "",
+                                    "type": "tab",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "placement": "top",
+                                    "endpoint": 0
+                                },
+                                {
+                                    "key": "field_664d1a0e26211",
+                                    "label": "Slides",
+                                    "name": "slides",
+                                    "aria-label": "",
+                                    "type": "repeater",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "layout": "table",
+                                    "pagination": 0,
+                                    "min": 0,
+                                    "max": 0,
+                                    "collapsed": "field_664d1a0e26212",
+                                    "button_label": "Add another Slide",
+                                    "rows_per_page": 20,
+                                    "sub_fields": [
+                                        {
+                                            "key": "field_664d1a0e26212",
+                                            "label": "Slide",
+                                            "name": "slide",
+                                            "aria-label": "",
+                                            "type": "clone",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "clone": [
+                                                "group_664d18128d1a1"
+                                            ],
+                                            "display": "seamless",
+                                            "layout": "block",
+                                            "prefix_label": 0,
+                                            "prefix_name": 0,
+                                            "parent_repeater": "field_664d1a0e26211"
                                         }
                                     ]
                                 }
@@ -4178,5 +4432,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716078318
+    "modified": 1716414293
 }

@@ -11,8 +11,12 @@ import filterizrGallery from './modules/galleries/filterizr';
 import isotopeGallery from './modules/galleries/isotope';
 import imageSlider from './modules/image-slider';
 import faqs from './modules/faqs';
+import heroSlider from './modules/hero-slider';
 
 function initPage() {
+  // Remove no-js class
+  document.querySelector( 'html' ).classList.remove( 'no-js' );
+
   navigation.init();
   sectionAnimation.init();
 
@@ -60,6 +64,11 @@ function initPage() {
 
   if ( document.querySelector( '.js-faqs' ) ) {
     faqs.init();
+  }
+
+  // Set up the hero slider
+  if ( document.querySelector( '.hero-slider' ) ) {
+    heroSlider.init();
   }
 }
 

@@ -50,6 +50,34 @@
             "placeholder": ""
         },
         {
+            "key": "field_664d204d59e06",
+            "label": "Cloudinary Cloud Name",
+            "name": "cloudinary_cloud_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_6622d61c0d747",
+                        "operator": "==",
+                        "value": "cloudinary"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
             "key": "field_6622d6550d748",
             "label": "ID",
             "name": "id",
@@ -128,5 +156,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1714671278
+    "modified": 1716330930
 }

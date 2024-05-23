@@ -6,7 +6,7 @@ import loadScript from '../helpers/load-script';
 import loadStyles from '../helpers/load-styles';
 import { createElementWithId } from '../helpers/dom';
 
-const inlineCloudinaryVideo = ( videoInstance, index ) => {
+const inlineCloudinaryVideo = ( videoInstance, index, cloudName ) => {
   console.log( 'Inline CloudinaryVideo Init' );
 
   const videoId = videoInstance.dataset.videoid;
@@ -37,7 +37,7 @@ const inlineCloudinaryVideo = ( videoInstance, index ) => {
 
       // Instantiate the Cloudinary video player
       const player = cloudinary.videoPlayer( playerId, {
-        cloudName: 'demo',
+        cloudName,
         playedEventPercents: [ 100 ]
       } );
 

@@ -20,6 +20,7 @@
                 "none": "None",
                 "color": "Color",
                 "image": "Image",
+                "video": "Video",
                 "css-pattern": "CSS Pattern"
             },
             "default_value": "none",
@@ -168,6 +169,54 @@
             ]
         },
         {
+            "key": "field_664d161da728e",
+            "label": "Background Video",
+            "name": "background_video",
+            "aria-label": "",
+            "type": "group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_662567f574983",
+                        "operator": "==",
+                        "value": "video"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "block",
+            "sub_fields": [
+                {
+                    "key": "field_664d1651a728f",
+                    "label": "Background Video",
+                    "name": "background_video",
+                    "aria-label": "",
+                    "type": "clone",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "clone": [
+                        "group_6622d5e7385f9"
+                    ],
+                    "display": "seamless",
+                    "layout": "block",
+                    "prefix_label": 0,
+                    "prefix_name": 0
+                }
+            ]
+        },
+        {
             "key": "field_662569c674989",
             "label": "Background is Dark",
             "name": "background_is_dark",
@@ -262,5 +311,5 @@
     "active": false,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1713732373
+    "modified": 1716328120
 }
