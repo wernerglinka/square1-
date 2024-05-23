@@ -2,14 +2,14 @@ const heroSlider = ( function () {
   function HeroSliderObj( element ) {
     const slider = {};
     slider.element = element;
-    slider.navigation = slider.element.querySelector( '.js-cd-nav' );
-    slider.navigationItems = slider.navigation.querySelectorAll( 'li' );
-    slider.marker = slider.navigation.querySelector( '.js-cd-marker' );
-    slider.slides = slider.element.querySelectorAll( '.js-cd-slide' );
+    slider.navigation = slider.element.querySelector( '.js-nav' );
+    slider.navigationItems = Array.from( slider.navigation.querySelectorAll( 'li' ) );
+    slider.marker = slider.navigation.querySelector( '.js-marker' );
+    slider.slides = Array.from( slider.element.querySelectorAll( '.js-slide' ) );
     slider.slidesNumber = slider.slides.length;
     slider.newSlideIndex = 0;
     slider.oldSlideIndex = 0;
-    slider.autoplay = hasClass( slider.element, 'js-cd-autoplay' );
+    //slider.autoplay = slider.element.classList.contains( 'is-autoplay' );
     slider.autoPlayId = null;
     slider.autoPlayDelay = 5000;
 
@@ -20,19 +20,20 @@ const heroSlider = ( function () {
       setAutoplay();
       // Listen for the click event on the slider navigation
       slider.navigation.addEventListener( 'click', function ( event ) {
-        if ( event.target.tagName.toLowerCase() === 'div' ) {
+        if ( event.target.matches( 'div' ) ) {
           return;
         }
         event.preventDefault();
         const selectedSlide = event.target;
-        if ( hasClass( event.target.parentElement, 'cd-selected' ) ) {
+        const parentListItem = selectedSlide.closest( 'li' );
+        if ( parentListItem && parentListItem.classList.contains( 'is-selected' ) ) {
           return;
         }
 
         slider.oldSlideIndex = slider.newSlideIndex;
-        slider.newSlideIndex = Array.prototype.indexOf.call( slider.navigationItems, event.target.parentElement );
+        slider.newSlideIndex = slider.navigationItems.indexOf( parentListItem );
 
-        newSlide();
+        renderNewSlide();
         updateNavigationMarker();
         updateSliderNavigation();
         setAutoplay();
@@ -57,7 +58,7 @@ const heroSlider = ( function () {
           const videoUrl = videoSlides[ i ].getAttribute( 'data-video' );
           videoSlides[ i ].innerHTML = "<video loop><source src='" + videoUrl + ".mp4' type='video/mp4' /><source src='" + videoUrl + ".webm' type='video/webm'/></video>";
           // if the visible slide has a video - play it
-          if ( hasClass( videoSlides[ i ].parentElement, 'cd-hero__slide--selected' ) ) {
+          if ( videoSlides[ i ].parentElement.classList.contains( 'is-selected' ) ) {
             videoSlides[ i ].getElementsByTagName( 'video' )[ 0 ].play();
           }
         }
@@ -78,55 +79,41 @@ const heroSlider = ( function () {
 
       if ( slider.newSlideIndex < slider.slidesNumber - 1 ) {
         slider.newSlideIndex += 1;
-        newSlide();
+        renderNewSlide();
       } else {
         slider.newSlideIndex = 0;
-        newSlide();
+        renderNewSlide();
       }
 
       updateNavigationMarker();
       updateSliderNavigation();
     }
 
-    function newSlide() {
-      console.log( 'Enter newSlide' );
+    function renderNewSlide() {
+      const oldSlide = slider.slides[ slider.oldSlideIndex ];
+      oldSlide.classList.remove( 'is-selected' );
+      oldSlide.classList.add( 'is-moving' );
 
-      console.log( slider.slides );
+      const newSlide = slider.slides[ slider.newSlideIndex ];
+      newSlide.classList.add( 'is-selected' );
 
-      removeClass( slider.slides[ slider.oldSlideIndex ], 'cd-hero__slide--selected cd-hero__slide--from-left cd-hero__slide--from-right' );
-      addClass( slider.slides[ slider.oldSlideIndex ], 'cd-hero__slide--is-moving' );
-      setTimeout( function () {
-        removeClass( slider.slides[ slider.oldSlideIndex ], 'cd-hero__slide--is-moving' );
-      }, 500 );
-
-      for ( let i = 0; i < slider.slidesNumber; i++ ) {
-        if ( i < slider.newSlideIndex && slider.oldSlideIndex < slider.newSlideIndex ) {
-          addClass( slider.slides[ i ], 'cd-hero__slide--move-left' );
-        } else if ( i == slider.newSlideIndex && slider.oldSlideIndex < slider.newSlideIndex ) {
-          addClass( slider.slides[ i ], 'cd-hero__slide--selected cd-hero__slide--from-right' );
-        } else if ( i == slider.newSlideIndex && slider.oldSlideIndex > slider.newSlideIndex ) {
-          addClass( slider.slides[ i ], 'cd-hero__slide--selected cd-hero__slide--from-left' );
-          removeClass( slider.slides[ i ], 'cd-hero__slide--move-left' );
-        } else if ( i > slider.newSlideIndex && slider.oldSlideIndex > slider.newSlideIndex ) {
-          removeClass( slider.slides[ i ], 'cd-hero__slide--move-left' );
-        }
-      }
+      oldSlide.addEventListener( 'transitionend', function handler() {
+        // Remove the event listener after it has executed
+        oldSlide.removeEventListener( 'transitionend', handler );
+        oldSlide.classList.remove( 'is-moving' );
+      } );
 
       checkVideo();
     }
 
     function updateNavigationMarker() {
-      console.log( 'in updateNavigationMarker: ', slider.marker );
-
       removeClassPrefix( slider.marker, 'item' );
-      addClass( slider.marker, 'cd-hero__marker--item-' + ( Number( slider.newSlideIndex ) + 1 ) );
+      slider.marker.classList.add( 'hero__marker--item-' + ( Number( slider.newSlideIndex ) + 1 ) );
     }
 
     function updateSliderNavigation() {
-      console.log( 'in updateSliderNavigation: ', slider.navigationItems[ slider.oldSlideIndex ] );
-
-      removeClass( slider.navigationItems[ slider.oldSlideIndex ], 'cd-selected' );
-      addClass( slider.navigationItems[ slider.newSlideIndex ], 'cd-selected' );
+      slider.navigationItems[ slider.oldSlideIndex ].classList.remove( 'is-selected' );
+      slider.navigationItems[ slider.newSlideIndex ].classList.add( 'is-selected' );
     }
 
     function checkVideo() {
@@ -156,51 +143,8 @@ const heroSlider = ( function () {
     el.className = classes.join( ' ' );
   }
 
-  //class manipulations - needed if classList is not supported
-  function hasClass( el, className ) {
-    if ( el.classList ) {
-      return el.classList.contains( className );
-    }
-    return !!el.className.match( new RegExp( '(\\s|^)' + className + '(\\s|$)' ) );
-  }
-
-  function addClass( el, className ) {
-    const classList = className.split( ' ' );
-    if ( el.classList ) {
-      el.classList.add( classList[ 0 ] );
-    } else if ( !hasClass( el, classList[ 0 ] ) ) {
-      el.className += ' ' + classList[ 0 ];
-    }
-    if ( classList.length > 1 ) {
-      addClass( el, classList.slice( 1 ).join( ' ' ) );
-    }
-  }
-
-  function removeClass( el, className ) {
-    const classList = className.split( ' ' );
-    if ( el.classList ) {
-      el.classList.remove( classList[ 0 ] );
-    } else if ( hasClass( el, classList[ 0 ] ) ) {
-      const reg = new RegExp( '(\\s|^)' + classList[ 0 ] + '(\\s|$)' );
-      el.className = el.className.replace( reg, ' ' );
-    }
-    if ( classList.length > 1 ) {
-      removeClass( el, classList.slice( 1 ).join( ' ' ) );
-    }
-  }
-
-  function toggleClass( el, className, bool ) {
-    if ( bool ) {
-      addClass( el, className );
-    } else {
-      removeClass( el, className );
-    }
-  }
-
   function initSliders() {
     const heroSliders = document.querySelectorAll( '.js-hero' );
-
-    console.log( 'heroSliders', heroSliders );
 
     if ( heroSliders.length > 0 ) {
       heroSliders.forEach( function ( thisSlider ) {
@@ -212,7 +156,7 @@ const heroSlider = ( function () {
     document.querySelector( '.js-cd-header__nav' ).addEventListener( 'click', function ( event ) {
       if ( event.target.tagName.toLowerCase() == 'nav' ) {
         const dropdown = this.querySelector( 'ul' );
-        toggleClass( dropdown, 'cd-is-visible', !hasClass( dropdown, 'cd-is-visible' ) );
+        dropdown.classList.toggle('cd-is-visible');
       }
     } );
     */
