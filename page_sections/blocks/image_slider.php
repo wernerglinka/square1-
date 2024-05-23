@@ -9,7 +9,7 @@
  * @package square1
  */
 
-echo render_image_slider($args);
+echo render_image_slider_component($args);
 
 ?>
 
