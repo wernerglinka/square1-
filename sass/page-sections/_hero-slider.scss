@@ -29,7 +29,7 @@
     height: 100%;
     z-index: 1;
     // all slides are translated off the viewport 
-    transform: translateZ(0);
+    transform: translateZ(0); // hack to trigger hardware acceleration for smoother and more efficient animations
     transform: translateX(100%);
     will-change: transform;
     background-position: center center;
