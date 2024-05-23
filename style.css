@@ -2242,6 +2242,35 @@ body.modal-active {
 .page-section.hero-slider .hero-slide.is-selected {
   transform: translateX(0);
 }
+.page-section.hero-slider .hero-slide .media-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.page-section.hero-slider .hero-slide .media-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.page-section.hero-slider .hero-slide .media-background:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.page-section.hero-slider .hero-slide .media-background.has-dark-screen:after {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.page-section.hero-slider .hero-slide .media-background.has-light-screen:after {
+  background-color: rgba(255, 255, 255, 0.7);
+}
 .page-section.hero-slider .hero-slide .container {
   height: 100%;
   display: flex;
@@ -2281,11 +2310,8 @@ body.modal-active {
 .page-section.hero-slider .hero-slide.is-moving {
   transform: translateX(-100%);
 }
-.page-section.hero-slider .hero-slide.is-moving .is-half-width {
+.page-section.hero-slider .hero-slide.is-moving * {
   transition: opacity 0s 0.5s, transform 0s 0.5s;
-}
-.page-section.hero-slider .hero-slide.is-moving .is-full-width * {
-  transition: transform 0s 0.5s;
 }
 .page-section.hero-slider .hero-slide.is-selected .hero-content * {
   opacity: 1;
@@ -2297,7 +2323,7 @@ body.modal-active {
 .page-section.hero-slider .hero-slide.is-selected .hero-content p {
   transition: transform 0.5s 0.3s, opacity 0.5s ease-in-out 0.3s;
 }
-.page-section.hero-slider .hero-slide.is-selected .hero-content .ctas-container {
+.page-section.hero-slider .hero-slide.is-selected .hero-content .ctas-container, .page-section.hero-slider .hero-slide.is-selected .hero-content img {
   transition: transform 0.5s 0.4s, opacity 0.5s ease-in-out 0.4s;
 }
 @media only screen and (max-width: 768px) {
@@ -2569,6 +2595,10 @@ button.inverted, .button.inverted {
 }
 .text-link:hover:after {
   padding-left: 1rem;
+}
+
+.is-dark .text-link {
+  color: #fff;
 }
 
 .hamburger {

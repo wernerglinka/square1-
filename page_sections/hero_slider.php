@@ -32,15 +32,33 @@
         // check if there is a background color
         $has_background_color = !empty($slide['slide_background']['background_color']);
         
-        // check if there is a background image or video
+        // background image or video
+        $has_media_background = $has_background_image || $has_background_video;
+        // background screen
+        $background_screen = $slide['slide_background']['screen'];
+        $has_background_screen = $background_screen['has_screen'];
+        $screen_color = $has_background_screen && $background_screen['dark_screen'] ? 'has-dark-screen' : 'has-light-screen';
+        // background color
         $has_background = $has_background_image || $has_background_video || $has_background_color;
-        $background_is_dark = $has_background ? $slide['slide_background']['background_is_dark'] : false;
+        $background_is_dark = $has_background_color ? $slide['slide_background']['background_is_dark'] : false;
 
     ?>
       <li 
         class="hero-slide <?php if($index === 0) echo 'is-selected'; if ($background_is_dark) echo ' is-dark'; ?> js-slide" 
         <?php if($has_background) echo 'style="background-color: ' . $slide['slide_background']['background_color'] . ';"'; ?>
       >
+        <?php if ($has_media_background) : ?>
+          <div class="media-background <?php if($has_background_screen) echo $screen_color; ?>">
+            <?php
+              if($has_background_image) {
+                echo render_image_component($slide['slide_background']['background_image']);
+              } else if($has_background_video) {
+                echo render_video_component($slide['slide_background']['background_video']);
+              }
+            ?>
+          </div>
+        <?php endif; ?>
+        
         <div class="container">
           <div class="hero-content <?php echo $content_width; ?>">
             <?php 

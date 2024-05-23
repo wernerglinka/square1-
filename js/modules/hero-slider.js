@@ -9,7 +9,7 @@ const heroSlider = ( function () {
     slider.slidesNumber = slider.slides.length;
     slider.newSlideIndex = 0;
     slider.oldSlideIndex = 0;
-    //slider.autoplay = slider.element.classList.contains( 'is-autoplay' );
+    slider.autoplay = slider.element.classList.contains( 'is-autoplay' );
     slider.autoPlayId = null;
     slider.autoPlayDelay = 5000;
 
