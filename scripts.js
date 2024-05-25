@@ -347,9 +347,10 @@
     const loadVideoPlayer = (videoInstance, index) => {
       const providerId = videoInstance.dataset.videosrc;
       const videoId = videoInstance.dataset.videoid;
+      const cloudName = videoInstance.dataset.cloudname;
       const videoProvider = videoProviderMap[providerId];
       if (videoProvider) {
-        videoProvider(index, videoId);
+        videoProvider(index, videoId, cloudName);
       } else {
         console.warn(`Unsupported video provider: ${providerId}`);
       }
@@ -398,6 +399,8 @@
     const videoId = videoInstance.dataset.videoid;
     const containerId = `cloudinary-video-player-${index}`;
     const playerId = `player-${index}`;
+    const isBackgroundVideo = videoInstance.classList.contains("js-background-video");
+    const loop = isBackgroundVideo ? "loop muted" : "";
     const videoTarget = createElementWithId("div", containerId);
     videoInstance.appendChild(videoTarget);
     Promise.all([
@@ -409,6 +412,7 @@
           id="${playerId}" 
           controls
           autoplay
+          ${loop}
           class="cld-video-player"
           data-cld-public-id="${videoId}"
         ></video>
@@ -530,9 +534,10 @@
     };
     const initVideoPlayer = (videoInstance, index) => {
       const providerId = videoInstance.dataset.videosrc;
+      const cloudName = videoInstance.dataset.cloudname;
       const videoProvider = videoProviderMap[providerId];
       if (videoProvider) {
-        videoProvider(videoInstance, index);
+        videoProvider(videoInstance, index, cloudName);
       } else {
         console.warn(`Unsupported video provider: ${providerId}`);
       }
@@ -827,28 +832,14 @@
       const slider = {
         element,
         navigation: element.querySelector(".js-nav"),
-        marker: element.querySelector(".js-nav .js-marker"),
         slides: Array.from(element.querySelectorAll(".js-slide")),
         autoplay: element.classList.contains("is-autoplay"),
-        autoPlayId: null,
         autoPlayDelay: 5e3,
         newSlideIndex: 0,
         oldSlideIndex: 0
       };
       slider.navigationItems = Array.from(slider.navigation.querySelectorAll("li"));
       slider.slidesNumber = slider.slides.length;
-      const uploadVideo = () => {
-        const videoSlides = Array.from(slider.element.getElementsByClassName("js-cd-bg-video"));
-        videoSlides.forEach((videoSlide) => {
-          if (videoSlide.offsetHeight > 0) {
-            const videoUrl = videoSlide.getAttribute("data-video");
-            videoSlide.innerHTML = `<video loop><source src='${videoUrl}.mp4' type='video/mp4' /><source src='${videoUrl}.webm' type='video/webm'/></video>`;
-            if (videoSlide.parentElement.classList.contains("is-selected")) {
-              videoSlide.getElementsByTagName("video")[0].play();
-            }
-          }
-        });
-      };
       const setAutoplay = () => {
         if (slider.autoplay) {
           clearInterval(slider.autoPlayId);
@@ -862,7 +853,6 @@
       };
       const updateSlider = () => {
         renderNewSlide();
-        updateNavigationMarker();
         updateSliderNavigation();
         setAutoplay();
       };
@@ -876,28 +866,12 @@
           oldSlide.removeEventListener("transitionend", handler);
           oldSlide.classList.remove("is-moving");
         });
-        checkVideo();
-      };
-      const updateNavigationMarker = () => {
-        removeClassPrefix(slider.marker, "item");
-        slider.marker.classList.add(`hero__marker--item-${slider.newSlideIndex + 1}`);
       };
       const updateSliderNavigation = () => {
         slider.navigationItems[slider.oldSlideIndex].classList.remove("is-selected");
         slider.navigationItems[slider.newSlideIndex].classList.add("is-selected");
       };
-      const checkVideo = () => {
-        const hiddenVideo = slider.slides[slider.oldSlideIndex].getElementsByTagName("video");
-        if (hiddenVideo.length) {
-          hiddenVideo[0].pause();
-        }
-        const visibleVideo = slider.slides[slider.newSlideIndex].getElementsByTagName("video");
-        if (visibleVideo.length) {
-          visibleVideo[0].play();
-        }
-      };
       const init = () => {
-        uploadVideo();
         setAutoplay();
         slider.navigation.addEventListener("click", (event) => {
           if (event.target.matches("div")) {
@@ -921,10 +895,6 @@
       init();
       return slider;
     }
-    const removeClassPrefix = (el, prefix) => {
-      const classes = el.className.split(" ").filter((c) => !c.startsWith(prefix));
-      el.className = classes.join(" ");
-    };
     const initSliders = () => {
       const heroSliders = document.querySelectorAll(".js-hero");
       heroSliders.forEach((slider) => new HeroSliderObj(slider));

@@ -3,10 +3,8 @@ const heroSlider = ( () => {
     const slider = {
       element,
       navigation: element.querySelector( '.js-nav' ),
-      marker: element.querySelector( '.js-nav .js-marker' ),
       slides: Array.from( element.querySelectorAll( '.js-slide' ) ),
       autoplay: element.classList.contains( 'is-autoplay' ),
-      autoPlayId: null,
       autoPlayDelay: 5000,
       newSlideIndex: 0,
       oldSlideIndex: 0,
@@ -14,19 +12,6 @@ const heroSlider = ( () => {
 
     slider.navigationItems = Array.from( slider.navigation.querySelectorAll( 'li' ) );
     slider.slidesNumber = slider.slides.length;
-
-    const uploadVideo = () => {
-      const videoSlides = Array.from( slider.element.getElementsByClassName( 'js-cd-bg-video' ) );
-      videoSlides.forEach( ( videoSlide ) => {
-        if ( videoSlide.offsetHeight > 0 ) {
-          const videoUrl = videoSlide.getAttribute( 'data-video' );
-          videoSlide.innerHTML = `<video loop><source src='${ videoUrl }.mp4' type='video/mp4' /><source src='${ videoUrl }.webm' type='video/webm'/></video>`;
-          if ( videoSlide.parentElement.classList.contains( 'is-selected' ) ) {
-            videoSlide.getElementsByTagName( 'video' )[ 0 ].play();
-          }
-        }
-      } );
-    };
 
     const setAutoplay = () => {
       if ( slider.autoplay ) {
@@ -43,7 +28,6 @@ const heroSlider = ( () => {
 
     const updateSlider = () => {
       renderNewSlide();
-      updateNavigationMarker();
       updateSliderNavigation();
       setAutoplay();
     };
@@ -58,12 +42,6 @@ const heroSlider = ( () => {
         oldSlide.removeEventListener( 'transitionend', handler );
         oldSlide.classList.remove( 'is-moving' );
       } );
-      checkVideo();
-    };
-
-    const updateNavigationMarker = () => {
-      removeClassPrefix( slider.marker, 'item' );
-      slider.marker.classList.add( `hero__marker--item-${ slider.newSlideIndex + 1 }` );
     };
 
     const updateSliderNavigation = () => {
@@ -71,19 +49,7 @@ const heroSlider = ( () => {
       slider.navigationItems[ slider.newSlideIndex ].classList.add( 'is-selected' );
     };
 
-    const checkVideo = () => {
-      const hiddenVideo = slider.slides[ slider.oldSlideIndex ].getElementsByTagName( 'video' );
-      if ( hiddenVideo.length ) {
-        hiddenVideo[ 0 ].pause();
-      }
-      const visibleVideo = slider.slides[ slider.newSlideIndex ].getElementsByTagName( 'video' );
-      if ( visibleVideo.length ) {
-        visibleVideo[ 0 ].play();
-      }
-    };
-
     const init = () => {
-      uploadVideo();
       setAutoplay();
       slider.navigation.addEventListener( 'click', ( event ) => {
         if ( event.target.matches( 'div' ) ) {
@@ -110,11 +76,6 @@ const heroSlider = ( () => {
 
     return slider;
   }
-
-  const removeClassPrefix = ( el, prefix ) => {
-    const classes = el.className.split( ' ' ).filter( ( c ) => !c.startsWith( prefix ) );
-    el.className = classes.join( ' ' );
-  };
 
   const initSliders = () => {
     const heroSliders = document.querySelectorAll( '.js-hero' );

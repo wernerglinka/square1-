@@ -13,6 +13,10 @@ const inlineCloudinaryVideo = ( videoInstance, index, cloudName ) => {
   const containerId = `cloudinary-video-player-${ index }`;
   const playerId = `player-${ index }`;
 
+  // when using as a background video, set the 'loop' attribute to true
+  const isBackgroundVideo = videoInstance.classList.contains( 'js-background-video' );
+  const loop = isBackgroundVideo ? 'loop muted' : '';
+
   // Create the container element for the video player
   const videoTarget = createElementWithId( 'div', containerId );
   videoInstance.appendChild( videoTarget );
@@ -29,6 +33,7 @@ const inlineCloudinaryVideo = ( videoInstance, index, cloudName ) => {
           id="${ playerId }" 
           controls
           autoplay
+          ${ loop }
           class="cld-video-player"
           data-cld-public-id="${ videoId }"
         ></video>

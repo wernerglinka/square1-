@@ -17,10 +17,11 @@ const modalVideos = ( () => {
   const loadVideoPlayer = ( videoInstance, index ) => {
     const providerId = videoInstance.dataset.videosrc;
     const videoId = videoInstance.dataset.videoid;
+    const cloudName = videoInstance.dataset.cloudname;
     const videoProvider = videoProviderMap[ providerId ];
 
     if ( videoProvider ) {
-      videoProvider( index, videoId );
+      videoProvider( index, videoId, cloudName );
     } else {
       console.warn( `Unsupported video provider: ${ providerId }` );
     }

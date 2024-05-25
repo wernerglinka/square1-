@@ -18,7 +18,6 @@ const cloudinaryPlayer = ( index, videoId, cloudName ) => {
           ></video>`;
 
       // add this video tag to the video target
-      // document.getElementById( `cloudinary-video-player-modal` ).innerHTML = videoTag;
       document.querySelector( '#video-overlay .video-container' ).innerHTML = videoTag;
 
       // instantiate the cloudinary video player

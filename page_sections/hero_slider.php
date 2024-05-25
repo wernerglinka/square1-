@@ -27,9 +27,10 @@ $slides = $props['slides'];
       $screen_color = $has_background_screen && $background_screen['dark_screen'] ? 'has-dark-screen' : 'has-light-screen';
       $has_background = $has_background_image || $has_background_video || $has_background_color;
       $background_is_dark = $has_background_color ? $slide['slide_background']['background_is_dark'] : false;
+      $is_reverse = $slide['is_reverse'] ?? false;
   ?>
     <li 
-      class="hero-slide <?php if($index === 0) echo 'is-selected'; if ($background_is_dark) echo ' is-dark'; ?> js-slide" 
+      class="hero-slide <?php if($index === 0) echo 'is-selected'; if ($background_is_dark) echo ' is-dark'; if ($is_reverse) echo 'is-reverse'; ?> js-slide" 
       <?php if($has_background) echo 'style="background-color: ' . esc_attr($slide['slide_background']['background_color']) . ';"'; ?>
     >
       <?php if ($has_media_background) : ?>
@@ -38,7 +39,10 @@ $slides = $props['slides'];
             if($has_background_image) {
               echo render_image_component($slide['slide_background']['background_image']);
             } else if($has_background_video) {
-              echo render_video_component($slide['slide_background']['background_video']);
+              // we need to start the video programmatically and we may have more than 1 video. 
+              // $slide_index is used to build a unique id for each video.
+              $slide_index = $index;
+              echo render_video_background_component($slide['slide_background']['background_video'], $slide_index);
             }
           ?>
         </div>
@@ -64,21 +68,17 @@ $slides = $props['slides'];
             <?php echo render_image_component($slide['image']); ?>
           </div> <!-- .hero-content -->
         <?php endif; ?>
-        
+
       </div> <!-- .container -->
     </li> 
   <?php endforeach; ?>
 </ul>
 
-<div class="hero__nav js-nav">
-  <nav>
-    <span class="hero__marker hero__marker--item-1 js-marker"></span>
-    
-    <ul>
-      <li class="is-selected"><a href="#0">Intro</a></li>
-      <li><a href="#0">Tech 1</a></li>
-      <li><a href="#0">Video</a></li>
-      <li><a href="#0">Image</a></li>
-    </ul>
-  </nav> 
-</div> <!-- .hero__nav -->
+
+<div class="hero-nav js-nav">
+  <ul>
+    <?php foreach($slides as $index => $slide) : ?>
+      <li <?php if($index === 0) echo 'class="is-selected"'; ?>><a href="#0"><?php echo $slide['nav_label']; ?></a></li>
+    <?php endforeach; ?>
+  </ul> 
+</div> <!-- .hero-nav -->

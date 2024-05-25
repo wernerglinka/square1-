@@ -28,5 +28,6 @@
   include_once dirname(__FILE__) . '/render/render_text_component.php';
   include_once dirname(__FILE__) . '/render/render_text_component.php';
   include_once dirname(__FILE__) . '/render/render_video_component.php';
+  include_once dirname(__FILE__) . '/render/render_video_background_component.php';
   include_once dirname(__FILE__) . '/render/render_faqs_component.php';
   

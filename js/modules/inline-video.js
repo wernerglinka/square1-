@@ -13,10 +13,11 @@ const inlineVideos = ( () => {
 
   const initVideoPlayer = ( videoInstance, index ) => {
     const providerId = videoInstance.dataset.videosrc;
+    const cloudName = videoInstance.dataset.cloudname;
     const videoProvider = videoProviderMap[ providerId ];
 
     if ( videoProvider ) {
-      videoProvider( videoInstance, index );
+      videoProvider( videoInstance, index, cloudName );
     } else {
       console.warn( `Unsupported video provider: ${ providerId }` );
     }

@@ -66,6 +66,7 @@
           max-height: 80rem;
           /* the background */
           @include glass($color__glass);
+          columns: 2;
 
           li:hover {
             background-color: $color__brand_very-light;

@@ -1936,7 +1936,7 @@
                                         "class": "",
                                         "id": ""
                                     },
-                                    "layout": "table",
+                                    "layout": "block",
                                     "pagination": 0,
                                     "min": 0,
                                     "max": 0,
@@ -4432,5 +4432,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716414293
+    "modified": 1716659562
 }

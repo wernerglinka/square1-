@@ -3,6 +3,46 @@
     "title": "Slide Component",
     "fields": [
         {
+            "key": "field_665224fadd55d",
+            "label": "Nav Label",
+            "name": "nav_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_665249b886fc4",
+            "label": "Is Reverse",
+            "name": "is_reverse",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Reverses the text\/image columns",
+            "default_value": 0,
+            "ui_on_text": "",
+            "ui_off_text": "",
+            "ui": 1
+        },
+        {
             "key": "field_664d1813e1d8e",
             "label": "Text",
             "name": "text",
@@ -188,5 +228,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716415855
+    "modified": 1716668978
 }
