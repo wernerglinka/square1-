@@ -1,16 +1,21 @@
 {
-    "extends": [
-        "plugin:@wordpress/eslint-plugin/esnext"
-    ],
-    "env": {
-        "browser": true
-    },
-    "rules": {
-        "indent": ["error", 2],
-        "space-before-function-paren": ["error", {
+  "extends": ["plugin:@wordpress/eslint-plugin/esnext"],
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "rules": {
+    "indent": ["error", 2],
+    "space-before-function-paren": [
+      "error",
+      {
         "anonymous": "never",
         "named": "never",
-        "asyncArrow": "always"
-    }]
-    }
+        "asyncArrow": "always",
+      },
+    ],
+  },
+  "parserOptions": {
+    "ecmaVersion": 12
+  },
 }

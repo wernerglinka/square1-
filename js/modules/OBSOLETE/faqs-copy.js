@@ -1,8 +1,11 @@
-const frequentlyAskedQuestions = ( () => {
-  function FAQsObj( thisFAQs, singleActive ) {
-    const faqs = thisFAQs.querySelectorAll( '.faq' );
+const frequentlyAskedQuestions = ( function () {
+  function init() {
+    const allFAQs = document.querySelectorAll( '.js-faqs' );
 
-    const initFAQs = () => {
+    allFAQs.forEach( ( thisFAQs ) => {
+      const faqs = thisFAQs.querySelectorAll( '.faq' );
+      const singleActive = thisFAQs.classList.contains( 'js-single-active' );
+
       faqs.forEach( ( faq ) => {
         const question = faq.querySelector( '.question' );
         const answer = faq.querySelector( '.answer' );
@@ -48,27 +51,12 @@ const frequentlyAskedQuestions = ( () => {
           }
         } );
       } );
-    };
-
-    initFAQs();
-
-    return {
-      faqs,
-    };
+    } );
   }
 
-  const initFrequentlyAskedQuestions = () => {
-    const allFAQs = document.querySelectorAll( '.js-faqs' );
-
-    allFAQs.forEach( ( thisFAQs ) => {
-      const singleActive = thisFAQs.classList.contains( 'js-single-active' );
-      return new FAQsObj( thisFAQs, singleActive );
-    } );
-  };
-
   return {
-    init: initFrequentlyAskedQuestions,
+    init,
   };
-} )();
+}() );
 
 export default frequentlyAskedQuestions;

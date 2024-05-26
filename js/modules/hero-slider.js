@@ -1,5 +1,9 @@
 const heroSlider = ( () => {
-  function HeroSliderObj( element ) {
+  function HeroSliderObj( element, options = {} ) {
+    const defaultOptions = {
+      // Add default options if needed
+    };
+
     const slider = {
       element,
       navigation: element.querySelector( '.js-nav' ),
@@ -78,7 +82,10 @@ const heroSlider = ( () => {
   }
 
   const initSliders = () => {
+    // get all hero sliders
     const heroSliders = document.querySelectorAll( '.js-hero' );
+
+    // initialize each hero slider
     heroSliders.forEach( ( slider ) => new HeroSliderObj( slider ) );
   };
 

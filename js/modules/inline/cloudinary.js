@@ -7,8 +7,6 @@ import loadStyles from '../helpers/load-styles';
 import { createElementWithId } from '../helpers/dom';
 
 const inlineCloudinaryVideo = ( videoInstance, index, cloudName ) => {
-  console.log( 'Inline CloudinaryVideo Init' );
-
   const videoId = videoInstance.dataset.videoid;
   const containerId = `cloudinary-video-player-${ index }`;
   const playerId = `player-${ index }`;
@@ -46,22 +44,28 @@ const inlineCloudinaryVideo = ( videoInstance, index, cloudName ) => {
         playedEventPercents: [ 100 ]
       } );
 
-      // clicking on the thumbnail will fadeout the thumbnail and start the video
-      videoInstance.parentNode.querySelector( '.video-trigger' ).addEventListener( 'click', ( e ) => {
-        player.play();
-        videoInstance.parentNode.classList.add( 'video-playing' );
-      } );
+      // not when used as a background video
+      if ( !isBackgroundVideo ) {
+        // clicking on the thumbnail will fadeout the thumbnail and start the video
+        videoInstance.parentNode.querySelector( '.video-trigger' ).addEventListener( 'click', ( e ) => {
+          player.play();
+          videoInstance.parentNode.classList.add( 'video-playing' );
+        } );
+      }
 
       // Add event listener for end of playback
       player.on( 'percentsplayed', ( event ) => {
         videoInstance.parentNode.classList.remove( 'video-playing' );
       } );
 
-      // Add event listener for closing the video
-      videoInstance.querySelector( '.close' ).addEventListener( 'click', () => {
-        player.pause();
-        videoInstance.parentNode.classList.remove( 'video-playing' );
-      } );
+      // not when used as a background video
+      if ( !isBackgroundVideo ) {
+        // Add event listener for closing the video
+        videoInstance.querySelector( '.close' ).addEventListener( 'click', () => {
+          player.pause();
+          videoInstance.parentNode.classList.remove( 'video-playing' );
+        } );
+      }
     } )
     .catch( ( error ) => {
       console.error( `Error loading script: ${ error }` );

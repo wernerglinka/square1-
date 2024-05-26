@@ -1,46 +1,53 @@
-import debounce from './helpers/debounce.js';
+import debounce from './helpers/debounce';
 
-const lottieAnimations = ( function ( $ ) {
-  const playLottie = ( entries, observer ) => {
-    // During initial page load the entries array contains all watched lotties. The
-    // isIntersecting property for the individual object indicates visibility.
-    for ( const entry of entries ) {
-      if ( entry.isIntersecting ) {
-        const thisLottie = entry.target;
-        // play lottie when in viewport
-        setTimeout( () => {
-          thisLottie.play();
-          // take this lottie off the observe list
-          observer.unobserve( thisLottie );
-        }, 500 );
+const lottieAnimations = ( () => {
+  function LottieAnimationObj( lottie, options ) {
+    const defaults = {
+      threshold: 1.0,
+    };
+
+    const settings = { ...defaults, ...options };
+
+    const playLottie = ( entries, observer ) => {
+      for ( const entry of entries ) {
+        if ( entry.isIntersecting ) {
+          setTimeout( () => {
+            element.play();
+            observer.unobserve( element );
+          }, 500 );
+        }
       }
-    }
-  };
+    };
 
-  const watchLottie = debounce( function () {
-    const observer = new IntersectionObserver( playLottie );
+    const watchLottie = debounce( () => {
+      const observer = new IntersectionObserver( playLottie );
+      observer.observe( element );
+    }, 500 );
 
-    // loop over all lotties and add to intersection observer
+    const resizeObserver = new ResizeObserver( watchLottie );
+    resizeObserver.observe( document.body );
+
+    return {
+      lottie,
+      settings,
+    };
+  }
+
+  const initLottieAnimations = () => {
     const allLotties = document.querySelectorAll( '.js-lottie' );
 
-    for ( const lottie of allLotties ) {
-      observer.observe( lottie );
-    }
-  }, 500 );
+    allLotties.forEach( ( lottie ) => {
+      const options = {
+        // Parse options from data attributes or other sources
+      };
 
-  const init = () => {
-    const options = {
-      threshold: 1.0
-    };
-    // lotties will update on page load and after a resize
-    const resizeObserver = new ResizeObserver( watchLottie, options );
-    const resizeElement = document.body;
-    resizeObserver.observe( resizeElement );
+      return new LottieAnimationObj( lottie, options );
+    } );
   };
 
   return {
-    init,
+    init: initLottieAnimations,
   };
-}() );
+} )();
 
 export default lottieAnimations;

@@ -1,4 +1,3 @@
-
 /* eslint-disable indent */
 /* eslint-disable space-before-function-paren */
 import youtubePlayer from './modal/youtube';
@@ -14,71 +13,84 @@ const modalVideos = ( () => {
     vimeo: vimeoPlayer,
   };
 
-  const loadVideoPlayer = ( videoInstance, index ) => {
-    const providerId = videoInstance.dataset.videosrc;
-    const videoId = videoInstance.dataset.videoid;
-    const cloudName = videoInstance.dataset.cloudname;
-    const videoProvider = videoProviderMap[ providerId ];
+  function ModalVideoObj( element, index, options ) {
+    const defaults = {
+      // Default options
+    };
 
-    if ( videoProvider ) {
-      videoProvider( index, videoId, cloudName );
-    } else {
-      console.warn( `Unsupported video provider: ${ providerId }` );
-    }
-  };
+    const settings = { ...defaults, ...options };
 
-  const handleTriggerClick = ( e, index, videoSource ) => {
-    e.preventDefault();
-    e.stopPropagation();
+    const loadVideoPlayer = () => {
+      // get the video provider id and cloud name
+      const providerId = element.dataset.videosrc;
+      const videoId = element.dataset.videoid;
+      const cloudName = element.dataset.cloudname;
+      const videoProvider = videoProviderMap[ providerId ];
 
-    // find the closest parent element with the class of js-modal-youtube-video
-    if ( e.target.matches( `.js-modal-video, .js-modal-video *` ) ) {
-      const videoLink = e.target.closest( `.js-modal-video` );
+      // and call the video provider function
+      if ( videoProvider ) {
+        videoProvider( index, videoId, cloudName );
+      } else {
+        console.warn( `Unsupported video provider: ${ providerId }` );
+      }
+    };
 
-      // Add the target element for the video player in the overlay
-      // Youtube and Cloudinary will replace the target element with the video player
-      // Vimeo will append the video player to the target element
-      const videoTarget = createElementWithId( 'div', `${ videoSource }-video-target-${ index }` );
-      document.querySelector( '#video-overlay .video-container' ).appendChild( videoTarget );
+    const handleTriggerClick = ( e ) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-      // Fade in the overlay
-      const videoOverlay = document.getElementById( 'video-overlay' );
-      fadeInElement( videoOverlay, 'is-open', () => {
-        document.body.classList.add( 'modal-active' );
-      } );
+      if ( e.target.matches( `.js-modal-video, .js-modal-video *` ) ) {
+        const videoSource = element.dataset.videosrc;
+        const videoTarget = createElementWithId( 'div', `${ videoSource }-video-target-${ index }` );
+        document.querySelector( '#video-overlay .video-container' ).appendChild( videoTarget );
 
-      // Load the video player
-      loadVideoPlayer( videoLink, index );
-    }
-  };
+        const videoOverlay = document.getElementById( 'video-overlay' );
+        fadeInElement( videoOverlay, 'is-open', () => {
+          document.body.classList.add( 'modal-active' );
+        } );
 
-  const init = () => {
-    // create an video overlay and add to DOM
+        loadVideoPlayer();
+      }
+    };
+
+    element.addEventListener( 'click', handleTriggerClick );
+
+    return {
+      element,
+      settings,
+    };
+  }
+
+  const initModalVideos = () => {
+    // add a video overlay to the DOM
     const newVideoOverlay = `
-        <div id="video-overlay" class="js-video-overlay">
-          <span class="close">[Close]</span>
-          <div class="responsive-wrapper">
-            <div class="video-container"></div>
-          </div>
+      <div id="video-overlay" class="js-video-overlay">
+        <span class="close">[Close]</span>
+        <div class="responsive-wrapper">
+          <div class="video-container"></div>
         </div>
-      `;
+      </div>
+    `;
     document.body.insertAdjacentHTML( 'beforeend', newVideoOverlay );
 
+    // get all modal video triggers
     const modalVideoTriggers = document.querySelectorAll( '.js-modal-video' );
-    const closeVideoOverlay = document.getElementById( 'video-overlay' ).querySelector( '.close' );
-
-    // add eventlisteners to every modal video link
+    // create a new ModalVideoObj for each trigger
     modalVideoTriggers.forEach( ( trigger, index ) => {
-      const videoSource = trigger.dataset.videosrc;
-      trigger.addEventListener( 'click', ( e ) => handleTriggerClick( e, index, videoSource ) );
+      const options = {
+        // Parse options from data attributes or other sources
+      };
+
+      return new ModalVideoObj( trigger, index, options );
     } );
 
-    // close video overlay when close link is clicked
+    // add an event listener to the close button
+    const closeVideoOverlay = document.getElementById( 'video-overlay' ).querySelector( '.close' );
     closeVideoOverlay.addEventListener( 'click', closeModal );
   };
 
   return {
-    init,
+    init: initModalVideos,
   };
 } )();
 

@@ -11,30 +11,50 @@ const inlineVideos = ( () => {
     vimeo: inlineVimeoVideo,
   };
 
-  const initVideoPlayer = ( videoInstance, index ) => {
-    const providerId = videoInstance.dataset.videosrc;
-    const cloudName = videoInstance.dataset.cloudname;
+  function InlineVideoObj( element, index, options ) {
+    const defaults = {
+      // Default options
+    };
+
+    const settings = { ...defaults, ...options };
+
+    // add id to element obj
+    element.id = `inline-video-${ index }`;
+
+    // get the video provider id and cloud name
+    const providerId = element.dataset.videosrc;
+    const cloudName = element.dataset.cloudname;
     const videoProvider = videoProviderMap[ providerId ];
 
+    // and call the video provider function
     if ( videoProvider ) {
-      videoProvider( videoInstance, index, cloudName );
+      videoProvider( element, index, cloudName );
     } else {
       console.warn( `Unsupported video provider: ${ providerId }` );
     }
-  };
 
-  const init = () => {
-    console.log( 'Inline Videos Init' );
+    return {
+      element,
+      settings,
+    };
+  }
 
-    const allVideos = document.querySelectorAll( '.js-inline-video' );
-    allVideos.forEach( ( video, index ) => {
-      video.id = `inline-video-${ index }`;
-      initVideoPlayer( video, index );
+  const initInlineVideos = () => {
+    // get all inline video elements
+    const elements = document.querySelectorAll( '.js-inline-video' );
+
+    // loop through each element and create a new InlineVideoObj
+    elements.forEach( ( element, index ) => {
+      const options = {
+        // Parse options from data attributes or other sources
+      };
+
+      return new InlineVideoObj( element, index, options );
     } );
   };
 
   return {
-    init,
+    init: initInlineVideos,
   };
 } )();
 

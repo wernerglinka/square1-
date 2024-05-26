@@ -57,133 +57,179 @@
   // js/modules/section-animation.js
   var sectionAnimations = (() => {
     "use strict";
-    const showSection = (entries, observer) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const thisSection = entry.target;
-          thisSection.classList.remove("is-hidden");
-          observer.unobserve(thisSection);
-        }
-      });
-    };
-    const updateSections = debounce_default(() => {
-      const observer = new IntersectionObserver(showSection);
-      const allSections = document.querySelectorAll(".js-is-animated");
-      allSections.forEach((section) => observer.observe(section));
-    }, 500);
-    const init = () => {
-      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
-      const allSections = document.querySelectorAll(".js-is-animated");
-      allSections.forEach((section) => {
+    function SectionAnimationsObj(section) {
+      const showSection = (entries, observer) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const thisSection = entry.target;
+            thisSection.classList.remove("is-hidden");
+            observer.unobserve(thisSection);
+          }
+        });
+      };
+      const updateSections = debounce_default(() => {
+        const observer = new IntersectionObserver(showSection);
+        observer.observe(section);
+      }, 500);
+      const initSection = () => {
+        const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
         const rect = section.getBoundingClientRect();
         if (rect.top > viewportHeight) {
           section.classList.add("is-hidden");
         }
+        const resizeObserver = new ResizeObserver(updateSections);
+        resizeObserver.observe(document.body);
+      };
+      initSection();
+      return {
+        section
+      };
+    }
+    const initSectionAnimations = () => {
+      const animatedSections = document.querySelectorAll(".js-is-animated");
+      animatedSections.forEach((section) => {
+        return new SectionAnimationsObj(section);
       });
-      const resizeObserver = new ResizeObserver(updateSections);
-      resizeObserver.observe(document.body);
     };
     return {
-      init
+      init: initSectionAnimations
     };
   })();
   var section_animation_default = sectionAnimations;
 
-  // js/modules/mobileFlipcardSupport.js
+  // js/modules/flipcards.js
   var mobileFlipCardSupport = /* @__PURE__ */ function($) {
-    const init = () => {
+    function FlipcardObj(flipcard, options) {
+      const defaults = {
+        // Default options
+      };
+      const settings = { ...defaults, ...options };
+      flipcard.addEventListener("touchstart", function() {
+        flipcard.classList.toggle("flip");
+      });
+      flipcard.addEventListener("mouseenter", function() {
+        flipcard.classList.add("flip");
+      });
+      flipcard.addEventListener("mouseleave", function() {
+        flipcard.classList.remove("flip");
+      });
+      return {
+        flipcard,
+        settings
+      };
+    }
+    const initFlipcards = () => {
       const flipcards = document.querySelectorAll(".flip-card-wrapper");
       flipcards.forEach((flipcard) => {
-        flipcard.addEventListener("touchstart", function() {
-          flipcard.classList.toggle("flip");
-        });
-        flipcard.addEventListener("mouseenter", function() {
-          flipcard.classList.add("flip");
-        });
-        flipcard.addEventListener("mouseleave", function() {
-          flipcard.classList.remove("flip");
-        });
+        return new FlipcardObj(flipcard);
       });
     };
     return {
-      init
+      init: initFlipcards
     };
   }();
-  var mobileFlipcardSupport_default = mobileFlipCardSupport;
+  var flipcards_default = mobileFlipCardSupport;
 
   // js/modules/tabs.js
-  var tabs = /* @__PURE__ */ function() {
-    const init = () => {
-      const allTabsContainers = document.querySelectorAll(".js-tabs");
-      allTabsContainers.forEach((tabsContainer) => {
-        const allTabs = tabsContainer.querySelectorAll(".tab-label");
-        const allTabContents = tabsContainer.querySelectorAll(".tab-content");
-        let tallestTabContent = 0;
-        allTabContents.forEach((tabContent) => {
-          if (tabContent.offsetHeight > tallestTabContent) {
-            tallestTabContent = tabContent.offsetHeight;
-          }
-        });
-        document.querySelector(".tabs-content").style.height = `${tallestTabContent}px`;
-        const resizeObserver = new ResizeObserver((entries) => {
-          entries.forEach((entry) => {
-            tallestTabContent = 0;
-            allTabContents.forEach((tabContent) => {
-              if (tabContent.offsetHeight > tallestTabContent) {
-                tallestTabContent = tabContent.offsetHeight;
-              }
-            });
-            document.querySelector(".tabs-content").style.height = `${tallestTabContent}px`;
+  var tabs = /* @__PURE__ */ (() => {
+    function TabsObj(tabsContainer, options = {}) {
+      const defaultOptions = {
+        // Add default options if needed
+      };
+      const tabsInstance = {
+        tabsContainer,
+        options: { ...defaultOptions, ...options },
+        allTabs: tabsContainer.querySelectorAll(".tab-label"),
+        allTabContents: tabsContainer.querySelectorAll(".tab-content"),
+        tabsContent: tabsContainer.querySelector(".tabs-content")
+      };
+      const init = () => {
+        const { allTabs, allTabContents, tabsContent } = tabsInstance;
+        if (tabsContent) {
+          let tallestTabContent = 0;
+          allTabContents.forEach((tabContent) => {
+            if (tabContent.offsetHeight > tallestTabContent) {
+              tallestTabContent = tabContent.offsetHeight;
+            }
           });
-        });
-        resizeObserver.observe(document.body);
+          tabsContent.style.height = `${tallestTabContent}px`;
+          const resizeObserver = new ResizeObserver((entries) => {
+            entries.forEach(() => {
+              tallestTabContent = 0;
+              allTabContents.forEach((tabContent) => {
+                if (tabContent.offsetHeight > tallestTabContent) {
+                  tallestTabContent = tabContent.offsetHeight;
+                }
+              });
+              tabsContent.style.height = `${tallestTabContent}px`;
+            });
+          });
+          resizeObserver.observe(document.body);
+        }
         allTabs.forEach((tab) => {
           tab.addEventListener("click", () => {
-            allTabs.forEach((tab2) => tab2.classList.remove("active"));
+            allTabs.forEach((thisTab) => thisTab.classList.remove("active"));
             tab.classList.add("active");
-            const clickedTabIndex = Array.prototype.slice.call(allTabs).indexOf(tab);
+            const clickedTabIndex = Array.from(allTabs).indexOf(tab);
             allTabContents.forEach((tabContent) => tabContent.classList.remove("active"));
             allTabContents[clickedTabIndex].classList.add("active");
           });
         });
-      });
+      };
+      init();
+      return tabsInstance;
+    }
+    const initTabs = () => {
+      const tabsContainers = document.querySelectorAll(".js-tabs");
+      tabsContainers.forEach((tabsContainer) => new TabsObj(tabsContainer));
     };
-    return { init };
-  }();
+    return {
+      init: initTabs
+    };
+  })();
   var tabs_default = tabs;
 
   // js/modules/lottieAnimation.js
-  var lottieAnimations = function($) {
-    const playLottie = (entries, observer) => {
-      for (const entry of entries) {
-        if (entry.isIntersecting) {
-          const thisLottie = entry.target;
-          setTimeout(() => {
-            thisLottie.play();
-            observer.unobserve(thisLottie);
-          }, 500);
-        }
-      }
-    };
-    const watchLottie = debounce_default(function() {
-      const observer = new IntersectionObserver(playLottie);
-      const allLotties = document.querySelectorAll(".js-lottie");
-      for (const lottie of allLotties) {
-        observer.observe(lottie);
-      }
-    }, 500);
-    const init = () => {
-      const options = {
+  var lottieAnimations = /* @__PURE__ */ (() => {
+    function LottieAnimationObj(lottie, options) {
+      const defaults = {
         threshold: 1
       };
-      const resizeObserver = new ResizeObserver(watchLottie, options);
-      const resizeElement = document.body;
-      resizeObserver.observe(resizeElement);
+      const settings = { ...defaults, ...options };
+      const playLottie = (entries, observer) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              element.play();
+              observer.unobserve(element);
+            }, 500);
+          }
+        }
+      };
+      const watchLottie = debounce_default(() => {
+        const observer = new IntersectionObserver(playLottie);
+        observer.observe(element);
+      }, 500);
+      const resizeObserver = new ResizeObserver(watchLottie);
+      resizeObserver.observe(document.body);
+      return {
+        lottie,
+        settings
+      };
+    }
+    const initLottieAnimations = () => {
+      const allLotties = document.querySelectorAll(".js-lottie");
+      allLotties.forEach((lottie) => {
+        const options = {
+          // Parse options from data attributes or other sources
+        };
+        return new LottieAnimationObj(lottie, options);
+      });
     };
     return {
-      init
+      init: initLottieAnimations
     };
-  }();
+  })();
   var lottieAnimation_default = lottieAnimations;
 
   // js/modules/helpers/load-script.js
@@ -318,23 +364,23 @@
 
   // js/modules/helpers/dom.js
   function createElementWithId(tagName, id, className = "") {
-    const element = document.createElement(tagName);
-    element.id = id;
-    element.className = className;
-    return element;
+    const element2 = document.createElement(tagName);
+    element2.id = id;
+    element2.className = className;
+    return element2;
   }
-  function fadeInElement(element, fadeInClass, onAnimationEnd = () => {
+  function fadeInElement(element2, fadeInClass, onAnimationEnd = () => {
   }) {
-    element.addEventListener(
+    element2.addEventListener(
       "animationend",
       () => {
-        element.classList.add(fadeInClass);
-        element.classList.remove("fadein");
+        element2.classList.add(fadeInClass);
+        element2.classList.remove("fadein");
         onAnimationEnd();
       },
       { once: true }
     );
-    element.classList.add("fadein");
+    element2.classList.add("fadein");
   }
 
   // js/modules/modal-video.js
@@ -344,58 +390,70 @@
       youtube: youtube_default,
       vimeo: vimeo_default
     };
-    const loadVideoPlayer = (videoInstance, index) => {
-      const providerId = videoInstance.dataset.videosrc;
-      const videoId = videoInstance.dataset.videoid;
-      const cloudName = videoInstance.dataset.cloudname;
-      const videoProvider = videoProviderMap[providerId];
-      if (videoProvider) {
-        videoProvider(index, videoId, cloudName);
-      } else {
-        console.warn(`Unsupported video provider: ${providerId}`);
-      }
-    };
-    const handleTriggerClick = (e, index, videoSource) => {
-      e.preventDefault();
-      e.stopPropagation();
-      if (e.target.matches(`.js-modal-video, .js-modal-video *`)) {
-        const videoLink = e.target.closest(`.js-modal-video`);
-        const videoTarget = createElementWithId("div", `${videoSource}-video-target-${index}`);
-        document.querySelector("#video-overlay .video-container").appendChild(videoTarget);
-        const videoOverlay = document.getElementById("video-overlay");
-        fadeInElement(videoOverlay, "is-open", () => {
-          document.body.classList.add("modal-active");
-        });
-        loadVideoPlayer(videoLink, index);
-      }
-    };
-    const init = () => {
+    function ModalVideoObj(element2, index, options) {
+      const defaults = {
+        // Default options
+      };
+      const settings = { ...defaults, ...options };
+      const loadVideoPlayer = () => {
+        const providerId = element2.dataset.videosrc;
+        const videoId = element2.dataset.videoid;
+        const cloudName = element2.dataset.cloudname;
+        const videoProvider = videoProviderMap[providerId];
+        if (videoProvider) {
+          videoProvider(index, videoId, cloudName);
+        } else {
+          console.warn(`Unsupported video provider: ${providerId}`);
+        }
+      };
+      const handleTriggerClick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (e.target.matches(`.js-modal-video, .js-modal-video *`)) {
+          const videoSource = element2.dataset.videosrc;
+          const videoTarget = createElementWithId("div", `${videoSource}-video-target-${index}`);
+          document.querySelector("#video-overlay .video-container").appendChild(videoTarget);
+          const videoOverlay = document.getElementById("video-overlay");
+          fadeInElement(videoOverlay, "is-open", () => {
+            document.body.classList.add("modal-active");
+          });
+          loadVideoPlayer();
+        }
+      };
+      element2.addEventListener("click", handleTriggerClick);
+      return {
+        element: element2,
+        settings
+      };
+    }
+    const initModalVideos = () => {
       const newVideoOverlay = `
-        <div id="video-overlay" class="js-video-overlay">
-          <span class="close">[Close]</span>
-          <div class="responsive-wrapper">
-            <div class="video-container"></div>
-          </div>
+      <div id="video-overlay" class="js-video-overlay">
+        <span class="close">[Close]</span>
+        <div class="responsive-wrapper">
+          <div class="video-container"></div>
         </div>
-      `;
+      </div>
+    `;
       document.body.insertAdjacentHTML("beforeend", newVideoOverlay);
       const modalVideoTriggers = document.querySelectorAll(".js-modal-video");
-      const closeVideoOverlay = document.getElementById("video-overlay").querySelector(".close");
       modalVideoTriggers.forEach((trigger, index) => {
-        const videoSource = trigger.dataset.videosrc;
-        trigger.addEventListener("click", (e) => handleTriggerClick(e, index, videoSource));
+        const options = {
+          // Parse options from data attributes or other sources
+        };
+        return new ModalVideoObj(trigger, index, options);
       });
+      const closeVideoOverlay = document.getElementById("video-overlay").querySelector(".close");
       closeVideoOverlay.addEventListener("click", closeModal2);
     };
     return {
-      init
+      init: initModalVideos
     };
   })();
   var modal_video_default = modalVideos;
 
   // js/modules/inline/cloudinary.js
   var inlineCloudinaryVideo = (videoInstance, index, cloudName) => {
-    console.log("Inline CloudinaryVideo Init");
     const videoId = videoInstance.dataset.videoid;
     const containerId = `cloudinary-video-player-${index}`;
     const playerId = `player-${index}`;
@@ -422,17 +480,21 @@
         cloudName,
         playedEventPercents: [100]
       });
-      videoInstance.parentNode.querySelector(".video-trigger").addEventListener("click", (e) => {
-        player.play();
-        videoInstance.parentNode.classList.add("video-playing");
-      });
+      if (!isBackgroundVideo) {
+        videoInstance.parentNode.querySelector(".video-trigger").addEventListener("click", (e) => {
+          player.play();
+          videoInstance.parentNode.classList.add("video-playing");
+        });
+      }
       player.on("percentsplayed", (event) => {
         videoInstance.parentNode.classList.remove("video-playing");
       });
-      videoInstance.querySelector(".close").addEventListener("click", () => {
-        player.pause();
-        videoInstance.parentNode.classList.remove("video-playing");
-      });
+      if (!isBackgroundVideo) {
+        videoInstance.querySelector(".close").addEventListener("click", () => {
+          player.pause();
+          videoInstance.parentNode.classList.remove("video-playing");
+        });
+      }
     }).catch((error) => {
       console.error(`Error loading script: ${error}`);
     });
@@ -464,7 +526,6 @@
     const videoTarget = createElementWithId("div", containerId);
     videoInstance.appendChild(videoTarget);
     load_youtube_api_default().then(() => {
-      console.log("Inline YouTube API Ready");
       const playerOptions = {
         autoplay: 0,
         start: startTime,
@@ -492,7 +553,6 @@
 
   // js/modules/inline/vimeo.js
   var inlineVimeoVideo = (videoInstance, index) => {
-    console.log("Inline  VideoVideo Init");
     const videoId = videoInstance.dataset.videoid;
     const containerId = `vimeo-video-player-${index}`;
     const playerId = `demo-player-${index}`;
@@ -532,26 +592,36 @@
       youtube: youtube_default2,
       vimeo: vimeo_default2
     };
-    const initVideoPlayer = (videoInstance, index) => {
-      const providerId = videoInstance.dataset.videosrc;
-      const cloudName = videoInstance.dataset.cloudname;
+    function InlineVideoObj(element2, index, options) {
+      const defaults = {
+        // Default options
+      };
+      const settings = { ...defaults, ...options };
+      element2.id = `inline-video-${index}`;
+      const providerId = element2.dataset.videosrc;
+      const cloudName = element2.dataset.cloudname;
       const videoProvider = videoProviderMap[providerId];
       if (videoProvider) {
-        videoProvider(videoInstance, index, cloudName);
+        videoProvider(element2, index, cloudName);
       } else {
         console.warn(`Unsupported video provider: ${providerId}`);
       }
-    };
-    const init = () => {
-      console.log("Inline Videos Init");
-      const allVideos = document.querySelectorAll(".js-inline-video");
-      allVideos.forEach((video, index) => {
-        video.id = `inline-video-${index}`;
-        initVideoPlayer(video, index);
+      return {
+        element: element2,
+        settings
+      };
+    }
+    const initInlineVideos = () => {
+      const elements = document.querySelectorAll(".js-inline-video");
+      elements.forEach((element2, index) => {
+        const options = {
+          // Parse options from data attributes or other sources
+        };
+        return new InlineVideoObj(element2, index, options);
       });
     };
     return {
-      init
+      init: initInlineVideos
     };
   })();
   var inline_video_default = inlineVideos;
@@ -727,66 +797,79 @@
   var isotope_default = isotopeGallery;
 
   // js/modules/image-slider.js
-  var imageSlider = /* @__PURE__ */ function() {
-    function initSwiper() {
-      load_styles_default("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css");
-      load_vendor_object_default("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js", "Swiper").then(() => {
-        const swiper = new Swiper(".swiper", {
-          // Optional parameters
-          direction: "horizontal",
-          loop: true,
-          autoplay: {
-            delay: 2e3,
-            pauseOnMouseEnter: true
-          },
-          // If we need pagination
-          pagination: {
-            el: ".swiper-pagination"
-          },
-          // Navigation arrows
-          navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev"
-          },
-          // And if we need scrollbar
-          scrollbar: {
-            el: ".swiper-scrollbar"
-          }
+  var imageSlider = /* @__PURE__ */ (() => {
+    function ImageSliderObj(element2, options) {
+      const defaults = {
+        direction: "horizontal",
+        loop: true,
+        autoplay: {
+          delay: 2e3,
+          pauseOnMouseEnter: true
+        },
+        pagination: {
+          el: ".swiper-pagination"
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev"
+        },
+        scrollbar: {
+          el: ".swiper-scrollbar"
+        }
+      };
+      const settings = { ...defaults, ...options };
+      const initSwiper = () => {
+        load_styles_default("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css");
+        load_vendor_object_default("https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js", "Swiper").then(() => {
+          const swiper = new Swiper(element2, settings);
+        }).catch((error) => {
+          console.error(`Error loading Isotope script: ${error}`);
         });
-      }).catch((error) => {
-        console.error(`Error loading Isotope script: ${error}`);
-      });
-    }
-    function init() {
-      const imageSliderContainer = document.querySelector(".js-image-slider");
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            load_vendor_object_default("https://unpkg.com/imagesloaded@5.0.0/imagesloaded.pkgd.min.js", "imagesLoaded").then(() => {
-              const images = imageSliderContainer.querySelectorAll("img");
-              imagesLoaded(images, () => {
-                initSwiper();
+      };
+      const initModule = () => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              load_vendor_object_default("https://unpkg.com/imagesloaded@5.0.0/imagesloaded.pkgd.min.js", "imagesLoaded").then(() => {
+                const images = element2.querySelectorAll("img");
+                imagesLoaded(images, () => {
+                  initSwiper();
+                });
+              }).catch((error) => {
+                console.error(`Error loading imagesLoaded script: ${error}`);
               });
-            }).catch((error) => {
-              console.error(`Error loading imagesLoaded script: ${error}`);
-            });
-            observer.unobserve(entry.target);
-          }
+              observer.unobserve(entry.target);
+            }
+          });
         });
-      });
-      observer.observe(imageSliderContainer);
+        observer.observe(element2);
+      };
+      initModule();
+      return {
+        element: element2,
+        settings
+      };
     }
-    return { init };
-  }();
+    const initImageSlider = () => {
+      const elements = document.querySelectorAll(".js-image-slider");
+      elements.forEach((element2) => {
+        const options = {
+          // Parse options from data attributes or other sources
+        };
+        return new ImageSliderObj(element2, options);
+      });
+    };
+    return {
+      init: initImageSlider
+    };
+  })();
   var image_slider_default = imageSlider;
 
   // js/modules/faqs.js
-  var frequentlyAskedQuestions = /* @__PURE__ */ function() {
-    function init() {
-      const allFAQs = document.querySelectorAll(".js-faqs");
-      allFAQs.forEach((thisFAQs) => {
-        const faqs = thisFAQs.querySelectorAll(".faq");
-        const singleActive = thisFAQs.classList.contains("js-single-active");
+  var frequentlyAskedQuestions = /* @__PURE__ */ (() => {
+    function FAQsObj(thisFAQs, singleActive) {
+      const faqs = thisFAQs.querySelectorAll(".faq");
+      const initFAQs = () => {
         faqs.forEach((faq) => {
           const question = faq.querySelector(".question");
           const answer = faq.querySelector(".answer");
@@ -818,22 +901,36 @@
             }
           });
         });
-      });
+      };
+      initFAQs();
+      return {
+        faqs
+      };
     }
-    return {
-      init
+    const initFrequentlyAskedQuestions = () => {
+      const allFAQs = document.querySelectorAll(".js-faqs");
+      allFAQs.forEach((thisFAQs) => {
+        const singleActive = thisFAQs.classList.contains("js-single-active");
+        return new FAQsObj(thisFAQs, singleActive);
+      });
     };
-  }();
+    return {
+      init: initFrequentlyAskedQuestions
+    };
+  })();
   var faqs_default = frequentlyAskedQuestions;
 
   // js/modules/hero-slider.js
   var heroSlider = /* @__PURE__ */ (() => {
-    function HeroSliderObj(element) {
+    function HeroSliderObj(element2, options = {}) {
+      const defaultOptions = {
+        // Add default options if needed
+      };
       const slider = {
-        element,
-        navigation: element.querySelector(".js-nav"),
-        slides: Array.from(element.querySelectorAll(".js-slide")),
-        autoplay: element.classList.contains("is-autoplay"),
+        element: element2,
+        navigation: element2.querySelector(".js-nav"),
+        slides: Array.from(element2.querySelectorAll(".js-slide")),
+        autoplay: element2.classList.contains("is-autoplay"),
         autoPlayDelay: 5e3,
         newSlideIndex: 0,
         oldSlideIndex: 0
@@ -911,7 +1008,7 @@
     navigation_default.init();
     section_animation_default.init();
     if (document.querySelector(".flip-card-wrapper")) {
-      mobileFlipcardSupport_default.init();
+      flipcards_default.init();
     }
     if (document.querySelector(".js-tabs")) {
       tabs_default.init();

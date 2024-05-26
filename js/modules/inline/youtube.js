@@ -44,8 +44,6 @@ const inlineYoutubeVideo = ( videoInstance, index ) => {
 
   loadYouTubeAPI()
     .then( () => {
-      console.log( 'Inline YouTube API Ready' );
-
       const playerOptions = {
         autoplay: 0,
         start: startTime,

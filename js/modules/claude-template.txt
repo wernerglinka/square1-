@@ -1,0 +1,39 @@
+const myModule = (() => {
+  function MyModuleObj(element, options) {
+    const defaults = {
+      // Default options
+    };
+
+    const settings = { ...defaults, ...options };
+
+    const initModule = () => {
+      // Initialize the module
+      // Add event listeners, manipulate DOM, etc.
+    };
+
+    initModule();
+
+    return {
+      element,
+      settings,
+    };
+  }
+
+  const initMyModule = () => {
+    const elements = document.querySelectorAll('.js-my-module');
+
+    elements.forEach((element) => {
+      const options = {
+        // Parse options from data attributes or other sources
+      };
+
+      return new MyModuleObj(element, options);
+    });
+  };
+
+  return {
+    init: initMyModule,
+  };
+})();
+
+export default myModule;

@@ -34,8 +34,9 @@ function render_open_tag($section) {
   $style_attr = $body_styles ? " style='{$body_styles}'" : '';
 
   // Output the opening tag
+  // NOTE that the js-is-animated class is hard coded for all sections! This should probably be a setting
   $tag = <<<OPENTAG
-    <$wrapper_type$id_attr class='page-section $section_name $body_classes'$style_attr>
+    <$wrapper_type$id_attr class='page-section js-is-animated $section_name $body_classes'$style_attr>
   OPENTAG;
 
   return $tag;

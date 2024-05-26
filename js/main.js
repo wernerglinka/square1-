@@ -1,7 +1,7 @@
 /* eslint-disable space-before-function-paren */
 import navigation from './modules/navigation';
 import sectionAnimation from './modules/section-animation';
-import mobileFlipCardSupport from './modules/mobileFlipcardSupport';
+import flipCards from './modules/flipcards';
 import tabs from './modules/tabs';
 import lottieAnimations from './modules/lottieAnimation';
 import modalVideo from './modules/modal-video';
@@ -21,7 +21,7 @@ function initPage() {
   sectionAnimation.init();
 
   if ( document.querySelector( '.flip-card-wrapper' ) ) {
-    mobileFlipCardSupport.init();
+    flipCards.init();
   }
 
   if ( document.querySelector( '.js-tabs' ) ) {

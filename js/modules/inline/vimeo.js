@@ -7,8 +7,6 @@ import loadStyles from '../helpers/load-styles';
 import { createElementWithId } from '../helpers/dom';
 
 const inlineVimeoVideo = ( videoInstance, index ) => {
-  console.log( 'Inline  VideoVideo Init' );
-
   const videoId = videoInstance.dataset.videoid;
   const containerId = `vimeo-video-player-${ index }`;
   const playerId = `demo-player-${ index }`;
