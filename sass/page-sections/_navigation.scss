@@ -45,14 +45,15 @@
         left: 0;
         top: 100%;
         max-height: 0;
-        width: 25rem;
+        min-width: 50rem;
+        columns: 2;
         overflow: hidden;
         
         transition: all 0.5s ease-in-out;
         
 
         a {
-          line-height: 3rem;
+          line-height: 1.1;
           padding: 1rem 2rem;
           transition: all 0.5s ease-in-out;
         }
@@ -65,11 +66,10 @@
           padding: 2rem 0;
           max-height: 80rem;
           /* the background */
-          @include glass($color__glass);
-          columns: 2;
+          @include dropdown($color__brand_very-light);
 
           li:hover {
-            background-color: $color__brand_very-light;
+            @include glass($color__glass);
           }
         }
       }

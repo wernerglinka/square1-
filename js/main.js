@@ -12,6 +12,7 @@ import isotopeGallery from './modules/galleries/isotope';
 import imageSlider from './modules/image-slider';
 import faqs from './modules/faqs';
 import heroSlider from './modules/hero-slider';
+import imageComparison from './modules/image-comparison';
 
 function initPage() {
   // Remove no-js class
@@ -66,9 +67,12 @@ function initPage() {
     faqs.init();
   }
 
-  // Set up the hero slider
   if ( document.querySelector( '.hero-slider' ) ) {
     heroSlider.init();
+  }
+
+  if ( document.querySelector( '.image-comparison-container' ) ) {
+    imageComparison.init();
   }
 }
 

@@ -1,81 +1,83 @@
 const tabs = ( () => {
   function TabsObj( tabsContainer, options = {} ) {
     const defaultOptions = {
-      // Add default options if needed
+      activeClass: 'active',
+      labelClass: 'tab-label',
+      contentClass: 'tab-content',
+      contentWrapperClass: 'tabs-content',
     };
+
+    const settings = { ...defaultOptions, ...options };
 
     const tabsInstance = {
       tabsContainer,
-      options: { ...defaultOptions, ...options },
-      allTabs: tabsContainer.querySelectorAll( '.tab-label' ),
-      allTabContents: tabsContainer.querySelectorAll( '.tab-content' ),
-      tabsContent: tabsContainer.querySelector( '.tabs-content' ),
+      options: settings,
+      allTabs: tabsContainer.querySelectorAll( `.${ settings.labelClass }` ),
+      allTabContents: tabsContainer.querySelectorAll( `.${ settings.contentClass }` ),
+      tabsContent: tabsContainer.querySelector( `.${ settings.contentWrapperClass }` ),
     };
 
-    const init = () => {
-      const { allTabs, allTabContents, tabsContent } = tabsInstance;
+    tabsContainer.isVertical = tabsContainer.classList.contains( 'is-vertical' );
 
-      if ( tabsContent ) {
-        // loop through all tab contents and find the tallest one
-        let tallestTabContent = 0;
-        allTabContents.forEach( ( tabContent ) => {
-          if ( tabContent.offsetHeight > tallestTabContent ) {
-            tallestTabContent = tabContent.offsetHeight;
-          }
-        } );
+    const calculateTallestContent = () => {
+      let tallestHeight = 0;
+      tabsInstance.allTabContents.forEach( ( tabContent ) => {
+        const contentHeight = tabContent.offsetHeight;
+        if ( contentHeight > tallestHeight ) {
+          tallestHeight = contentHeight;
+        }
+      } );
+      return tallestHeight;
+    };
 
-        // set tab content wrapper to the height of the tallest tab content
-        tabsContent.style.height = `${ tallestTabContent }px`;
-
-        // observe viewport width changes and update tab content height
-        const resizeObserver = new ResizeObserver( ( entries ) => {
-          entries.forEach( () => {
-            // loop through all tab contents and find the tallest one
-            tallestTabContent = 0;
-            allTabContents.forEach( ( tabContent ) => {
-              if ( tabContent.offsetHeight > tallestTabContent ) {
-                tallestTabContent = tabContent.offsetHeight;
-              }
-            } );
-
-            // set tab content wrapper to the height of the tallest tab content
-            tabsContent.style.height = `${ tallestTabContent }px`;
-          } );
-        } );
-
-        resizeObserver.observe( document.body );
+    const setContentHeight = () => {
+      if ( tabsInstance.tabsContent ) {
+        const tallestHeight = calculateTallestContent();
+        tabsInstance.tabsContent.style.height = `${ tallestHeight }px`;
       }
+    };
 
-      allTabs.forEach( ( tab ) => {
-        tab.addEventListener( 'click', () => {
-          // remove active class from all tabs
-          allTabs.forEach( ( thisTab ) => thisTab.classList.remove( 'active' ) );
+    const activateTab = ( index ) => {
+      console.log( index );
+      console.log( tabsContainer.isVertical );
 
-          // add active class to clicked tab
-          tab.classList.add( 'active' );
-
-          // convert allTabs nodelist to array and get index of clicked tab
-          const clickedTabIndex = Array.from( allTabs ).indexOf( tab );
-
-          // remove active class from all tab contents
-          allTabContents.forEach( ( tabContent ) => tabContent.classList.remove( 'active' ) );
-
-          // add active class to tab content with same index as clicked tab
-          allTabContents[ clickedTabIndex ].classList.add( 'active' );
-        } );
+      tabsInstance.allTabs.forEach( ( tab, i ) => {
+        tab.classList.toggle( settings.activeClass, i === index );
+        // only the horizontal tabs have a seperate tab content.
+        // vertical tabs have an inline-content display
+        if ( !tabsContainer.isVertical ) {
+          tabsInstance.allTabContents[ i ].classList.toggle( settings.activeClass, i === index );
+        }
       } );
     };
 
-    init();
+    const handleTabClick = ( event ) => {
+      const { target } = event;
+      const thisTab = target.closest( `.${ settings.labelClass }` );
+      if ( thisTab.classList.contains( settings.labelClass ) ) {
+        const clickedTabIndex = Array.from( tabsInstance.allTabs ).indexOf( thisTab );
+        activateTab( clickedTabIndex );
+      }
+    };
+
+    setContentHeight();
+
+    tabsContainer.addEventListener( 'click', handleTabClick );
+
+    // Activate the first tab by default
+    activateTab( 0 );
+
+    // Observe size changes to adjust dimensions
+    if ( tabsInstance.tabsContent ) {
+      const resizeObserver = new ResizeObserver( setContentHeight );
+      resizeObserver.observe( document.body );
+    }
 
     return tabsInstance;
   }
 
   const initTabs = () => {
-    // get all tabs containers
     const tabsContainers = document.querySelectorAll( '.js-tabs' );
-
-    // loop through all tabs containers and initialize tabs
     tabsContainers.forEach( ( tabsContainer ) => new TabsObj( tabsContainer ) );
   };
 

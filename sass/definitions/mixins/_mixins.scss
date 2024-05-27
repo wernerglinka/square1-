@@ -3,6 +3,11 @@
   box-shadow: $color__drop-shadow;
   backdrop-filter: blur(5px);
 }
+@mixin dropdown($color) {
+  background: rgba($color, 0.95);
+  box-shadow: $color__drop-shadow;
+  backdrop-filter: blur(8px);
+}
 
 @mixin overlay($color) {
   background: rgba($color, 0.9);

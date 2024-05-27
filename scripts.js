@@ -134,49 +134,61 @@
   var tabs = /* @__PURE__ */ (() => {
     function TabsObj(tabsContainer, options = {}) {
       const defaultOptions = {
-        // Add default options if needed
+        activeClass: "active",
+        labelClass: "tab-label",
+        contentClass: "tab-content",
+        contentWrapperClass: "tabs-content"
       };
+      const settings = { ...defaultOptions, ...options };
       const tabsInstance = {
         tabsContainer,
-        options: { ...defaultOptions, ...options },
-        allTabs: tabsContainer.querySelectorAll(".tab-label"),
-        allTabContents: tabsContainer.querySelectorAll(".tab-content"),
-        tabsContent: tabsContainer.querySelector(".tabs-content")
+        options: settings,
+        allTabs: tabsContainer.querySelectorAll(`.${settings.labelClass}`),
+        allTabContents: tabsContainer.querySelectorAll(`.${settings.contentClass}`),
+        tabsContent: tabsContainer.querySelector(`.${settings.contentWrapperClass}`)
       };
-      const init = () => {
-        const { allTabs, allTabContents, tabsContent } = tabsInstance;
-        if (tabsContent) {
-          let tallestTabContent = 0;
-          allTabContents.forEach((tabContent) => {
-            if (tabContent.offsetHeight > tallestTabContent) {
-              tallestTabContent = tabContent.offsetHeight;
-            }
-          });
-          tabsContent.style.height = `${tallestTabContent}px`;
-          const resizeObserver = new ResizeObserver((entries) => {
-            entries.forEach(() => {
-              tallestTabContent = 0;
-              allTabContents.forEach((tabContent) => {
-                if (tabContent.offsetHeight > tallestTabContent) {
-                  tallestTabContent = tabContent.offsetHeight;
-                }
-              });
-              tabsContent.style.height = `${tallestTabContent}px`;
-            });
-          });
-          resizeObserver.observe(document.body);
+      tabsContainer.isVertical = tabsContainer.classList.contains("is-vertical");
+      const calculateTallestContent = () => {
+        let tallestHeight = 0;
+        tabsInstance.allTabContents.forEach((tabContent) => {
+          const contentHeight = tabContent.offsetHeight;
+          if (contentHeight > tallestHeight) {
+            tallestHeight = contentHeight;
+          }
+        });
+        return tallestHeight;
+      };
+      const setContentHeight = () => {
+        if (tabsInstance.tabsContent) {
+          const tallestHeight = calculateTallestContent();
+          tabsInstance.tabsContent.style.height = `${tallestHeight}px`;
         }
-        allTabs.forEach((tab) => {
-          tab.addEventListener("click", () => {
-            allTabs.forEach((thisTab) => thisTab.classList.remove("active"));
-            tab.classList.add("active");
-            const clickedTabIndex = Array.from(allTabs).indexOf(tab);
-            allTabContents.forEach((tabContent) => tabContent.classList.remove("active"));
-            allTabContents[clickedTabIndex].classList.add("active");
-          });
+      };
+      const activateTab = (index) => {
+        console.log(index);
+        console.log(tabsContainer.isVertical);
+        tabsInstance.allTabs.forEach((tab, i) => {
+          tab.classList.toggle(settings.activeClass, i === index);
+          if (!tabsContainer.isVertical) {
+            tabsInstance.allTabContents[i].classList.toggle(settings.activeClass, i === index);
+          }
         });
       };
-      init();
+      const handleTabClick = (event) => {
+        const { target } = event;
+        const thisTab = target.closest(`.${settings.labelClass}`);
+        if (thisTab.classList.contains(settings.labelClass)) {
+          const clickedTabIndex = Array.from(tabsInstance.allTabs).indexOf(thisTab);
+          activateTab(clickedTabIndex);
+        }
+      };
+      setContentHeight();
+      tabsContainer.addEventListener("click", handleTabClick);
+      activateTab(0);
+      if (tabsInstance.tabsContent) {
+        const resizeObserver = new ResizeObserver(setContentHeight);
+        resizeObserver.observe(document.body);
+      }
       return tabsInstance;
     }
     const initTabs = () => {
@@ -1002,6 +1014,123 @@
   })();
   var hero_slider_default = heroSlider;
 
+  // js/modules/image-comparison.js
+  var imageComparison = /* @__PURE__ */ (() => {
+    function ImageComparisonObj(element2, options) {
+      const defaults = {
+        // Default options
+      };
+      const settings = { ...defaults, ...options };
+      let dragging = false;
+      let resizing = false;
+      const initModule = () => {
+        const intersectionObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              element2.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        });
+        intersectionObserver.observe(element2);
+        const dragElement = element2.querySelector(".comparison-handle");
+        const resizeElement = element2.querySelector(".resize-img");
+        const labelContainer = element2.querySelector('.image-title[data-type="before"]');
+        const labelResizeElement = element2.querySelector('.image-title[data-type="after"]');
+        drags(dragElement, resizeElement, element2, labelContainer, labelResizeElement);
+        const resizeObserver = new ResizeObserver(() => {
+          if (!resizing) {
+            resizing = true;
+            checkLabel(element2);
+          }
+        });
+        resizeObserver.observe(element2);
+      };
+      function checkLabel(container) {
+        updateLabel(container.querySelector('.image-title[data-type="modified"]'), container.querySelector(".resize-img"), "left");
+        updateLabel(container.querySelector('.image-title[data-type="original"]'), container.querySelector(".resize-img"), "right");
+        resizing = false;
+      }
+      function drags(dragElement, resizeElement, container, labelContainer, labelResizeElement) {
+        dragElement.addEventListener("mousedown", function(e) {
+          dragElement.classList.add("draggable");
+          resizeElement.classList.add("resizable");
+          const dragWidth = dragElement.offsetWidth, xPosition = dragElement.offsetLeft + dragWidth - e.pageX, containerOffset = container.offsetLeft, containerWidth = container.offsetWidth, minLeft = containerOffset + 10, maxLeft = containerOffset + containerWidth - dragWidth - 10;
+          document.addEventListener("mousemove", handleMouseMove);
+          document.addEventListener("mouseup", handleMouseUp);
+          e.preventDefault();
+          function handleMouseMove(e2) {
+            if (!dragging) {
+              dragging = true;
+              if (!window.requestAnimationFrame) {
+                setTimeout(function() {
+                  animateDraggedHandle(e2, xPosition, dragWidth, minLeft, maxLeft, containerOffset, containerWidth, resizeElement, labelContainer, labelResizeElement, dragElement);
+                }, 100);
+              } else {
+                requestAnimationFrame(function() {
+                  animateDraggedHandle(e2, xPosition, dragWidth, minLeft, maxLeft, containerOffset, containerWidth, resizeElement, labelContainer, labelResizeElement, dragElement);
+                });
+              }
+            }
+          }
+          function handleMouseUp() {
+            dragElement.classList.remove("draggable");
+            resizeElement.classList.remove("resizable");
+            document.removeEventListener("mousemove", handleMouseMove);
+            document.removeEventListener("mouseup", handleMouseUp);
+          }
+        });
+      }
+      function animateDraggedHandle(e, xPosition, dragWidth, minLeft, maxLeft, containerOffset, containerWidth, resizeElement, labelContainer, labelResizeElement, dragElement) {
+        const cursorX = e.pageX - containerOffset;
+        let widthValue = cursorX / containerWidth * 100;
+        if (widthValue < (minLeft - containerOffset) / containerWidth * 100) {
+          widthValue = (minLeft - containerOffset) / containerWidth * 100;
+        } else if (widthValue > (maxLeft - containerOffset) / containerWidth * 100) {
+          widthValue = (maxLeft - containerOffset) / containerWidth * 100;
+        }
+        dragElement.style.left = widthValue + "%";
+        resizeElement.style.width = widthValue + "%";
+        updateLabel(labelResizeElement, resizeElement, "left");
+        updateLabel(labelContainer, resizeElement, "right");
+        dragging = false;
+      }
+      function updateLabel(label, resizeElement, position) {
+        if (label && resizeElement) {
+          if (position === "left") {
+            if (label.offsetLeft + label.offsetWidth < resizeElement.offsetLeft + resizeElement.offsetWidth) {
+              label.classList.remove("is-hidden");
+            } else {
+              label.classList.add("is-hidden");
+            }
+          } else if (label.offsetLeft > resizeElement.offsetLeft + resizeElement.offsetWidth) {
+            label.classList.remove("is-hidden");
+          } else {
+            label.classList.add("is-hidden");
+          }
+        }
+      }
+      initModule();
+      return {
+        element: element2,
+        settings
+      };
+    }
+    const initImageComparison = () => {
+      const elements = document.querySelectorAll(".image-comparison-container");
+      elements.forEach((element2) => {
+        const options = {
+          // Parse options from data attributes or other sources
+        };
+        return new ImageComparisonObj(element2, options);
+      });
+    };
+    return {
+      init: initImageComparison
+    };
+  })();
+  var image_comparison_default = imageComparison;
+
   // js/main.js
   function initPage() {
     document.querySelector("html").classList.remove("no-js");
@@ -1044,6 +1173,9 @@
     }
     if (document.querySelector(".hero-slider")) {
       hero_slider_default.init();
+    }
+    if (document.querySelector(".image-comparison-container")) {
+      image_comparison_default.init();
     }
   }
   window.addEventListener("load", function() {

@@ -1,0 +1,107 @@
+.page-section.image-comparison {
+
+  .image-comparison-container {
+    position: relative;
+    width: 90%;
+    max-width: 768px;
+    margin: 0em auto;
+
+    img {
+      display: block;
+    }
+  }
+
+  .image-title {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: #fff;
+    padding: 1em;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: transform 0.3s 0.7s, opacity 0.3s 0.7s;
+
+    &.is-hidden {
+      visibility: hidden;
+    }
+  }
+
+  .is-visible .image-title {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .resize-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    overflow: hidden;
+    /* Force Hardware Acceleration */
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    
+    img {
+      position: absolute;
+      left: 0;
+      top: 0;
+      display: block;
+      height: 100%;
+      width: auto;
+      max-width: none;
+    }
+
+    .image-title {
+      right: auto;
+      left: 0;
+    }
+  }
+  
+  .is-visible .resize-img {
+    width: 50%;
+    /* bounce in animation of the modified image */
+    animation: cd-bounce-in 0.7s;
+  }
+
+  .comparison-handle {
+    position: absolute;
+    height: 44px;
+    width: 44px;
+    /* center the element */
+    left: 50%;
+    top: 50%;
+    margin-left: -22px;
+    margin-top: -22px;
+    border-radius: 50%;
+    background: #dc717d url("../img/cd-arrows.svg") no-repeat center center;
+    cursor: move;
+    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0);
+
+    &.draggable {
+      /* change background color when element is active */
+      background-color: #445b7c;
+    }
+  }
+  
+  .is-visible .comparison-handle {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition: transform 0.3s 0.7s, opacity 0s 0.7s;
+  }
+
+}
+
+@keyframes cd-bounce-in {
+  0% {
+    width: 0;
+  }
+  60% {
+    width: 55%;
+  }
+  100% {
+    width: 50%;
+  }
+}

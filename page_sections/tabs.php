@@ -17,7 +17,7 @@
 <div class="container">
 <?php if ($is_vertical): ?>
   <div class="is-vertical js-tabs">
-    <ul class="tabs-list">
+    <ul class="tabs">
       <?php foreach ($tabs as $key=>$tab) : ?>
         <li class="tab-label<?php if($key === 0) echo ' active'; ?>">
           <h4>
