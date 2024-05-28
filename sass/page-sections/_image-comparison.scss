@@ -1,17 +1,15 @@
 .page-section.image-comparison {
+  $handle-size: 44px;
+
+  padding: 0 $default-padding;
 
   .image-comparison-container {
     position: relative;
-    width: 90%;
-    max-width: 768px;
-    margin: 0em auto;
-
-    img {
-      display: block;
-    }
+    max-width: $tablet-width-landscape;
+    margin: 0 auto;
   }
 
-  .image-title {
+  .image-status {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -26,19 +24,21 @@
     }
   }
 
-  .is-visible .image-title {
+  .is-visible .image-status {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .resize-img {
+  .after-image {
     position: absolute;
     top: 0;
     left: 0;
     width: 0;
     height: 100%;
     overflow: hidden;
-    /* Force Hardware Acceleration */
+    // backface-visibility: hidden; and transform: translateZ(0); is used to
+    // create a new stacking context, which can help to improve the performance
+    // of CSS animations and transitions.
     transform: translateZ(0);
     backface-visibility: hidden;
     
@@ -52,37 +52,39 @@
       max-width: none;
     }
 
-    .image-title {
+    .image-status {
       right: auto;
       left: 0;
     }
   }
   
-  .is-visible .resize-img {
+  .is-visible .after-image {
     width: 50%;
-    /* bounce in animation of the modified image */
-    animation: cd-bounce-in 0.7s;
+    animation: show-after 0.5s;
   }
 
   .comparison-handle {
     position: absolute;
-    height: 44px;
-    width: 44px;
-    /* center the element */
-    left: 50%;
-    top: 50%;
-    margin-left: -22px;
-    margin-top: -22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: $handle-size;
+    width: $handle-size;
+    left: calc(50% - $handle-size / 2);
+    top: calc(50% - $handle-size / 2);
     border-radius: 50%;
-    background: #dc717d url("../img/cd-arrows.svg") no-repeat center center;
+    @include glass($color__glass);
     cursor: move;
-    box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
     opacity: 0;
     transform: translate3d(0, 0, 0) scale(0);
 
-    &.draggable {
-      /* change background color when element is active */
-      background-color: #445b7c;
+    &.is-dragged {
+      @include glass($color__brand_highlight);
+    }
+
+    svg {
+      width: 3rem;
+      height: 3rem;
     }
   }
   
@@ -94,7 +96,7 @@
 
 }
 
-@keyframes cd-bounce-in {
+@keyframes show-after {
   0% {
     width: 0;
   }

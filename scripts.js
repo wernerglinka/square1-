@@ -1033,11 +1033,11 @@
           });
         });
         intersectionObserver.observe(element2);
-        const dragElement = element2.querySelector(".comparison-handle");
-        const resizeElement = element2.querySelector(".resize-img");
-        const labelContainer = element2.querySelector('.image-title[data-type="before"]');
-        const labelResizeElement = element2.querySelector('.image-title[data-type="after"]');
-        drags(dragElement, resizeElement, element2, labelContainer, labelResizeElement);
+        const dragHandle = element2.querySelector(".comparison-handle");
+        const afterImage = element2.querySelector(".after-image");
+        const labelContainer = element2.querySelector(".image-status.before");
+        const labelAfterImage = element2.querySelector(".image-status.after");
+        drags(dragHandle, afterImage, element2, labelContainer, labelAfterImage);
         const resizeObserver = new ResizeObserver(() => {
           if (!resizing) {
             resizing = true;
@@ -1047,15 +1047,21 @@
         resizeObserver.observe(element2);
       };
       function checkLabel(container) {
-        updateLabel(container.querySelector('.image-title[data-type="modified"]'), container.querySelector(".resize-img"), "left");
-        updateLabel(container.querySelector('.image-title[data-type="original"]'), container.querySelector(".resize-img"), "right");
+        updateLabel(container.querySelector('.image-status[data-type="modified"]'), container.querySelector(".after-image"), "left");
+        updateLabel(container.querySelector('.image-status[data-type="original"]'), container.querySelector(".after-image"), "right");
         resizing = false;
       }
-      function drags(dragElement, resizeElement, container, labelContainer, labelResizeElement) {
-        dragElement.addEventListener("mousedown", function(e) {
-          dragElement.classList.add("draggable");
-          resizeElement.classList.add("resizable");
-          const dragWidth = dragElement.offsetWidth, xPosition = dragElement.offsetLeft + dragWidth - e.pageX, containerOffset = container.offsetLeft, containerWidth = container.offsetWidth, minLeft = containerOffset + 10, maxLeft = containerOffset + containerWidth - dragWidth - 10;
+      function drags(dragHandle, afterImage, container, labelContainer, labelAfterImage) {
+        dragHandle.addEventListener("mousedown", function(e) {
+          dragHandle.classList.add("is-dragged");
+          afterImage.classList.add("resizable");
+          const containerOffset = container.offsetLeft;
+          const containerWidth = container.offsetWidth;
+          const dragHandleWidth = dragHandle.offsetWidth;
+          const dragHandleCenter = dragHandle.offsetLeft + dragHandleWidth / 2;
+          const cursorToDragHandleCenterOffset = dragHandleCenter - (e.pageX - containerOffset);
+          const minDragHandlePosition = -dragHandleWidth / 2;
+          const maxDragHandlePosition = containerWidth - dragHandleWidth / 2;
           document.addEventListener("mousemove", handleMouseMove);
           document.addEventListener("mouseup", handleMouseUp);
           e.preventDefault();
@@ -1064,46 +1070,49 @@
               dragging = true;
               if (!window.requestAnimationFrame) {
                 setTimeout(function() {
-                  animateDraggedHandle(e2, xPosition, dragWidth, minLeft, maxLeft, containerOffset, containerWidth, resizeElement, labelContainer, labelResizeElement, dragElement);
+                  animateDraggedHandle(e2, dragHandleWidth, cursorToDragHandleCenterOffset, minDragHandlePosition, maxDragHandlePosition, containerOffset, afterImage, labelContainer, labelAfterImage, dragHandle);
                 }, 100);
               } else {
                 requestAnimationFrame(function() {
-                  animateDraggedHandle(e2, xPosition, dragWidth, minLeft, maxLeft, containerOffset, containerWidth, resizeElement, labelContainer, labelResizeElement, dragElement);
+                  animateDraggedHandle(e2, dragHandleWidth, cursorToDragHandleCenterOffset, minDragHandlePosition, maxDragHandlePosition, containerOffset, afterImage, labelContainer, labelAfterImage, dragHandle);
                 });
               }
             }
           }
           function handleMouseUp() {
-            dragElement.classList.remove("draggable");
-            resizeElement.classList.remove("resizable");
+            dragHandle.classList.remove("is-dragged");
+            afterImage.classList.remove("resizable");
             document.removeEventListener("mousemove", handleMouseMove);
             document.removeEventListener("mouseup", handleMouseUp);
           }
         });
       }
-      function animateDraggedHandle(e, xPosition, dragWidth, minLeft, maxLeft, containerOffset, containerWidth, resizeElement, labelContainer, labelResizeElement, dragElement) {
-        const cursorX = e.pageX - containerOffset;
-        let widthValue = cursorX / containerWidth * 100;
-        if (widthValue < (minLeft - containerOffset) / containerWidth * 100) {
-          widthValue = (minLeft - containerOffset) / containerWidth * 100;
-        } else if (widthValue > (maxLeft - containerOffset) / containerWidth * 100) {
-          widthValue = (maxLeft - containerOffset) / containerWidth * 100;
+      function animateDraggedHandle(e, dragHandleWidth, cursorToDragHandleCenterOffset, minDragHandlePosition, maxDragHandlePosition, containerOffset, afterImage, labelContainer, labelAfterImage, dragHandle) {
+        const cursorPositionX = e.pageX;
+        const dragHandlePosition = cursorPositionX - containerOffset - dragHandleWidth / 2 + cursorToDragHandleCenterOffset;
+        if (dragHandlePosition < minDragHandlePosition) {
+          dragHandle.style.left = minDragHandlePosition + "px";
+          afterImage.style.width = minDragHandlePosition + dragHandleWidth / 2 + "px";
+        } else if (dragHandlePosition > maxDragHandlePosition) {
+          dragHandle.style.left = maxDragHandlePosition + "px";
+          afterImage.style.width = maxDragHandlePosition + dragHandleWidth / 2 + "px";
+        } else {
+          dragHandle.style.left = dragHandlePosition + "px";
+          afterImage.style.width = dragHandlePosition + dragHandleWidth / 2 + "px";
         }
-        dragElement.style.left = widthValue + "%";
-        resizeElement.style.width = widthValue + "%";
-        updateLabel(labelResizeElement, resizeElement, "left");
-        updateLabel(labelContainer, resizeElement, "right");
+        updateLabel(labelAfterImage, afterImage, "left");
+        updateLabel(labelContainer, afterImage, "right");
         dragging = false;
       }
-      function updateLabel(label, resizeElement, position) {
-        if (label && resizeElement) {
+      function updateLabel(label, afterImage, position) {
+        if (label && afterImage) {
           if (position === "left") {
-            if (label.offsetLeft + label.offsetWidth < resizeElement.offsetLeft + resizeElement.offsetWidth) {
+            if (label.offsetLeft + label.offsetWidth < afterImage.offsetLeft + afterImage.offsetWidth) {
               label.classList.remove("is-hidden");
             } else {
               label.classList.add("is-hidden");
             }
-          } else if (label.offsetLeft > resizeElement.offsetLeft + resizeElement.offsetWidth) {
+          } else if (label.offsetLeft > afterImage.offsetLeft + afterImage.offsetWidth) {
             label.classList.remove("is-hidden");
           } else {
             label.classList.add("is-hidden");

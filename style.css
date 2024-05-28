@@ -2386,16 +2386,15 @@ body.modal-active {
   cursor: default;
 }
 
+.page-section.image-comparison {
+  padding: 0 clamp(2rem, calc(2rem + (4 - 2) * (100vw - 40rem) / (76.8 - 40.0)), 4rem);
+}
 .page-section.image-comparison .image-comparison-container {
   position: relative;
-  width: 90%;
-  max-width: 768px;
-  margin: 0em auto;
+  max-width: 1024px;
+  margin: 0 auto;
 }
-.page-section.image-comparison .image-comparison-container img {
-  display: block;
-}
-.page-section.image-comparison .image-title {
+.page-section.image-comparison .image-status {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -2405,25 +2404,24 @@ body.modal-active {
   transform: translateY(20px);
   transition: transform 0.3s 0.7s, opacity 0.3s 0.7s;
 }
-.page-section.image-comparison .image-title.is-hidden {
+.page-section.image-comparison .image-status.is-hidden {
   visibility: hidden;
 }
-.page-section.image-comparison .is-visible .image-title {
+.page-section.image-comparison .is-visible .image-status {
   opacity: 1;
   transform: translateY(0);
 }
-.page-section.image-comparison .resize-img {
+.page-section.image-comparison .after-image {
   position: absolute;
   top: 0;
   left: 0;
   width: 0;
   height: 100%;
   overflow: hidden;
-  /* Force Hardware Acceleration */
   transform: translateZ(0);
   backface-visibility: hidden;
 }
-.page-section.image-comparison .resize-img img {
+.page-section.image-comparison .after-image img {
   position: absolute;
   left: 0;
   top: 0;
@@ -2432,34 +2430,39 @@ body.modal-active {
   width: auto;
   max-width: none;
 }
-.page-section.image-comparison .resize-img .image-title {
+.page-section.image-comparison .after-image .image-status {
   right: auto;
   left: 0;
 }
-.page-section.image-comparison .is-visible .resize-img {
+.page-section.image-comparison .is-visible .after-image {
   width: 50%;
-  /* bounce in animation of the modified image */
-  animation: cd-bounce-in 0.7s;
+  animation: show-after 0.5s;
 }
 .page-section.image-comparison .comparison-handle {
   position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 44px;
   width: 44px;
-  /* center the element */
-  left: 50%;
-  top: 50%;
-  margin-left: -22px;
-  margin-top: -22px;
+  left: calc(50% - 22px);
+  top: calc(50% - 22px);
   border-radius: 50%;
-  background: #dc717d url("../img/cd-arrows.svg") no-repeat center center;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
   cursor: move;
-  box-shadow: 0 0 0 6px rgba(0, 0, 0, 0.2), 0 0 10px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   opacity: 0;
   transform: translate3d(0, 0, 0) scale(0);
 }
-.page-section.image-comparison .comparison-handle.draggable {
-  /* change background color when element is active */
-  background-color: #445b7c;
+.page-section.image-comparison .comparison-handle.is-dragged {
+  background: rgba(192, 216, 120, 0.5);
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+}
+.page-section.image-comparison .comparison-handle svg {
+  width: 3rem;
+  height: 3rem;
 }
 .page-section.image-comparison .is-visible .comparison-handle {
   opacity: 1;
@@ -2467,7 +2470,7 @@ body.modal-active {
   transition: transform 0.3s 0.7s, opacity 0s 0.7s;
 }
 
-@keyframes cd-bounce-in {
+@keyframes show-after {
   0% {
     width: 0;
   }

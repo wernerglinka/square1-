@@ -16,14 +16,14 @@
 
   <div class="image-comparison-container">
 		<?php echo render_image_component($image1); ?>
-		<span class="image-title" data-type="before"><?php echo $image1['title'] ?></span>
+		<span class="image-status before"><?php echo $image1['title'] ?></span>
 
-		<div class="resize-img">
+		<div class="after-image">
 			<?php echo render_image_component($image2); ?>
-			<span class="image-title" data-type="after"><?php echo $image2['title'] ?></span>
+			<span class="image-status after"><?php echo $image2['title'] ?></span>
 		</div>
 
-		<span class="comparison-handle"></span>
+		<span class="comparison-handle"><?php echo get_icon('arrow-right-left'); ?></span>
 	</div> <!-- image-comparison-container -->
 
  

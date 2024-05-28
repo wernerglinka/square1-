@@ -6,14 +6,6 @@
   },
   "rules": {
     "indent": ["error", 2],
-    "space-before-function-paren": [
-      "error",
-      {
-        "anonymous": "never",
-        "named": "never",
-        "asyncArrow": "always"
-      }
-    ],
     "space-unary-ops": [
       2,
       {

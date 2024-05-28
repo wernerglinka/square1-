@@ -10,8 +10,7 @@ const imageComparison = ( () => {
     let resizing = false;
 
     const initModule = () => {
-      // Check if the .image-comparison-container is in the viewport
-      // If yes, animate it
+      // Animate image comparison container when in viewport
       const intersectionObserver = new IntersectionObserver( ( entries, observer ) => {
         entries.forEach( ( entry ) => {
           if ( entry.isIntersecting ) {
@@ -24,13 +23,13 @@ const imageComparison = ( () => {
       // Start observing the target element
       intersectionObserver.observe( element );
 
-      // Make the .comparison-handle element draggable and modify .resize-img width according to its position
-      const dragElement = element.querySelector( '.comparison-handle' );
-      const resizeElement = element.querySelector( '.resize-img' );
-      const labelContainer = element.querySelector( '.image-title[data-type="before"]' );
-      const labelResizeElement = element.querySelector( '.image-title[data-type="after"]' );
+      // Drag the comparison handle and modify the after image width according to its position
+      const dragHandle = element.querySelector( '.comparison-handle' );
+      const afterImage = element.querySelector( '.after-image' );
+      const labelContainer = element.querySelector( '.image-status.before' );
+      const labelAfterImage = element.querySelector( '.image-status.after' );
 
-      drags( dragElement, resizeElement, element, labelContainer, labelResizeElement );
+      drags( dragHandle, afterImage, element, labelContainer, labelAfterImage );
 
       // Create a new ResizeObserver instance
       const resizeObserver = new ResizeObserver( () => {
@@ -44,24 +43,33 @@ const imageComparison = ( () => {
     };
 
     function checkLabel( container ) {
-      updateLabel( container.querySelector( '.image-title[data-type="modified"]' ), container.querySelector( '.resize-img' ), 'left' );
-      updateLabel( container.querySelector( '.image-title[data-type="original"]' ), container.querySelector( '.resize-img' ), 'right' );
+      updateLabel( container.querySelector( '.image-status[data-type="modified"]' ), container.querySelector( '.after-image' ), 'left' );
+      updateLabel( container.querySelector( '.image-status[data-type="original"]' ), container.querySelector( '.after-image' ), 'right' );
 
       resizing = false;
     }
 
-    // Draggable functionality - credits to http://css-tricks.com/snippets/jquery/draggable-without-jquery-ui/
-    function drags( dragElement, resizeElement, container, labelContainer, labelResizeElement ) {
-      dragElement.addEventListener( 'mousedown', function ( e ) {
-        dragElement.classList.add( 'draggable' );
-        resizeElement.classList.add( 'resizable' );
+    function drags( dragHandle, afterImage, container, labelContainer, labelAfterImage ) {
+      dragHandle.addEventListener( 'mousedown', function( e ) {
+        dragHandle.classList.add( 'is-dragged' );
+        afterImage.classList.add( 'resizable' );
 
-        const dragWidth = dragElement.offsetWidth,
-          xPosition = dragElement.offsetLeft + dragWidth - e.pageX,
-          containerOffset = container.offsetLeft,
-          containerWidth = container.offsetWidth,
-          minLeft = containerOffset + 10,
-          maxLeft = containerOffset + containerWidth - dragWidth - 10;
+        // get container properties
+        const containerOffset = container.offsetLeft;
+        const containerWidth = container.offsetWidth;
+
+        // get the drag handle properties
+        const dragHandleWidth = dragHandle.offsetWidth;
+        const dragHandleCenter = dragHandle.offsetLeft + ( dragHandleWidth / 2 );
+        // offset between the drag handle center and the clicked cursor position inside the
+        // drag handle. This is a number between - (dragHandleWidth / 2) and + (dragHandleWidth / 2)
+        const cursorToDragHandleCenterOffset = dragHandleCenter - ( e.pageX - containerOffset );
+
+        // divide between before and after is at half the handle width
+        // left edge of the handle extends by half its width over the left edge of the container
+        const minDragHandlePosition = -dragHandleWidth / 2;
+        // right edge of the handle extends by half its width over the right edge of the container
+        const maxDragHandlePosition = containerWidth - ( dragHandleWidth / 2 );
 
         document.addEventListener( 'mousemove', handleMouseMove );
         document.addEventListener( 'mouseup', handleMouseUp );
@@ -72,55 +80,57 @@ const imageComparison = ( () => {
           if ( !dragging ) {
             dragging = true;
             if ( !window.requestAnimationFrame ) {
-              setTimeout( function () {
-                animateDraggedHandle( e, xPosition, dragWidth, minLeft, maxLeft, containerOffset, containerWidth, resizeElement, labelContainer, labelResizeElement, dragElement );
+              setTimeout( function() {
+                animateDraggedHandle( e, dragHandleWidth, cursorToDragHandleCenterOffset, minDragHandlePosition, maxDragHandlePosition, containerOffset, afterImage, labelContainer, labelAfterImage, dragHandle );
               }, 100 );
             } else {
-              requestAnimationFrame( function () {
-                animateDraggedHandle( e, xPosition, dragWidth, minLeft, maxLeft, containerOffset, containerWidth, resizeElement, labelContainer, labelResizeElement, dragElement );
+              requestAnimationFrame( function() {
+                animateDraggedHandle( e, dragHandleWidth, cursorToDragHandleCenterOffset, minDragHandlePosition, maxDragHandlePosition, containerOffset, afterImage, labelContainer, labelAfterImage, dragHandle );
               } );
             }
           }
         }
 
         function handleMouseUp() {
-          dragElement.classList.remove( 'draggable' );
-          resizeElement.classList.remove( 'resizable' );
+          dragHandle.classList.remove( 'is-dragged' );
+          afterImage.classList.remove( 'resizable' );
           document.removeEventListener( 'mousemove', handleMouseMove );
           document.removeEventListener( 'mouseup', handleMouseUp );
         }
       } );
     }
 
-    function animateDraggedHandle( e, xPosition, dragWidth, minLeft, maxLeft, containerOffset, containerWidth, resizeElement, labelContainer, labelResizeElement, dragElement ) {
-      const cursorX = e.pageX - containerOffset;
-      let widthValue = ( cursorX / containerWidth ) * 100;
+    function animateDraggedHandle( e, dragHandleWidth, cursorToDragHandleCenterOffset, minDragHandlePosition, maxDragHandlePosition, containerOffset, afterImage, labelContainer, labelAfterImage, dragHandle ) {
+      const cursorPositionX = e.pageX;
+      const dragHandlePosition = cursorPositionX - containerOffset - ( dragHandleWidth / 2 ) + cursorToDragHandleCenterOffset;
 
-      // Constrain the draggable element to move inside its container
-      if ( widthValue < ( minLeft - containerOffset ) / containerWidth * 100 ) {
-        widthValue = ( minLeft - containerOffset ) / containerWidth * 100;
-      } else if ( widthValue > ( maxLeft - containerOffset ) / containerWidth * 100 ) {
-        widthValue = ( maxLeft - containerOffset ) / containerWidth * 100;
+      // update the handle position and after image width
+      if ( dragHandlePosition < minDragHandlePosition ) {
+        dragHandle.style.left = minDragHandlePosition + 'px';
+        afterImage.style.width = minDragHandlePosition + ( dragHandleWidth / 2 ) + 'px';
+      } else if ( dragHandlePosition > maxDragHandlePosition ) {
+        dragHandle.style.left = maxDragHandlePosition + 'px';
+        afterImage.style.width = maxDragHandlePosition + ( dragHandleWidth / 2 ) + 'px';
+      } else {
+        dragHandle.style.left = dragHandlePosition + 'px';
+        afterImage.style.width = dragHandlePosition + ( dragHandleWidth / 2 ) + 'px';
       }
 
-      dragElement.style.left = widthValue + '%';
-      resizeElement.style.width = widthValue + '%';
-
-      updateLabel( labelResizeElement, resizeElement, 'left' );
-      updateLabel( labelContainer, resizeElement, 'right' );
+      updateLabel( labelAfterImage, afterImage, 'left' );
+      updateLabel( labelContainer, afterImage, 'right' );
 
       dragging = false;
     }
 
-    function updateLabel( label, resizeElement, position ) {
-      if ( label && resizeElement ) {
+    function updateLabel( label, afterImage, position ) {
+      if ( label && afterImage ) {
         if ( position === 'left' ) {
-          if ( label.offsetLeft + label.offsetWidth < resizeElement.offsetLeft + resizeElement.offsetWidth ) {
+          if ( label.offsetLeft + label.offsetWidth < afterImage.offsetLeft + afterImage.offsetWidth ) {
             label.classList.remove( 'is-hidden' );
           } else {
             label.classList.add( 'is-hidden' );
           }
-        } else if ( label.offsetLeft > resizeElement.offsetLeft + resizeElement.offsetWidth ) {
+        } else if ( label.offsetLeft > afterImage.offsetLeft + afterImage.offsetWidth ) {
           label.classList.remove( 'is-hidden' );
         } else {
           label.classList.add( 'is-hidden' );
