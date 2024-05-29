@@ -171,3 +171,7 @@ function localize_filterizr_script()
     ));
 }
 add_action('wp_enqueue_scripts', 'localize_filterizr_script');
+
+// Disable WordPress' automatic image scaling feature
+add_filter('max_srcset_image_width', '__return_false');
+add_filter('big_image_size_threshold', '__return_false');

@@ -13,6 +13,7 @@ import imageSlider from './modules/image-slider';
 import faqs from './modules/faqs';
 import heroSlider from './modules/hero-slider';
 import imageComparison from './modules/image-comparison';
+import spinSandBox from './modules/spinning-image';
 
 function initPage() {
   // Remove no-js class
@@ -33,7 +34,7 @@ function initPage() {
     // Load the lottie player script with a callback when loaded
     const script = document.createElement( 'script' );
     script.src = 'https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js';
-    script.onload = function () {
+    script.onload = function() {
       lottieAnimations.init();
     };
     document.head.appendChild( script );
@@ -74,9 +75,13 @@ function initPage() {
   if ( document.querySelector( '.image-comparison-container' ) ) {
     imageComparison.init();
   }
+
+  if ( document.querySelectorAll( '.imageSpinContainer' ) ) {
+    spinSandBox.init();
+  }
 }
 
-window.addEventListener( 'load', function () {
+window.addEventListener( 'load', function() {
   initPage();
 } );
 

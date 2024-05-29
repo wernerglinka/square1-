@@ -2481,6 +2481,34 @@ body.modal-active {
     width: 50%;
   }
 }
+/**************************************************************************************
+ *
+ *  spin container
+ *  The image containers are initially loaded with a small placeholder image
+ *  so we optimize page onload time. Then with the window.onload event we'll
+ *  load the large image sprite by applying the "afterLoad" class
+ *
+ *************************************************************************************/
+.imgWrapper {
+  width: 100%;
+}
+
+.imageSpinContainer {
+  border: 1px solid #ccc;
+  width: 30%;
+  height: 0;
+  /*adding-top: 47.5%;*/
+  padding-bottom: 33.63%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+}
+
+/* we use the class afterload to load the large sprite after the onload event */
+.imageSpinContainer:hover {
+  cursor: pointer;
+}
+
 /* Flex Section components */
 .audio {
   position: relative;

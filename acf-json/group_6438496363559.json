@@ -2621,7 +2621,7 @@
                                             "label": "Image Thumbnail",
                                             "name": "image_thumbnail",
                                             "aria-label": "",
-                                            "type": "clone",
+                                            "type": "group",
                                             "instructions": "",
                                             "required": 0,
                                             "conditional_logic": 0,
@@ -2630,20 +2630,38 @@
                                                 "class": "",
                                                 "id": ""
                                             },
-                                            "clone": [
-                                                "group_6438592227af1"
-                                            ],
-                                            "display": "group",
                                             "layout": "block",
-                                            "prefix_label": 0,
-                                            "prefix_name": 0
+                                            "sub_fields": [
+                                                {
+                                                    "key": "field_6657844ef3b76",
+                                                    "label": "Image",
+                                                    "name": "image",
+                                                    "aria-label": "",
+                                                    "type": "clone",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": 0,
+                                                    "wrapper": {
+                                                        "width": "",
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "clone": [
+                                                        "group_6438592227af1"
+                                                    ],
+                                                    "display": "seamless",
+                                                    "layout": "block",
+                                                    "prefix_label": 0,
+                                                    "prefix_name": 0
+                                                }
+                                            ]
                                         },
                                         {
                                             "key": "field_66565580302b7",
                                             "label": "Image Sprite",
                                             "name": "image_sprite",
                                             "aria-label": "",
-                                            "type": "clone",
+                                            "type": "group",
                                             "instructions": "",
                                             "required": 0,
                                             "conditional_logic": 0,
@@ -2652,13 +2670,31 @@
                                                 "class": "",
                                                 "id": ""
                                             },
-                                            "clone": [
-                                                "group_6438592227af1"
-                                            ],
-                                            "display": "group",
                                             "layout": "block",
-                                            "prefix_label": 0,
-                                            "prefix_name": 0
+                                            "sub_fields": [
+                                                {
+                                                    "key": "field_6657848ef3b77",
+                                                    "label": "Image",
+                                                    "name": "image",
+                                                    "aria-label": "",
+                                                    "type": "clone",
+                                                    "instructions": "",
+                                                    "required": 0,
+                                                    "conditional_logic": 0,
+                                                    "wrapper": {
+                                                        "width": "",
+                                                        "class": "",
+                                                        "id": ""
+                                                    },
+                                                    "clone": [
+                                                        "group_6438592227af1"
+                                                    ],
+                                                    "display": "seamless",
+                                                    "layout": "block",
+                                                    "prefix_label": 0,
+                                                    "prefix_name": 0
+                                                }
+                                            ]
                                         }
                                     ]
                                 }
@@ -4856,5 +4892,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1716934746
+    "modified": 1717011642
 }
