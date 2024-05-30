@@ -54,7 +54,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 0
+                                    "endpoint": 0,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_65ca93ae3ec3a",
@@ -111,7 +112,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 0
+                                    "endpoint": 0,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_65c83e6ca751d",
@@ -192,7 +194,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 1
+                                    "endpoint": 1,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_6445a9f6b6f83",
@@ -251,7 +254,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 0
+                                    "endpoint": 0,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_6445a6dec4758",
@@ -1826,7 +1830,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 0
+                                    "endpoint": 0,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_664d1a0e2620f",
@@ -1883,7 +1888,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 0
+                                    "endpoint": 0,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_664d2555a3958",
@@ -1920,7 +1926,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 0
+                                    "endpoint": 0,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_664d1a0e26211",
@@ -2165,7 +2172,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 1
+                                    "endpoint": 1,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_6654bc7da71f1",
@@ -2222,7 +2230,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 0
+                                    "endpoint": 0,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_6654bcc1a71f5",
@@ -2521,7 +2530,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 0
+                                    "endpoint": 0,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_665654e0302b2",
@@ -2578,7 +2588,8 @@
                                         "id": ""
                                     },
                                     "placement": "top",
-                                    "endpoint": 0
+                                    "endpoint": 0,
+                                    "selected": 0
                                 },
                                 {
                                     "key": "field_665654e0302b4",
@@ -2615,6 +2626,32 @@
                                             "ui_on_text": "",
                                             "ui_off_text": "",
                                             "ui": 1
+                                        },
+                                        {
+                                            "key": "field_6658b523c24cc",
+                                            "label": "Spin Direction",
+                                            "name": "spin_direction",
+                                            "aria-label": "",
+                                            "type": "select",
+                                            "instructions": "",
+                                            "required": 0,
+                                            "conditional_logic": 0,
+                                            "wrapper": {
+                                                "width": "",
+                                                "class": "",
+                                                "id": ""
+                                            },
+                                            "choices": {
+                                                "forward": "Forward",
+                                                "backward": "Backward"
+                                            },
+                                            "default_value": "forward",
+                                            "return_format": "value",
+                                            "multiple": 0,
+                                            "allow_null": 0,
+                                            "ui": 0,
+                                            "ajax": 0,
+                                            "placeholder": ""
                                         },
                                         {
                                             "key": "field_6656551a302b6",
@@ -4892,5 +4929,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717011642
+    "modified": 1717092632
 }

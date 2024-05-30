@@ -22,7 +22,7 @@ const myModule = (() => {
   const initMyModule = () => {
     const elements = document.querySelectorAll('.js-my-module');
 
-    elements.forEach((element) => {
+    return Array.from(elements).map((element) => {
       const options = {
         // Parse options from data attributes or other sources
       };

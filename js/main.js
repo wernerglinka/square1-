@@ -76,7 +76,7 @@ function initPage() {
     imageComparison.init();
   }
 
-  if ( document.querySelectorAll( '.imageSpinContainer' ) ) {
+  if ( document.querySelector( '.imageSpinContainer' ) ) {
     spinSandBox.init();
   }
 }
