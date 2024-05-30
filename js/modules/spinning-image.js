@@ -36,7 +36,7 @@ const spinSandBox = ( () => {
 
       initControls( instance );
 
-      if ( spinContinuously ) {
+      if ( spinContinuously === 'true' ) {
         spin( instance );
       }
     };
@@ -70,12 +70,16 @@ const spinSandBox = ( () => {
       requestAnimationFrame( loop );
     };
 
-    const goToNewFrame = ( i, instance ) => {
+    const goToNewFrame = ( i, instance, slider ) => {
       const numberOfFrames = parseInt( instance.dataset.numberFrames );
       const frameWidth = 100 / ( numberOfFrames - 1 );
 
       instance.style.backgroundPosition = `${ i * frameWidth }% 0px`;
       instance.dataset.currentFrame = String( i );
+
+      if ( slider ) {
+        slider.value = i; // update slider value
+      }
     };
 
     const updateFrameNumber = ( instance ) => {
@@ -94,7 +98,8 @@ const spinSandBox = ( () => {
     const initControls = ( instance ) => {
       // double click will toggle the continuous spinning
       instance.addEventListener( 'dblclick', ( e ) => {
-        instance.dataset.spinContinuously = instance.dataset.spinContinuously === 'true' ? 'false' : 'true';
+        instance.dataset.spinContinuously =
+          instance.dataset.spinContinuously === 'true' ? 'false' : 'true';
         if ( instance.dataset.spinContinuously === 'true' ) {
           spin( instance );
         }
@@ -104,9 +109,10 @@ const spinSandBox = ( () => {
       const startStopButton = document.createElement( 'button' );
       startStopButton.textContent = 'Start/Stop';
       startStopButton.addEventListener( 'click', () => {
-        instance.dataset.spinContinuously = instance.dataset.spinContinuously === 'true' ? 'false' : 'true';
+        instance.dataset.spinContinuously =
+          instance.dataset.spinContinuously === 'true' ? 'false' : 'true';
         if ( instance.dataset.spinContinuously === 'true' ) {
-          spin( instance );
+          spin( instance, slider );
         }
       } );
       instance.parentNode.insertBefore( startStopButton, instance.nextSibling );
@@ -115,11 +121,11 @@ const spinSandBox = ( () => {
       const slider = document.createElement( 'input' );
       slider.type = 'range';
       slider.min = 0;
-      slider.max = 35; // set max value to 35 (0-indexed)
+      slider.max = instance.dataset.numberFrames - 1;
       slider.value = 0;
       slider.addEventListener( 'input', () => {
         const i = parseInt( slider.value );
-        goToNewFrame( i, instance );
+        goToNewFrame( i, instance, slider );
       } );
       instance.parentNode.insertBefore( slider, startStopButton.nextSibling );
 
@@ -145,8 +151,7 @@ const spinSandBox = ( () => {
           startPointerPosX = currentPointerPosX;
           instance.dataset.spinDirection = moveTo >= 1 ? 'backward' : 'forward';
           const i = updateFrameNumber( instance );
-          goToNewFrame( i, instance );
-          slider.value = i; // update slider value
+          goToNewFrame( i, instance, slider );
         }
       };
 

@@ -1173,7 +1173,7 @@
         });
         goToNewFrame(startingFrame, instance);
         initControls(instance);
-        if (spinContinuously) {
+        if (spinContinuously === "true") {
           spin(instance);
         }
       };
@@ -1199,11 +1199,14 @@
         };
         requestAnimationFrame(loop);
       };
-      const goToNewFrame = (i, instance) => {
+      const goToNewFrame = (i, instance, slider) => {
         const numberOfFrames = parseInt(instance.dataset.numberFrames);
         const frameWidth = 100 / (numberOfFrames - 1);
         instance.style.backgroundPosition = `${i * frameWidth}% 0px`;
         instance.dataset.currentFrame = String(i);
+        if (slider) {
+          slider.value = i;
+        }
       };
       const updateFrameNumber = (instance) => {
         const spinDirection = instance.dataset.spinDirection;
@@ -1228,18 +1231,18 @@
         startStopButton.addEventListener("click", () => {
           instance.dataset.spinContinuously = instance.dataset.spinContinuously === "true" ? "false" : "true";
           if (instance.dataset.spinContinuously === "true") {
-            spin(instance);
+            spin(instance, slider);
           }
         });
         instance.parentNode.insertBefore(startStopButton, instance.nextSibling);
         const slider = document.createElement("input");
         slider.type = "range";
         slider.min = 0;
-        slider.max = 35;
+        slider.max = instance.dataset.numberFrames - 1;
         slider.value = 0;
         slider.addEventListener("input", () => {
           const i = parseInt(slider.value);
-          goToNewFrame(i, instance);
+          goToNewFrame(i, instance, slider);
         });
         instance.parentNode.insertBefore(slider, startStopButton.nextSibling);
         let startPointerPosX;
@@ -1259,8 +1262,7 @@
             startPointerPosX = currentPointerPosX;
             instance.dataset.spinDirection = moveTo >= 1 ? "backward" : "forward";
             const i = updateFrameNumber(instance);
-            goToNewFrame(i, instance);
-            slider.value = i;
+            goToNewFrame(i, instance, slider);
           }
         };
         const handlePointerUp = () => {
