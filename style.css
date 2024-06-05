@@ -3476,7 +3476,7 @@ button.inverted, .button.inverted {
 }
 
 .flex-section.images-marquee {
-  --animation-speed: 50s;
+  --animation-speed: 20s;
   /* Attempt to size parent based on content. Keep in mind that the parent width is equal to both content containers that stretch to fill the parent. */
   /* Reverse animation */
   /* Full Screen Width */
@@ -3506,29 +3506,33 @@ button.inverted, .button.inverted {
   overflow: hidden;
   user-select: none;
 }
-.flex-section.images-marquee .marquee.hover-pause:hover .marquee-content {
+.flex-section.images-marquee .marquee.hover-pause:hover .marquee-list {
   animation-play-state: paused;
 }
-.flex-section.images-marquee .marquee-content {
-  flex-shrink: 0;
-  display: flex;
-  justify-content: space-around;
-  animation: scroll var(--animation-speed) linear infinite;
+.flex-section.images-marquee .marquee.animate {
   /* Pause animation when reduced-motion is set */
 }
+.flex-section.images-marquee .marquee.animate .marquee-list {
+  animation: scroll var(--animation-speed) linear infinite;
+}
 @media (prefers-reduced-motion: reduce) {
-  .flex-section.images-marquee .marquee-content .marquee-content {
+  .flex-section.images-marquee .marquee.animate .marquee-list {
     animation-play-state: paused !important;
   }
 }
-.flex-section.images-marquee .marquee-content li {
+.flex-section.images-marquee .marquee-list {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: space-around;
+}
+.flex-section.images-marquee .marquee-list li {
   display: flex;
   flex-shrink: 0;
   flex-direction: column;
   justify-content: center;
   width: 20rem;
 }
-.flex-section.images-marquee .marquee-content li img {
+.flex-section.images-marquee .marquee-list li img {
   max-width: 100%;
   height: 10rem;
 }
@@ -3537,14 +3541,23 @@ button.inverted, .button.inverted {
     transform: translate3d(0, 0, 0);
   }
   100% {
-    transform: translate3d(-100%, 0, 0);
+    transform: translate3d(-50%, 0, 0);
   }
 }
 .flex-section.images-marquee .marquee-fit-content {
   max-width: fit-content;
 }
-.flex-section.images-marquee.is-reversed .marquee-content {
+.flex-section.images-marquee.is-reversed .marquee.animate .marquee-list {
+  animation: scroll-reverse var(--animation-speed) linear infinite;
   animation-direction: reverse;
+}
+@keyframes scroll-reverse {
+  0% {
+    transform: translate3d(50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 .flex-section.images-marquee.wide-width .container {
   max-width: 100%;

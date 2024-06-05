@@ -3,36 +3,21 @@
    * Render a marquee component
    */
   function render_marquee($marquee) {
-    $output = "<div class='enable-animation'>";
-    $output .= "<div class='marquee hover-pause'>";
+    $output = "<div class='marquee hover-pause'>";
 
-    $output .= "<ul class='marquee-content'>";
-    foreach ($marquee as $image) {
-      $image_src = wp_get_attachment_image_src($image['id'], 'large');
-      $image_src = $image_src[0];
+    $copies = 3;
 
-      $output .= "<li><img src='{$image_src}' alt='{$image['alt_text']}' /></li>";
+    for ($i = 0; $i < $copies; $i++) {
+      $output .= "<ul class='marquee-list js-marquee-list'>";
+      foreach ($marquee as $image) {
+        $image_src = wp_get_attachment_image_src($image['id'], 'large');
+        $image_src = $image_src[0];
+
+        $output .= "<li><img src='{$image_src}' alt='{$image['alt_text']}' /></li>";
+      }
+      $output .= "</ul>";
     }
-    $output .= "</ul>";
-    $output .= "<ul class='marquee-content' aria-hidden='true'>";
-    foreach ($marquee as $image) {
-      $image_src = wp_get_attachment_image_src($image['id'], 'large');
-      $image_src = $image_src[0];
 
-      $output .= "<li><img src='{$image_src}' alt='{$image['alt_text']}' /></li>";
-    }
-    $output .= "</ul>";
-
-    $output .= "<ul class='marquee-content' aria-hidden='true'>";
-    foreach ($marquee as $image) {
-      $image_src = wp_get_attachment_image_src($image['id'], 'large');
-      $image_src = $image_src[0];
-
-      $output .= "<li><img src='{$image_src}' alt='{$image['alt_text']}' /></li>";
-    }
-    $output .= "</ul>";
-
-    $output .= "</div>";
     $output .= "</div>";
 
     return $output;

@@ -14,6 +14,7 @@ import faqs from './modules/faqs';
 import heroSlider from './modules/hero-slider';
 import imageComparison from './modules/image-comparison';
 import spinSandBox from './modules/spinning-image';
+import marquees from './modules/marquee';
 
 function initPage() {
   // Remove no-js class
@@ -78,6 +79,10 @@ function initPage() {
 
   if ( document.querySelector( '.imageSpinContainer' ) ) {
     spinSandBox.init();
+  }
+
+  if ( document.querySelector( '.js-marquee-list' ) ) {
+    marquees.init();
   }
 }
 
