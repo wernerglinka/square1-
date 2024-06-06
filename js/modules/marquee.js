@@ -15,12 +15,17 @@ const marquees = ( function() {
   const checkMarqueeListWidth = ( marquee, viewportWidth ) => {
     // get first marquee list as all lists are the same width
     const marqueeList = marquee.querySelector( '.js-logos' );
+    const marqueeListWidth = marqueeList.offsetWidth;
+    const containerWidth = marqueeList.closest( '.container' ).offsetWidth;
 
-    if ( marqueeList.offsetWidth < viewportWidth ) {
+    // if all logos fit in viewport width and container width, remove animation
+    if ( marqueeListWidth < viewportWidth && marqueeListWidth < containerWidth ) {
       marqueeList.closest( '.js-logos-wrapper' ).classList.remove( 'animate' );
-      marqueeList.closest( '.js-marquee' ).style.width = marqueeList.offsetWidth + 'px';
+      marqueeList.closest( '.js-marquee' ).style.width = marqueeListWidth + 'px';
+      marqueeList.closest( '.images-marquee' ).classList.remove( 'is-scrolling' );
     } else {
       marqueeList.closest( '.js-logos-wrapper' ).classList.add( 'animate' );
+      marqueeList.closest( '.images-marquee' ).classList.add( 'is-scrolling' );
     }
   };
 

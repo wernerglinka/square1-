@@ -2,8 +2,12 @@
   /**
    * Render a marquee component
    */
-  function render_marquee($marquee) {
-    $output = "<div class='marquee js-marquee hover-pause'>";
+  function render_marquee($args) {
+    $marquee = $args['images_marquee'];
+    $stop_on_hover = $args['hover_pause'] ?? false;
+    $duration = $args['duration'] ?? 10;
+
+    $output = "<div class='marquee js-marquee" . ($stop_on_hover ? " hover-pause" : "") . "'  style='--animation-speed: " . $duration . "s'>";
     $output .= "<div class='logos-wrapper js-logos-wrapper'>";
 
     $copies = 2;

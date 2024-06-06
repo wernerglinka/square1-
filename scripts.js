@@ -1310,11 +1310,15 @@
     };
     const checkMarqueeListWidth = (marquee, viewportWidth) => {
       const marqueeList = marquee.querySelector(".js-logos");
-      if (marqueeList.offsetWidth < viewportWidth) {
+      const marqueeListWidth = marqueeList.offsetWidth;
+      const containerWidth = marqueeList.closest(".container").offsetWidth;
+      if (marqueeListWidth < viewportWidth && marqueeListWidth < containerWidth) {
         marqueeList.closest(".js-logos-wrapper").classList.remove("animate");
-        marqueeList.closest(".js-marquee").style.width = marqueeList.offsetWidth + "px";
+        marqueeList.closest(".js-marquee").style.width = marqueeListWidth + "px";
+        marqueeList.closest(".images-marquee").classList.remove("is-scrolling");
       } else {
         marqueeList.closest(".js-logos-wrapper").classList.add("animate");
+        marqueeList.closest(".images-marquee").classList.add("is-scrolling");
       }
     };
     const marqueeLists = () => {

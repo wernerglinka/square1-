@@ -9,8 +9,10 @@
  * @package square1
  */
 
-//echo '<pre>';
-//print_r($args);
-//echo '</pre>';
+  
 
-echo render_marquee($args['images_marquee']);
+  //echo '<pre>';
+  //print_r($args);
+  //echo '</pre>';
+
+  echo render_marquee($args);

@@ -3476,15 +3476,18 @@ button.inverted, .button.inverted {
 }
 
 .flex-section.images-marquee {
-  --animation-speed: 20s;
-  /* Full Screen Width */
+  /* full screen width */
   /* Reverse animation */
 }
 .flex-section.images-marquee .container {
   position: relative;
   overflow: hidden;
+  padding: 0;
 }
-.flex-section.images-marquee .container:before, .flex-section.images-marquee .container:after {
+.flex-section.images-marquee.is-scrolling {
+  /* when scrolling, add gradients for fade-out effect before and after the logos */
+}
+.flex-section.images-marquee.is-scrolling .container:before, .flex-section.images-marquee.is-scrolling .container:after {
   content: "";
   position: absolute;
   z-index: 1000;
@@ -3494,10 +3497,10 @@ button.inverted, .button.inverted {
   height: 100%;
   background-image: linear-gradient(to right, rgb(255, 255, 255), transparent);
 }
-.flex-section.images-marquee .container:after {
+.flex-section.images-marquee.is-scrolling .container:after {
   left: auto;
   right: 0;
-  background-image: linear-gradient(to left, rgb(255, 255, 255), transparent);
+  background-image: linear-gradient(to right, transparent, rgb(255, 255, 255));
 }
 .flex-section.images-marquee.wide-width .container {
   max-width: 100%;
@@ -3515,7 +3518,7 @@ button.inverted, .button.inverted {
 }
 .flex-section.images-marquee .logos-wrapper.animate {
   transform: translate3d(0%, 0, 0);
-  animation: marquee 10s linear infinite;
+  animation: marquee var(--animation-speed) linear infinite;
   animation-play-state: running;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3523,7 +3526,7 @@ button.inverted, .button.inverted {
     animation-play-state: paused !important;
   }
 }
-.flex-section.images-marquee .marquee:hover .logos-wrapper {
+.flex-section.images-marquee .marquee.hover-pause:hover .logos-wrapper {
   animation-play-state: paused;
   transition-duration: 0.8s;
 }
@@ -3543,7 +3546,7 @@ button.inverted, .button.inverted {
   max-height: 7rem; /* depending logo size differences, this needs to be tweaked */
   filter: grayscale(100%);
   opacity: 0.5;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
 .flex-section.images-marquee .logos img:hover {
   filter: grayscale(0);
@@ -3557,11 +3560,17 @@ button.inverted, .button.inverted {
     transform: translate3d(-50%, 0, 0);
   }
 }
+@media (max-width: 767px) {
+  .flex-section.images-marquee.is-reversed .columns {
+    flex-direction: row-reverse; /* overwrite flex-direction in common styles */
+  }
+}
 .flex-section.images-marquee.is-reversed .logos-wrapper.animate {
+  transform: translate3d(0%, 0, 0);
   animation: scroll-reverse var(--animation-speed) linear infinite;
   animation-direction: reverse;
 }
-.flex-section.images-marquee.is-reversed .marquee:hover .logos-wrapper {
+.flex-section.images-marquee.is-reversed .marquee.hover-pause:hover .logos-wrapper {
   animation-play-state: paused;
   transition-duration: 0.8s;
 }
@@ -3570,7 +3579,7 @@ button.inverted, .button.inverted {
     transform: translate3d(50%, 0, 0);
   }
   100% {
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0%, 0, 0);
   }
 }
 
