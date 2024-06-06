@@ -1308,28 +1308,28 @@
     const init = () => {
       marqueeLists();
     };
-    const checkMarqueeListWidth = (marqueeList, viewportWidth) => {
+    const checkMarqueeListWidth = (marquee, viewportWidth) => {
+      const marqueeList = marquee.querySelector(".js-logos");
       if (marqueeList.offsetWidth < viewportWidth) {
-        marqueeList.parentElement.classList.remove("animate");
-        marqueeList.parentElement.style.width = marqueeList.offsetWidth + "px";
-        marqueeList.parentElement.parentElement.style.flexDirection = "row";
+        marqueeList.closest(".js-logos-wrapper").classList.remove("animate");
+        marqueeList.closest(".js-marquee").style.width = marqueeList.offsetWidth + "px";
       } else {
-        marqueeList.parentElement.classList.add("animate");
+        marqueeList.closest(".js-logos-wrapper").classList.add("animate");
       }
     };
     const marqueeLists = () => {
-      const allMarqueeLists = document.querySelectorAll(".js-marquee-list");
+      const allMarquees = document.querySelectorAll(".js-marquee");
       let viewportWidth = window.innerWidth;
-      allMarqueeLists.forEach((marqueeList) => {
-        checkMarqueeListWidth(marqueeList, viewportWidth);
+      allMarquees.forEach((marquee) => {
+        checkMarqueeListWidth(marquee, viewportWidth);
       });
       const resizeObserver = new ResizeObserver(() => {
         viewportWidth = window.innerWidth;
-        allMarqueeLists.forEach((marqueeList) => {
-          checkMarqueeListWidth(marqueeList, viewportWidth);
+        allMarquees.forEach((marquee) => {
+          checkMarqueeListWidth(marquee, viewportWidth);
         });
       });
-      allMarqueeLists.forEach((marqueeList) => {
+      allMarquees.forEach((marquee) => {
         resizeObserver.observe(document.body);
       });
     };
@@ -1386,7 +1386,7 @@
     if (document.querySelector(".imageSpinContainer")) {
       spinning_image_default.init();
     }
-    if (document.querySelector(".js-marquee-list")) {
+    if (document.querySelector(".js-logos")) {
       marquee_default.init();
     }
   }

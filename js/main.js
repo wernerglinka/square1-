@@ -81,7 +81,7 @@ function initPage() {
     spinSandBox.init();
   }
 
-  if ( document.querySelector( '.js-marquee-list' ) ) {
+  if ( document.querySelector( '.js-logos' ) ) {
     marquees.init();
   }
 }

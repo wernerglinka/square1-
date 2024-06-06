@@ -1,0 +1,110 @@
+.flex-section.images-marquee {
+  --animation-speed: 20s;
+  
+  .container {
+    position: relative;
+    overflow: hidden;
+
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      width: 15rem;
+      height: 100%;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 1), transparent);
+    }
+    &:after {
+      left: auto;
+      right: 0;
+      background-image: linear-gradient(to left, rgba(255, 255, 255, 1), transparent);
+    }
+  }
+
+  .marquee {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+
+    &.hover-pause:hover .marquee-list {
+      animation-play-state: paused;
+    }
+
+    &.animate {
+      .marquee-list {
+        animation: scroll var(--animation-speed) linear infinite;
+      }
+
+      /* Pause animation when reduced-motion is set */
+      @media (prefers-reduced-motion: reduce) {
+        .marquee-list {
+          animation-play-state: paused !important;
+        }
+      }
+    }
+  }
+
+  .marquee-list {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-around;
+    
+    li {
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 3rem;
+
+      img {
+        max-width: 100%;
+        height: 10rem;
+      }
+    }
+  }
+
+  @keyframes scroll {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  /* Attempt to size parent based on content. Keep in mind that the parent width is equal to both content containers that stretch to fill the parent. */
+  .marquee-fit-content {
+    max-width: fit-content;
+  }
+
+  /* Reverse animation */
+  &.is-reversed {
+    .marquee.animate {
+      .marquee-list {
+        animation: scroll-reverse var(--animation-speed) linear infinite;
+        animation-direction: reverse;
+      }
+    }
+  }
+
+  @keyframes scroll-reverse {
+    0% {
+        transform: translate3d(50%, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+  }
+
+  /* Full Screen Width */
+  &.wide-width {
+    .container {
+      max-width: 100%;
+    }
+  }
+}

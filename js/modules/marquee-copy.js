@@ -12,37 +12,35 @@ const marquees = ( function() {
     marqueeLists();
   };
 
-  const checkMarqueeListWidth = ( marquee, viewportWidth ) => {
-    // get first marquee list as all lists are the same width
-    const marqueeList = marquee.querySelector( '.js-logos' );
-
+  const checkMarqueeListWidth = ( marqueeList, viewportWidth ) => {
     if ( marqueeList.offsetWidth < viewportWidth ) {
-      marqueeList.closest( '.js-logos-wrapper' ).classList.remove( 'animate' );
-      marqueeList.closest( '.js-marquee' ).style.width = marqueeList.offsetWidth + 'px';
+      marqueeList.parentElement.classList.remove( 'animate' );
+      marqueeList.parentElement.style.width = marqueeList.offsetWidth + 'px';
+      marqueeList.parentElement.parentElement.style.flexDirection = 'row';
     } else {
-      marqueeList.closest( '.js-logos-wrapper' ).classList.add( 'animate' );
+      marqueeList.parentElement.classList.add( 'animate' );
     }
   };
 
   const marqueeLists = () => {
-    const allMarquees = document.querySelectorAll( '.js-marquee' );
+    const allMarqueeLists = document.querySelectorAll( '.js-marquee-list' );
     let viewportWidth = window.innerWidth;
 
-    allMarquees.forEach( ( marquee ) => {
-      checkMarqueeListWidth( marquee, viewportWidth );
+    allMarqueeLists.forEach( ( marqueeList ) => {
+      checkMarqueeListWidth( marqueeList, viewportWidth );
     } );
 
     // add a resize observer to check if logos list fits on viewport width
     const resizeObserver = new ResizeObserver( () => {
       viewportWidth = window.innerWidth;
 
-      allMarquees.forEach( ( marquee ) => {
-        checkMarqueeListWidth( marquee, viewportWidth );
+      allMarqueeLists.forEach( ( marqueeList ) => {
+        checkMarqueeListWidth( marqueeList, viewportWidth );
       } );
     } );
 
     // observe all logos lists
-    allMarquees.forEach( ( marquee ) => {
+    allMarqueeLists.forEach( ( marqueeList ) => {
       resizeObserver.observe( document.body );
     } );
   };

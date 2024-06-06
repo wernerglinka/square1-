@@ -1190,8 +1190,7 @@
                                                                 "id": ""
                                                             },
                                                             "choices": {
-                                                                "stop_hover": "Stop on Hover",
-                                                                "disable_animation": "Disable Animation"
+                                                                "stop_hover": "Stop on Hover"
                                                             },
                                                             "default_value": [],
                                                             "return_format": "value",
@@ -1200,6 +1199,27 @@
                                                             "toggle": 0,
                                                             "save_custom": 0,
                                                             "custom_choice_button_text": "Add new choice"
+                                                        },
+                                                        {
+                                                            "key": "field_6661f9761e47b",
+                                                            "label": "Duration",
+                                                            "name": "duration",
+                                                            "aria-label": "",
+                                                            "type": "range",
+                                                            "instructions": "Animation speed. Time it takes for a set of logos move across the viewport",
+                                                            "required": 0,
+                                                            "conditional_logic": 0,
+                                                            "wrapper": {
+                                                                "width": "",
+                                                                "class": "",
+                                                                "id": ""
+                                                            },
+                                                            "default_value": 20,
+                                                            "min": 5,
+                                                            "max": "",
+                                                            "step": "",
+                                                            "prepend": "",
+                                                            "append": ""
                                                         },
                                                         {
                                                             "key": "field_663d3ce0a4cd1",
@@ -4929,5 +4949,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1717092632
+    "modified": 1717697106
 }

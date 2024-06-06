@@ -23,71 +23,89 @@
     }
   }
 
-  .marquee {
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    user-select: none;
-
-    &.hover-pause:hover .marquee-list {
-      animation-play-state: paused;
+  /* Full Screen Width */
+  &.wide-width {
+    .container {
+      max-width: 100%;
     }
+  }
+
+  .marquee {
+      max-width: 100%;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+    
+  .logos-wrapper {
+    width: fit-content; /* makes the wrapper to be exactly the size of the children */
+    display: flex;
+    position: relative;
 
     &.animate {
-      .marquee-list {
-        animation: scroll var(--animation-speed) linear infinite;
-      }
+      transform: translate3d(0%, 0, 0);
+      animation: marquee 10s linear infinite;
+      animation-play-state: running;
+    }
 
-      /* Pause animation when reduced-motion is set */
-      @media (prefers-reduced-motion: reduce) {
-        .marquee-list {
-          animation-play-state: paused !important;
-        }
+    /* Pause animation when reduced-motion is set */
+    @media (prefers-reduced-motion: reduce) {
+      &.animate {
+        animation-play-state: paused !important;
       }
     }
   }
-
-  .marquee-list {
-    flex-shrink: 0;
+  
+  .marquee:hover .logos-wrapper {
+    animation-play-state: paused;
+    transition-duration: 0.8s;
+  }
+  
+  .logos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    justify-content: space-around;
-    
+
+  
     li {
       display: flex;
-      flex-shrink: 0;
-      flex-direction: column;
-      justify-content: center;
-      width: 20rem;
-
-      img {
-        max-width: 100%;
-        height: 10rem;
+      align-items: center;
+      padding: 0 1rem;
+      width: 10rem; /* depending logo size differences, this needs to be tweaked */
+    }
+  
+    img {
+      max-height: 7rem; /* depending logo size differences, this needs to be tweaked */
+      filter: grayscale(100%);
+      opacity: 0.5;
+      transition: all 0.3s ease-in-out;
+  
+      &:hover {
+        filter: grayscale(0);
+        opacity: 1;
       }
     }
   }
 
-  @keyframes scroll {
+  @keyframes marquee {
     0% {
-        transform: translate3d(0, 0, 0);
+      transform: translate3d(0%, 0, 0);
     }
 
     100% {
-        transform: translate3d(-50%, 0, 0);
+      transform: translate3d(-50%, 0, 0);
     }
-  }
-
-  /* Attempt to size parent based on content. Keep in mind that the parent width is equal to both content containers that stretch to fill the parent. */
-  .marquee-fit-content {
-    max-width: fit-content;
   }
 
   /* Reverse animation */
   &.is-reversed {
-    .marquee.animate {
-      .marquee-list {
-        animation: scroll-reverse var(--animation-speed) linear infinite;
-        animation-direction: reverse;
-      }
+    .logos-wrapper.animate {
+      animation: scroll-reverse var(--animation-speed) linear infinite;
+      animation-direction: reverse;
+    }
+    .marquee:hover .logos-wrapper {
+      animation-play-state: paused;
+      transition-duration: 0.8s;
     }
   }
 
@@ -98,13 +116,6 @@
 
     100% {
         transform: translate3d(0, 0, 0);
-    }
-  }
-
-  /* Full Screen Width */
-  &.wide-width {
-    .container {
-      max-width: 100%;
     }
   }
 }
