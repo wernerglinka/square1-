@@ -1,8 +1,8 @@
 <?php
   /**
    * Render an video with its JS API component with optional thumbnail
-    */
-  function render_video_background_component($video, $slide_index) {
+   */
+  function render_video_background_component($video, $slide_index = 0) {
     extract($video);
 
     $video_thumbnail = wp_get_attachment_image($thumbnail['id'], 'large', false, ['alt' => $thumbnail['alt_text']]);

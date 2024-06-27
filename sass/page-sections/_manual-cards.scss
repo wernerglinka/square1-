@@ -21,7 +21,7 @@
 
   /**
    * Card list default style is vertical cards arrangement
-   */ 
+   */
 
   .manual-cards-list {
     list-style: none;
@@ -45,7 +45,7 @@
        * With the background pattern, the color is known, so the text 
        * color can be set appropriately. 
        */
-       &[class *="pattern"] {
+      &[class*="pattern"] {
         min-height: 40rem;
         padding: $default-padding 0;
         justify-content: space-between;
@@ -54,8 +54,8 @@
           font-size: 2.4rem;
           font-weight: bold;
         }
-       }   
-       &.pattern1 {
+      }
+      &.pattern1 {
         @include css-background-p1();
       }
       &.pattern2 {
@@ -65,7 +65,8 @@
         }
       }
 
-      .header { // image or icon
+      .header {
+        // image or icon
         height: 15rem;
         display: flex;
         align-items: center;
@@ -192,11 +193,8 @@
         }
         .header {
           flex: 0 0 40%;
-          height: 100%;
+          height: auto;
 
-          @media (max-width: $tablet-width-portrait) {
-            height: auto; // important height: auto allows .header to strech to the height of the container
-          }
           @media (max-width: $small-screen-width) {
             height: 15rem;
           }

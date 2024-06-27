@@ -14,4 +14,3 @@
 ?>
 
 <?php echo render_icon_link_list_component($allLinks); ?>
-
